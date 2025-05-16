@@ -1,9 +1,4 @@
 <?php
-    if (!isset($_SESSION['user']) || $_SESSION['user']['roles'] !== 'admin') {
-        header('Location: /');
-        exit;
-    }
-
     if ( file_exists( DIR_ROOT . '/config.json' ) ) {
         $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );
     }

@@ -145,7 +145,7 @@ function renderUsers(users) {
                 <td style="white-space: nowrap;">${user.email}</td>
                 <td style="white-space: nowrap;">${user.phone}</td>
                 <td style="white-space: nowrap;" class="text-center">${user.active ? 'Sim' : 'Não'}</td>
-                <td style="white-space: nowrap;" class="text-center">${user.roles}</td>
+                <td style="white-space: nowrap;" class="text-center">${user.role}</td>
                 <td style="white-space: nowrap;" class="text-center">${new Date(user.created_at).toLocaleString('pt-BR')}</td>
             </tr>
         `;

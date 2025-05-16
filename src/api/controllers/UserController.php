@@ -131,7 +131,7 @@ class UserController extends Controller {
             $limit = $this->postData['limit'] ?? 10;
             $offset = ($page - 1) * $limit;
 
-            $res = $this->Db->query("SELECT id, name, email, phone, active, roles, last_login, created_at 
+            $res = $this->Db->query("SELECT id, name, email, phone, active, role, last_login, created_at 
                 FROM users ORDER BY name DESC LIMIT :limit OFFSET :offset", [ 'limit' => $limit, 'offset' => $offset ] );
             
             $total = $this->Db->query("SELECT COUNT(*) as total FROM users")[0]['total'];
@@ -167,7 +167,7 @@ class UserController extends Controller {
     }
 
     public function desbloquear() : array | \Exception {
-        $res = $this->Db->query("SELECT id, email FROM users WHERE roles='admin' AND password = :password", [ 'password' => $this->postData['password'] ]);
+        $res = $this->Db->query("SELECT id, email FROM users WHERE role='admin' AND password = :password", [ 'password' => $this->postData['password'] ]);
         if ( empty( $res ) ) {
             throw new \Exception( 'Usuário inválido para DESBLOQUEAR o site!', 400 );
         }

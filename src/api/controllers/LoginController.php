@@ -32,7 +32,7 @@ class LoginController extends Controller {
 
         $_SESSION['user'] = [
             'email' => $res[0]['email'],
-            'roles' => $res[0]['roles'],
+            'role' => $res[0]['role'],
             'id' => $res[0]['id']
         ];
 

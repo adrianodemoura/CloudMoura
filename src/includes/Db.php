@@ -86,7 +86,7 @@ class Db {
                 phone TEXT,
                 password TEXT NOT NULL,
                 active INTEGER DEFAULT 1,
-                roles TEXT DEFAULT 'user',
+                role TEXT DEFAULT 'user',
                 last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )");
@@ -97,7 +97,7 @@ class Db {
             
             if ($adminExists[0]['count'] == 0) {
                 // Insere o usuário admin apenas se não existir
-                $this->query("INSERT INTO users (email, name, password, roles) VALUES ('admin@admin.com', 'Administrador', 'Admin01', 'admin')");
+                $this->query("INSERT INTO users (email, name, password, role) VALUES ('admin@admin.com', 'Administrador', 'Admin01', 'admin')");
                 $this->debug->write("Usuário admin@admin.com criado com sucesso", "database");
             }
         } catch (\Throwable $th) {

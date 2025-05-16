@@ -18,7 +18,7 @@
         $uriAdminContent = "conta";
     }
 
-    if ( $_SESSION['user']['roles'] !== 'admin' ) {
+    if ( $_SESSION['user']['role'] !== 'admin' ) {
         unset( $arrPages['usuarios'] );
         unset( $arrPages['configuracoes'] );
     }
