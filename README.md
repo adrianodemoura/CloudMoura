@@ -35,16 +35,17 @@ cd cloudmoura
 
 2. Configure o servidor web (Apache/Nginx) para apontar para o diretório `src/public`
 
-3. Certifique-se que o diretório `src/data` tem permissões de escrita:
-```bash
-chmod -R 775 src/data
-chown -R www-data:www-data src/data
-```
-
-4. Acesse o sistema através do navegador:
+3. Acesse o sistema através do navegador:
 ```
 http://seu-servidor/
 ```
+
+4. Na primeira vez que acessar, tente fazer login com as credenciais padrão (admin@admin.com / Admin01) três vezes. O sistema irá automaticamente:
+   - Criar o banco de dados SQLite
+   - Criar as tabelas necessárias
+   - Configurar o primeiro usuário administrador
+
+Após este processo, você poderá fazer login normalmente com as credenciais padrão.
 
 ## 📁 Estrutura do Projeto
 
@@ -63,7 +64,7 @@ src/
 ## 🔐 Credenciais Padrão
 
 - **Email**: admin@admin.com
-- **Senha**: Admin6701!
+- **Senha**: Admin01
 
 ## 🛠️ Tecnologias Utilizadas
 

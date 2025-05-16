@@ -97,7 +97,7 @@ class Db {
             
             if ($adminExists[0]['count'] == 0) {
                 // Insere o usuário admin apenas se não existir
-                $this->query("INSERT INTO users (email, name, password, roles) VALUES ('admin@admin.com', 'Administrador', 'Admin6701!', 'admin')");
+                $this->query("INSERT INTO users (email, name, password, roles) VALUES ('admin@admin.com', 'Administrador', 'Admin01', 'admin')");
                 $this->debug->write("Usuário admin@admin.com criado com sucesso", "database");
             }
         } catch (\Throwable $th) {
