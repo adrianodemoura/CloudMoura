@@ -1,0 +1,33 @@
+# Arquivos de ambiente
+.env
+.env.*
+
+# Diretórios
+src/uploads/
+src/data/
+src/logs/
+
+# Dependências
+/vendor/
+/node_modules/
+
+# Arquivos de IDE/Editor
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+
+# Arquivos de cache
+*.cache
+*.tmp
+*.temp
+
+# Arquivos de configuração local
+error_log
+docker-compose.yml
+src/config.json

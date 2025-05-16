@@ -1,0 +1,17 @@
+{
+    "name": "CloudMoura",
+    "short_name": "CloudMoura",
+    "description": "Sistema de gerenciamento de arquivos",
+    "icons": [
+        {
+            "src": "/img/favicon/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ],
+    "theme_color": "#0d6efd",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/"
+} 
