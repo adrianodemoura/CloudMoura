@@ -30,7 +30,14 @@ class Files {
 
         if ( !file_exists( $dir ) ) { // Se o diretório não existir, cria o diretório
             mkdir( $dir . "/filmes", 0775, true );
+            chmod( $dir . "/filmes", 0775 );
+            chown( $dir . "/filmes", 'www-data');
+            chgrp( $dir . "/filmes", 'www-data');
+
             mkdir( $dir . "/series", 0775, true );
+            chmod( $dir . "/series", 0775 );
+            chown( $dir . "/series", 'www-data');
+            chgrp( $dir . "/series", 'www-data');
         }
 
         $allFiles = scandir($dir);
@@ -119,161 +126,5 @@ class Files {
         $html .= "</div>";
 
         return $html;
-    }
-
-    public function move($dirFile, $direction) : bool {
-        try {
-            $fullDirFile = DIR_UPLOAD . "/{$_SESSION['user']['id']}/$dirFile";
-            $fullDir = dirname($fullDirFile);
-            $currentDir = dirname($dirFile);
-            $fileName = basename($dirFile);
-
-            if ($direction === "up") {
-                $parentDir = dirname($fullDir);
-                $newPath = $parentDir . "/" . $fileName;
-            } else {
-                $subDirs = glob( $fullDir . "/*", GLOB_ONLYDIR);
-                if ( empty($subDirs) ) {
-                    throw new \Exception("Não há diretórios abaixo de \"{$currentDir}\" para mover o arquivo \"{$fileName}\"");
-                } else {
-                    $newDir = $subDirs[0];
-                }
-                $newPath = $newDir . "/" . $fileName;
-            }
-            
-            if (file_exists($fullDirFile) && $fullDirFile !== $newPath) {
-                if (rename($fullDirFile, $newPath)) {
-                    return true;
-                }
-            }
-            
-            return false;
-        } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_move_file' );
-            $this->lastError = $e->getMessage();
-            return false;
-        }
-    }
-
-    public function delete( $path, $type ) : bool {
-        try {
-            $fullDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/$path";
-
-            switch ( $type ) {
-                case "dir":
-                    // Pega todos os arquivos e diretórios recursivamente
-                    $iterator = new \RecursiveIteratorIterator(
-                        new \RecursiveDirectoryIterator($fullDir, \RecursiveDirectoryIterator::SKIP_DOTS),
-                        \RecursiveIteratorIterator::CHILD_FIRST
-                    );
-
-                    $files = [];
-                    foreach ($iterator as $file) {
-                        $files[] = $file->getPathname();
-                    }
-
-                    // Ordena em ordem reversa para deletar do mais profundo para o mais superficial
-                    rsort($files);
-
-                    foreach ($files as $_k => $file) {
-                        if (is_dir($file)) {
-                            rmdir($file);
-                        } else {
-                            unlink($file);
-                        }
-                    }
-
-                    if (!rmdir($fullDir)) {
-                        $this->lastError = "Erro ao excluir o diretório \"{$path}\"!";
-                        $this->debug->write($this->lastError, 'error_delete_file');
-                        throw new \Exception($this->lastError);
-                    }
-                    break;
-                case "file":
-                    if (!unlink($fullDir)) {
-                        $this->lastError = "Erro ao excluir o arquivo \"{$path}\"!";
-                        $this->debug->write($this->lastError, 'error_delete_file');
-                        throw new \Exception($this->lastError);
-                    }
-                    break;
-            }
-
-            return true;
-        } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_delete_file');
-            $this->lastError = $e->getMessage();
-            return false;
-        }
-    }
-
-    public function download($resumeDir) : string | bool {
-        try {
-            $fullDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/$resumeDir";
-
-            if (!file_exists($fullDir)) {
-                return false;
-            }
-
-            // Lê o conteúdo do arquivo
-            $content = file_get_contents($fullDir);
-            if ($content === false) {
-                return false;
-            }
-
-            // Codifica o conteúdo em base64
-            return base64_encode($content);
-        } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_download_file' );
-            $this->lastError = $e->getMessage();
-            return false;
-        }
-    }
-
-    public function upload($path, $file, $filename = null) : bool {
-        try {
-            $targetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$path}";
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0755, true);
-            }
-            
-            // Decodifica o arquivo base64
-            $fileContent = base64_decode($file);
-            if ($fileContent === false) {
-                throw new \Exception('Erro ao decodificar o arquivo base64');
-            }
-
-            // Usa o nome do arquivo enviado ou gera um nome único
-            $fileName = $filename ?: uniqid() . '.mp4';
-            $targetPath = $targetDir . "/" . $fileName;
-            
-            // Salva o arquivo
-            if (file_put_contents($targetPath, $fileContent) !== false) {
-                return true;
-            }
-            
-            return false;
-        } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_upload_file' );
-            $this->lastError = $e->getMessage();
-            return false;
-        }
-    }
-
-    public function createSubdirectory( $path ) : bool {
-        $targetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$path}";
-
-        if ( file_exists( $targetDir ) ) {
-            $this->lastError = "O diretório \"{$path}\" já existe!";
-            $this->debug->write( $this->lastError, 'error_create_subdirectory' );
-            return false;
-        }
-
-        if ( !mkdir( $targetDir, 0775, true ) ) {
-            $this->lastError = "Erro ao criar o diretório \"{$path}\"!";
-            $this->debug->write( $this->lastError, 'error_create_subdirectory' );
-            return false;
-        }
-
-        return true;
     }
 }

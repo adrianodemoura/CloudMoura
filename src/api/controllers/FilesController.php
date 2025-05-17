@@ -157,10 +157,10 @@ class FilesController extends Controller {
 
             $targetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$this->postData['path']}";
             if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0755, true);
-                chmod($targetDir, 0755);
-                chown($targetDir, 'www-data');
-                chgrp($targetDir, 'www-data');
+                mkdir( $targetDir, 0775, true );
+                chmod( $targetDir, 0775 );
+                chown( $targetDir, 'www-data' );
+                chgrp( $targetDir, 'www-data' );
             }
             
             // Decodifica o arquivo base64

@@ -10,7 +10,8 @@ class Logs {
 
 		try {
 			if ( !file_exists( DIR_LOG ) ) {
-				mkdir(DIR_LOG, 0777, true);
+				mkdir(DIR_LOG, 0775, true);
+				chmod(DIR_LOG, 0775);
 				chown(DIR_LOG, 'www-data');
 				chgrp(DIR_LOG, 'www-data');
 			}

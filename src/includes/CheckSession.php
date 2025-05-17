@@ -14,6 +14,13 @@ if ( !file_exists(DIR_UPLOAD) ) {
     chgrp(DIR_UPLOAD, 'www-data');
 }
 
+if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}") ) {
+    mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775, true);
+    chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775);
+    chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
+    chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
+}
+
 // Verifica se o site está bloqueado
 if ( BLOCK ) {
     if ( !in_array($uri, PUBLIC_URLS_BLOCK) ) {
