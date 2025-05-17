@@ -45,15 +45,13 @@ docker-compose up -d
 
 3. Acesse o sistema através do navegador:
 ```
-http://seu-servidor/
+http://localhost/
 ```
 
-4. Na primeira vez que acessar, tente fazer login com as credenciais padrão (admin@admin.com / Admin01) três vezes. O sistema irá automaticamente:
+4. Na primeira vez que acessar, faça o login com as credenciais padrão (admin@admin.com / Admin01). O sistema irá automaticamente:
    - Criar o banco de dados SQLite
    - Criar as tabelas necessárias
    - Configurar o primeiro usuário administrador
-
-Após este processo, você poderá fazer login normalmente com as credenciais padrão.
 
 ## 📁 Estrutura do Projeto
 

@@ -14,29 +14,44 @@ class LoginController extends Controller {
     }
 
     public function login() : array | \Exception {
-        $res = $this->Db->query("SELECT * FROM users WHERE email = :email AND password = :password", [
-            'email' =>  $this->postData['email'],
-            'password' => $this->postData['password']
-        ]);
+        try {
+            $this->debug->write("Tentando login com email: " . $this->postData['email'], "login");
 
-        if ( empty( $res ) ) {
-            throw new \Exception( 'Usuário ou senha inválidos!', 401 );
+            // Tenta o login
+            $res = $this->Db->query("SELECT * FROM users WHERE email = :email AND password = :password", [
+                'email' =>  $this->postData['email'],
+                'password' => $this->postData['password']
+            ] );
+
+            // Verifica se o usuário existe
+            if ( empty( $res ) ) {
+                $this->debug->write("Login falhou para o usuário: " . $this->postData['email'], "login");
+                throw new \Exception( 'Usuário ou senha inválidos!', 401 );
+            }
+
+            // Verifica se o usuário está ativo
+            if ( $res[0]['active'] === 0 ) {
+                $this->debug->write("Usuário desativado: " . $this->postData['email'], "login");
+                throw new \Exception( 'Usuário desativado!', 401 );
+            }
+
+            // Atualiza o último login do usuário
+            $this->Db->query("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = :id", [ 'id' => $res[0]['id'] ]);
+
+            // Cria a sessão do usuário
+            $_SESSION['user'] = [
+                'email' => $res[0]['email'],
+                'role' => $res[0]['role'],
+                'id' => $res[0]['id']
+            ];
+            
+            // retorna o usuário logado
+            $this->debug->write("Login realizado com sucesso para: " . $res[0]['email'], "login");
+            return [ 'message' => 'Login realizado com sucesso.', 'email' => $res[0]['email'] ];
+        } catch (\Exception $e) {
+            $this->debug->write("Erro no login: " . $e->getMessage(), "error");
+            throw $e;
         }
-
-        if ( $res[0]['active'] === 0 ) {
-            throw new \Exception( 'Usuário desativado!', 401 );
-        }
-
-        // Atualiza o último login do usuário
-        $this->Db->query("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = :id", [ 'id' => $res[0]['id'] ]);
-
-        $_SESSION['user'] = [
-            'email' => $res[0]['email'],
-            'role' => $res[0]['role'],
-            'id' => $res[0]['id']
-        ];
-
-        return [ 'message' => 'Login realizado com sucesso.', 'email' => $res[0]['email'] ];
     }
 
     public function logout() : array | \Exception {

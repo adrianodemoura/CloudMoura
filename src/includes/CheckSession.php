@@ -1,19 +1,5 @@
 <?php
-
-// Cria diretórios se não existirem
-if ( !file_exists(DIR_LOG) ) {
-    mkdir(DIR_LOG, 0775, true);
-    chmod(DIR_LOG, 0775);
-    chown(DIR_LOG, 'www-data');
-    chgrp(DIR_LOG, 'www-data');
-}
-if ( !file_exists(DIR_UPLOAD) ) {
-    mkdir(DIR_UPLOAD, 0775, true);
-    chmod(DIR_UPLOAD, 0775);
-    chown(DIR_UPLOAD, 'www-data');
-    chgrp(DIR_UPLOAD, 'www-data');
-}
-
+// Verifica a sessão de usuários
 if ( isset($_SESSION['user']) ) {
     if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}") ) {
         mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775, true);
