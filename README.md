@@ -33,7 +33,11 @@ git clone https://github.com/seu-usuario/cloudmoura.git
 cd cloudmoura
 ```
 
-2. Configure o servidor web (Apache/Nginx) para apontar para o diretório `src/public`
+2. Docker
+```bash
+cp docker-compose-default.yml docker-compose.yml
+docker-compose up -d
+```
 
 3. Acesse o sistema através do navegador:
 ```
