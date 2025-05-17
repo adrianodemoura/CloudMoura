@@ -4,22 +4,22 @@ if ( isset($_SESSION['user']) ) {
     if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}") ) {
         mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775, true);
         chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775);
-        chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
-        chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
+        // chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
+        // chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 'www-data');
     }
 
     if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes") ) {
         mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 0775, true);
         chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 0775);
-        chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 'www-data');
-        chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 'www-data');
+        // chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 'www-data');
+        // chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 'www-data');
     }
 
     if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series") ) {
         mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 0775, true);
         chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 0775);
-        chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 'www-data');
-        chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 'www-data');
+        // chown(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 'www-data');
+        // chgrp(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 'www-data');
     }
 }
 // Verifica se o site está bloqueado
