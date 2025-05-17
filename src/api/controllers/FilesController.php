@@ -189,6 +189,10 @@ class FilesController extends Controller {
             $file = $this->postData['file'];
             $fileName = $this->postData['filename'] ?? 'arquivo_sem_nome';
 
+            if ( empty( $this->postData['path'] ) ) {
+                throw new \Exception( 'Diretório de destino não informado!' );
+            }
+
             $targetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$this->postData['path']}";
             if (!file_exists($targetDir)) {
                 mkdir( $targetDir, 0775, true );
