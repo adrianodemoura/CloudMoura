@@ -10,7 +10,7 @@
         </h5>
     </div>
     <div class="card-body">
-        <div class="overflow-auto" style="max-height: 600px;">
+        <div class="overflow-auto fs-7" style="max-height: 600px;">
             <?= $Files->listDirectoryTree( DIR_UPLOAD . "/{$userId}" ); ?>
         </div>
     </div>
@@ -21,30 +21,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="uploadModalLabel">Upload de Arquivos</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                <h5 class="modal-title" id="uploadModalLabel">Upload de Arquivo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="uploadForm">
                     <div class="mb-3">
-                        <div class="form-check form-switch mb-2">
+                        <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="uploadTypeSwitch">
-                            <label class="form-check-label" for="uploadTypeSwitch">Upload de Diretório</label>
+                            <label class="form-check-label" for="uploadTypeSwitch">Upload de diretório</label>
                         </div>
-                        <label for="fileInput" class="form-label">Arquivo</label>
-                        <input type="file" class="form-control" id="fileInput" name="file" required accept="<?= implode( ',', ALLOWED_EXTENSIONS ); ?>">
-                        <div class="form-text text-uppercase" id="uploadHelpText">
-                            Formatos aceitos: <?= implode( ', ', ALLOWED_EXTENSIONS ); ?>
-                        </div>
+                        <small class="form-text text-muted" id="uploadHelpText">Formatos aceitos: <?= implode( ', ', ALLOWED_EXTENSIONS ); ?></small>
                     </div>
-
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="fileInput" accept="<?= implode( ',', ALLOWED_EXTENSIONS ); ?>" required>
+                    </div>
                     <div class="progress mb-3 d-none">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div class="upload-files-list mb-3 d-none">
+                        <h6>Arquivos sendo enviados:</h6>
+                        <ul class="list-group" id="uploadFilesList" style="max-height: 200px; overflow-y: auto;">
+                        </ul>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 <button type="button" class="btn btn-primary" id="uploadButton">Enviar</button>
             </div>
         </div>

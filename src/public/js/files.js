@@ -126,6 +126,8 @@ function showModalUpload(action, path) {
     const progressBarInner = document.querySelector('.progress-bar');
     const uploadTypeSwitch = document.getElementById('uploadTypeSwitch');
     const uploadHelpText = document.getElementById('uploadHelpText');
+    const uploadFilesList = document.querySelector('.upload-files-list');
+    const filesList = document.getElementById('uploadFilesList');
 
     // Configura o switch de tipo de upload
     uploadTypeSwitch.addEventListener('change', function() {
@@ -142,14 +144,49 @@ function showModalUpload(action, path) {
             fileInput.removeAttribute('directory');
             uploadHelpText.textContent = 'Formatos aceitos: ' + allowedExtensions.join(', ');
         }
-        // Limpa o input
+        // Limpa o input e a lista
         fileInput.value = '';
+        filesList.innerHTML = '';
+        uploadFilesList.classList.add('d-none');
     });
+
+    // Atualiza a lista quando arquivos são selecionados
+    fileInput.addEventListener('change', function() {
+        filesList.innerHTML = '';
+        if (this.files.length > 0) {
+            uploadFilesList.classList.remove('d-none');
+            for (let i = 0; i < this.files.length; i++) {
+                const file = this.files[i];
+                if (file.isDirectory) continue;
+
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `
+                    <span class="fs-7 text-truncate" style="max-width: 70%;">${file.webkitRelativePath || file.name}</span>
+                    <span class="fs-10 badge bg-primary rounded-pill">${formatFileSize(file.size)}</span>
+                `;
+                filesList.appendChild(li);
+            }
+        } else {
+            uploadFilesList.classList.add('d-none');
+        }
+    });
+
+    // Função para formatar o tamanho do arquivo
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
 
     // Limpa o formulário quando o modal é aberto
     uploadForm.reset();
     progressBar.classList.add('d-none');
     progressBarInner.style.width = '0%';
+    filesList.innerHTML = '';
+    uploadFilesList.classList.add('d-none');
 
     // Configura o evento de upload
     uploadButton.onclick = async function() {
@@ -186,6 +223,12 @@ function showModalUpload(action, path) {
                     const file = files[i];
                     if (file.isDirectory) continue; // Pula diretórios
 
+                    // Atualiza o status do arquivo na lista
+                    const listItem = filesList.children[i];
+                    if (listItem) {
+                        listItem.classList.add('list-group-item-primary');
+                    }
+
                     // Obtém o caminho relativo do arquivo
                     const relativePath = file.webkitRelativePath || file.name;
                     const pathParts = relativePath.split('/');
@@ -197,13 +240,6 @@ function showModalUpload(action, path) {
                     // Constrói o caminho do diretório
                     const subDirPath = pathParts.join('/');
                     const targetPath = path ? `${path}/${subDirPath}` : subDirPath;
-
-                    console.log('Uploading file:', {
-                        originalPath: relativePath,
-                        subDirPath: subDirPath,
-                        targetPath: targetPath,
-                        fileName: file.name
-                    });
 
                     // Converte o arquivo para base64
                     const base64File = await new Promise((resolve, reject) => {
@@ -230,6 +266,12 @@ function showModalUpload(action, path) {
                         throw new Error('Erro no upload');
                     }
 
+                    // Atualiza o status do arquivo na lista
+                    if (listItem) {
+                        listItem.classList.remove('list-group-item-primary');
+                        listItem.classList.add('list-group-item-success');
+                    }
+
                     // Atualiza a barra de progresso
                     processedFiles++;
                     const progress = (processedFiles / totalFiles) * 100;
@@ -251,6 +293,12 @@ function showModalUpload(action, path) {
             } else {
                 // Upload de arquivo único
                 const file = files[0];
+                
+                // Atualiza o status do arquivo na lista
+                const listItem = filesList.children[0];
+                if (listItem) {
+                    listItem.classList.add('list-group-item-primary');
+                }
                 
                 // Converte o arquivo para base64
                 const base64File = await new Promise((resolve, reject) => {
@@ -278,9 +326,14 @@ function showModalUpload(action, path) {
                 }
 
                 const responseData = await response.json();
-                console.log(responseData);
 
                 if (responseData.success) {
+                    // Atualiza o status do arquivo na lista
+                    if (listItem) {
+                        listItem.classList.remove('list-group-item-primary');
+                        listItem.classList.add('list-group-item-success');
+                    }
+
                     progressBarInner.style.width = '100%';
                     sessionStorage.setItem('message', JSON.stringify({ message: responseData?.message, success: responseData?.success }));
                     
@@ -293,6 +346,12 @@ function showModalUpload(action, path) {
                     showAlert(responseData.message || 'Erro ao fazer upload do arquivo', false);
                     progressBar.classList.add('d-none');
                     progressBarInner.style.width = '0%';
+                    
+                    // Atualiza o status do arquivo na lista
+                    if (listItem) {
+                        listItem.classList.remove('list-group-item-primary');
+                        listItem.classList.add('list-group-item-danger');
+                    }
                 }
             }
         } catch (error) {
@@ -300,6 +359,12 @@ function showModalUpload(action, path) {
             showAlert('Erro ao fazer upload do arquivo', false);
             progressBar.classList.add('d-none');
             progressBarInner.style.width = '0%';
+            
+            // Atualiza o status de todos os arquivos na lista
+            Array.from(filesList.children).forEach(item => {
+                item.classList.remove('list-group-item-primary');
+                item.classList.add('list-group-item-danger');
+            });
         }
     };
 
