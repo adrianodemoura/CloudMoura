@@ -32,7 +32,7 @@ CloudMoura é um sistema de gerenciamento em nuvem desenvolvido em PHP, oferecen
 git clone https://github.com/adrianodemoura/CloudMoura.git
 ```
 ```bash
-cd cloudmoura
+cd CloudMoura
 ```
 
 2. Docker
