@@ -17,25 +17,44 @@ class FilesController extends Controller {
 
     public function moveUp() : array | \Exception {
         try {
-            $fullDirFile = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$this->postData['path']}";
+            $path = $this->postData['path'];
+            $fullDirFile = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$path}";
             $fullDir = dirname($fullDirFile);
-            $currentDir = dirname($this->postData['path']);
-            $fileName = basename($this->postData['path']);
+            $currentDir = dirname($path);
+            $fileName = basename($path);
 
+            // Primeiro tenta mover para o diretório à esquerda
             $parentDir = dirname($fullDir);
-            $newPath = $parentDir . "/" . $fileName;
-
-            if (file_exists($fullDirFile) && $fullDirFile !== $newPath) {
-                if (rename($fullDirFile, $newPath)) {
-                    return [ "message" => "Arquivo \"{$this->postData['path']}\" movido com sucesso." ];
+            $allDirs = glob($parentDir . "/*", GLOB_ONLYDIR);
+            
+            // Encontra o índice do diretório atual
+            $currentIndex = array_search($fullDir, $allDirs);
+            
+            if ($currentIndex !== false && $currentIndex > 0) {
+                // Se encontrou um diretório à esquerda, usa ele
+                $newDir = $allDirs[$currentIndex - 1];
+                $newPath = $newDir . "/" . $fileName;
+            } else {
+                // Se não houver diretório à esquerda, tenta mover para cima
+                $newPath = $parentDir . "/" . $fileName;
+                
+                // Se o diretório pai for o diretório raiz do usuário, não pode mover para cima
+                if ($parentDir === DIR_UPLOAD . "/{$_SESSION['user']['id']}") {
+                    throw new \Exception("Não há diretórios disponíveis para mover o arquivo \"{$fileName}\"");
                 }
             }
 
-            throw new \Exception("Erro ao mover o arquivo \"{$this->postData['path']}\"!");
+            if (file_exists($fullDirFile) && $fullDirFile !== $newPath) {
+                if (rename($fullDirFile, $newPath)) {
+                    return [ "message" => "Arquivo \"{$path}\" movido com sucesso." ];
+                }
+            }
+            
+            throw new \Exception("Erro ao mover o arquivo \"{$path}\"!");
         } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_move_file' );
+            $this->debug->write($e->getMessage(), 'error_move_file');
             $this->lastError = $e->getMessage();
-            throw new \Exception( $this->lastError );
+            throw new \Exception($this->lastError);
         }
     }
 
@@ -47,12 +66,27 @@ class FilesController extends Controller {
             $currentDir = dirname($path);
             $fileName = basename($path);
 
-            $subDirs = glob( $fullDir . "/*", GLOB_ONLYDIR);
-            if ( empty($subDirs) ) {
-                throw new \Exception("Não há diretórios abaixo de \"{$currentDir}\" para mover o arquivo \"{$fileName}\"");
+            // Primeiro tenta encontrar um diretório abaixo
+            $subDirs = glob($fullDir . "/*", GLOB_ONLYDIR);
+            
+            if (empty($subDirs)) {
+                // Se não houver diretório abaixo, procura um diretório ao lado
+                $parentDir = dirname($fullDir);
+                $allDirs = glob($parentDir . "/*", GLOB_ONLYDIR);
+                
+                // Encontra o índice do diretório atual
+                $currentIndex = array_search($fullDir, $allDirs);
+                
+                if ($currentIndex !== false && isset($allDirs[$currentIndex + 1])) {
+                    // Se encontrou um diretório ao lado, usa ele
+                    $newDir = $allDirs[$currentIndex + 1];
+                } else {
+                    throw new \Exception("Não há diretórios disponíveis para mover o arquivo \"{$fileName}\"");
+                }
             } else {
                 $newDir = $subDirs[0];
             }
+
             $newPath = $newDir . "/" . $fileName;
 
             if (file_exists($fullDirFile) && $fullDirFile !== $newPath) {
@@ -63,9 +97,9 @@ class FilesController extends Controller {
             
             throw new \Exception("Erro ao mover o arquivo \"{$path}\"!");
         } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_move_file' );
+            $this->debug->write($e->getMessage(), 'error_move_file');
             $this->lastError = $e->getMessage();
-            throw new \Exception( $this->lastError );
+            throw new \Exception($this->lastError);
         }
     }
 

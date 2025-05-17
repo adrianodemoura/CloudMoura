@@ -23,22 +23,10 @@ class Files {
         return round($bytes, 2) . ' ' . $units[$pow];
     }
 
-    public function listDirectoryTree( $dir, $level = 0 ) : string {
+    public function listDirectoryTree( $dir, $level = 0, $dirsFirst = false ) : string {
         $html = '';
         $dirs = array();
         $files = array();
-
-        if ( !file_exists( $dir ) ) { // Se o diretório não existir, cria o diretório
-            mkdir( $dir . "/filmes", 0775, true );
-            chmod( $dir . "/filmes", 0775 );
-            chown( $dir . "/filmes", 'www-data');
-            chgrp( $dir . "/filmes", 'www-data');
-
-            mkdir( $dir . "/series", 0775, true );
-            chmod( $dir . "/series", 0775 );
-            chown( $dir . "/series", 'www-data');
-            chgrp( $dir . "/series", 'www-data');
-        }
 
         $allFiles = scandir($dir);
 
@@ -57,21 +45,42 @@ class Files {
             }
         }
 
-        foreach ($dirs as $dirName) {
-            $filePath = $dir . '/' . $dirName;
-            $html .= $this->renderDivDir( $dir, $dirName, $level );
-            $html .= $this->listDirectoryTree($filePath, $level + 1);
-        }
+        // Se dirsFirst for true, mostra diretórios primeiro
+        if ($dirsFirst) {
+            foreach ($dirs as $dirName) {
+                $filePath = $dir . '/' . $dirName;
+                $html .= $this->renderDivDir( $dir, $dirName, $level );
+                $html .= $this->listDirectoryTree($filePath, $level + 1, $dirsFirst);
+            }
 
-        foreach ($files as $item) {
-            $item = [
-                'name' => $item['name'],
-                'type' => 'file',
-                'size' => $this->formatFileSize( filesize($item['path']) ),
-                'modified' => filemtime($item['path']),
-                'resumeDir' => $item['resumeDir']
-            ];
-            $html .= $this->renderDivFile( $item, $level );
+            foreach ($files as $item) {
+                $item = [
+                    'name' => $item['name'],
+                    'type' => 'file',
+                    'size' => $this->formatFileSize( filesize($item['path']) ),
+                    'modified' => filemtime($item['path']),
+                    'resumeDir' => $item['resumeDir']
+                ];
+                $html .= $this->renderDivFile( $item, $level );
+            }
+        } else {
+            // Se dirsFirst for false, mostra arquivos primeiro
+            foreach ($files as $item) {
+                $item = [
+                    'name' => $item['name'],
+                    'type' => 'file',
+                    'size' => $this->formatFileSize( filesize($item['path']) ),
+                    'modified' => filemtime($item['path']),
+                    'resumeDir' => $item['resumeDir']
+                ];
+                $html .= $this->renderDivFile( $item, $level );
+            }
+
+            foreach ($dirs as $dirName) {
+                $filePath = $dir . '/' . $dirName;
+                $html .= $this->renderDivDir( $dir, $dirName, $level );
+                $html .= $this->listDirectoryTree($filePath, $level + 1, $dirsFirst);
+            }
         }
 
         return $html;
