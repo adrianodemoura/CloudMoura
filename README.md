@@ -30,12 +30,16 @@ CloudMoura é um sistema de gerenciamento em nuvem desenvolvido em PHP, oferecen
 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/cloudmoura.git
+```
+```bash
 cd cloudmoura
 ```
 
 2. Docker
 ```bash
 cp docker-compose-default.yml docker-compose.yml
+```
+```bash
 docker-compose up -d
 ```
 
