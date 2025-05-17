@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos arrastáveis (arquivos e diretórios)
+    // Elementos arrastáveis (arquivos e diretórios não estáticos)
     const draggableItems = document.querySelectorAll('.draggable-file, .draggable-dir');
     
-    // Elementos que podem receber o drop (diretórios)
-    const droppableDirs = document.querySelectorAll('.droppable-dir:not(.static-dir)');
-
+    // Elementos que podem receber o drop (todos os diretórios)
+    const droppableDirs = document.querySelectorAll('.droppable-dir');
+    
     // Adiciona eventos de drag para os itens
     draggableItems.forEach(item => {
         item.setAttribute('draggable', 'true');

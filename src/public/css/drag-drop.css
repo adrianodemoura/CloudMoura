@@ -2,11 +2,16 @@
 .draggable-dir {
     cursor: move;
     user-select: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
 .draggable-file.dragging,
 .draggable-dir.dragging {
-    opacity: 0.5;
+    opacity: 0.8;
+    background-color: rgba(0, 123, 255, 0.1);
+    border: 2px dashed #0d6efd;
 }
 
 .droppable-dir {
@@ -16,6 +21,7 @@
 .droppable-dir.drag-over {
     background-color: rgba(0, 123, 255, 0.1);
     border-radius: 4px;
+    border: 2px dashed #0d6efd;
 }
 
 .droppable-trash {
@@ -44,4 +50,9 @@
 
 .droppable-trash.drag-over i {
     transform: scale(1.2);
+}
+
+/* Estilo específico para diretórios estáticos */
+.static-dir {
+    cursor: default;
 } 

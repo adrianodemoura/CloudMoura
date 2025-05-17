@@ -86,17 +86,15 @@ class Files {
         return $html;
     }
 
-    private function renderDivDir( $dir, $dirName, $level ) : string {
+    private function renderDivDir($dir, $dirName, $level) : string {
         $filePath = $dir . '/' . $dirName;
-        $dirRaiz = str_replace( DIR_UPLOAD . "/{$_SESSION['user']['id']}/", "", $filePath );
+        $dirRaiz = str_replace(DIR_UPLOAD . "/{$_SESSION['user']['id']}/", "", $filePath);
+        $isStatic = strtolower($dirName) === 'filmes' || strtolower($dirName) === 'series';
 
         $html = "";
-        // Adiciona classe static-dir para diretórios estáticos
-        $isStatic = in_array($dirName, ["filmes", "series"]);
         $html .= "<div class='droppable-dir" . ($isStatic ? " static-dir" : " draggable-dir") . "' data-dir-path='{$dirRaiz}'>";
         $html .= str_repeat('_', $level * 1);
         
-        // Verifica se é um diretório estático
         if ($isStatic) {
             $html .= "<i class='fas fa-folder text-tertiary me-2'></i> <span class='fs-7 fw-bold text-uppercase'>{$dirName}</span>";
         } else {
@@ -111,7 +109,7 @@ class Files {
         $html .= "</a>";
         if (!$isStatic) {
             $html .= "<a href='#' onclick='file(\"deleteDir\", \"{$dirRaiz}\")' title='Excluir diretório \"{$dirName}\"' class='ms-2'>";
-            $html .= "<i class='fas fa-trash text-secondary small'></i> ";
+            $html .= "<i class='fas fa-trash text-secondary small'></i>";
             $html .= "</a>";
         }
         $html .= "</div>";
