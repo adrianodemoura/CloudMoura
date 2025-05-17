@@ -156,6 +156,11 @@ class UserController extends Controller {
         if ( empty( $res ) ) {
             throw new \Exception( 'Nenhum usuário cadastrado!', 400 );
         }
+
+        if ( $res[0]['id'] === 1 ) {
+            throw new \Exception( "o Usuário " . $res[0]['email'] . " não pode ser desativado!", 401 );
+        }
+
         $newStatus = $res[0]['active'] == 1 ? 0 : 1;
 
         $this->Db->query("UPDATE users SET active = :active WHERE email = :email", [ 'active' => $newStatus, 'email' => $this->postData['email'] ]);
