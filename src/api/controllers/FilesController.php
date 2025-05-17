@@ -201,6 +201,10 @@ class FilesController extends Controller {
             throw new \Exception( $this->lastError );
         }
 
+        chmod( $targetDir, 0775 );
+        chown( $targetDir, 'www-data');
+        chgrp( $targetDir, 'www-data');
+
         return [ 'message' => "Subdiretório \"{$this->postData['path']}\" criado com sucesso." ];
     }
 }
