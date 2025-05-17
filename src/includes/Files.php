@@ -91,19 +91,30 @@ class Files {
         $dirRaiz = str_replace( DIR_UPLOAD . "/{$_SESSION['user']['id']}/", "", $filePath );
 
         $html = "";
+        // Adiciona classe static-dir para diretórios estáticos
+        $isStatic = in_array($dirName, ["filmes", "series"]);
+        $html .= "<div class='droppable-dir" . ($isStatic ? " static-dir" : " draggable-dir") . "' data-dir-path='{$dirRaiz}'>";
         $html .= str_repeat('_', $level * 1);
-        $html .= "<i class='fas fa-folder text-tertiary me-2'></i> $dirName";
+        
+        // Verifica se é um diretório estático
+        if ($isStatic) {
+            $html .= "<i class='fas fa-folder text-tertiary me-2'></i> <span class='fs-7 fw-bold text-uppercase'>{$dirName}</span>";
+        } else {
+            $html .= "<i class='fas fa-folder text-tertiary me-2'></i> {$dirName}";
+        }
+
         $html .= "<a href='#' onclick='file(\"upload\", \"{$dirRaiz}\")' title='Enviar para o diretório \"{$dirName}\"' class='ms-2'>";
         $html .= "<i class='fas fa-upload text-secondary small'></i>";
+        $html .= "</a>";
         $html .= "<a href='#' onclick='file(\"createSubdirectory\", \"{$dirRaiz}\")' title='Criar Subdiretório abaixo de \"{$dirName}\"' class='ms-2'>";
         $html .= "<i class='fas fa-file-alt text-secondary small'></i>";
         $html .= "</a>";
-        if ( !in_array( $dirName, [ "filmes", "series" ]     ) ) {
+        if (!$isStatic) {
             $html .= "<a href='#' onclick='file(\"deleteDir\", \"{$dirRaiz}\")' title='Excluir diretório \"{$dirName}\"' class='ms-2'>";
             $html .= "<i class='fas fa-trash text-secondary small'></i> ";
             $html .= "</a>";
         }
-        $html .= "<br />";
+        $html .= "</div>";
 
         return $html;
     }
@@ -112,17 +123,9 @@ class Files {
         $modified = ($item['type'] === 'file') ? date('d/m/Y H:i:s', $item['modified']) : '';
 
         $html = "";
-        $html .= "<div>";
+        $html .= "<div class='draggable-file' draggable='true' data-file-path='{$item['resumeDir']}'>";
         $html .= str_repeat('_', $level * 1);
 
-        if ( $level > 1 ) {
-            $html .= "<a href='#' onclick='file(\"moveUp\", \"{$item['resumeDir']}\")' title='Mover para diretório superior' class='smallbtn btn-sm btn-info ms-2'>";
-            $html .= "<i class='fas fa-arrow-up'></i>";
-            $html .= "</a>";
-        }
-        $html .= "<a href='#' onclick='file(\"moveDown\", \"{$item['resumeDir']}\")' title='Mover para diretório inferior' class='smallbtn btn-sm btn-info ms-2'>";
-        $html .= "<i class='fas fa-arrow-down'></i>";
-        $html .= "</a>";
         $html .= "<a href='#' onclick='file(\"download\", \"{$item['resumeDir']}\")' title='Download' class='smallbtn btn-sm btn-primary ms-2'>";
         $html .= "<i class='fas fa-download'></i>";
         $html .= "</a>";

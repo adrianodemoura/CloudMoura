@@ -241,4 +241,48 @@ class FilesController extends Controller {
 
         return [ 'message' => "Subdiretório \"{$this->postData['path']}\" criado com sucesso." ];
     }
+
+    public function move() : array | \Exception {
+        try {
+            $path = $this->postData['path'];
+            $targetDir = $this->postData['targetDir'];
+            $type = $this->postData['type'] ?? 'file';
+            
+            $fullDirFile = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$path}";
+            $fullTargetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$targetDir}";
+            $fileName = basename($path);
+            $newPath = $fullTargetDir . "/" . $fileName;
+
+            // Verifica se o diretório de destino existe
+            if (!file_exists($fullTargetDir)) {
+                throw new \Exception("O diretório de destino não existe!");
+            }
+
+            // Verifica se o item a ser movido existe
+            if (!file_exists($fullDirFile)) {
+                throw new \Exception("O item a ser movido não existe!");
+            }
+
+            // Verifica se não está tentando mover para o mesmo lugar
+            if ($fullDirFile === $newPath) {
+                throw new \Exception("O item já está no diretório de destino!");
+            }
+
+            // Se for um diretório, verifica se não está tentando mover para dentro dele mesmo
+            if ($type === 'dir' && strpos($newPath, $fullDirFile) === 0) {
+                throw new \Exception("Não é possível mover um diretório para dentro dele mesmo!");
+            }
+
+            // Tenta mover o item
+            if (rename($fullDirFile, $newPath)) {
+                return [ "message" => "Item movido com sucesso." ];
+            }
+            
+            throw new \Exception("Erro ao mover o item!");
+        } catch (\Exception $e) {
+            $this->debug->write($e->getMessage(), 'error_move_item');
+            $this->lastError = $e->getMessage();
+            throw new \Exception($this->lastError);
+        }
+    }
 }

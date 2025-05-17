@@ -2,6 +2,7 @@
     $userId = $_SESSION['user']['id'];
     $Files = new \CloudMoura\Includes\Files();
 ?>
+<link rel="stylesheet" href="/css/drag-drop.css">
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">
@@ -83,3 +84,4 @@
 </div>
 
 <script src="/js/files.js"></script>
+<script src="/js/drag-drop.js"></script>
