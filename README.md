@@ -13,11 +13,6 @@ CloudMoura é um sistema de gerenciamento em nuvem desenvolvido em PHP, oferecen
 - Página de manutenção
 - Sistema de roles (admin/user)
 
-## 📸 Screenshots
-
-![Screenshot 1](src/public/img/screnshot_001.png)
-![Screenshot 2](src/public/img/screnshot_002.png)
-
 ## 📋 Pré-requisitos
 
 - PHP 8.0 ou superior
@@ -123,3 +118,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 📞 Suporte
 
 Para suporte, envie um email para seu-email@dominio.com ou abra uma issue no GitHub. 
+
+
+## 📸 Screenshots
+
+![Screenshot 1](src/public/img/screnshot_001.png)
+![Screenshot 2](src/public/img/screnshot_002.png)
