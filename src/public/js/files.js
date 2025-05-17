@@ -137,6 +137,8 @@ function showModalUpload(action, path) {
             return;
         }
 
+        console.log( 'vou lá enviar file ...')
+
         const file = fileInput.files[0];
         if (!file) {
             showAlert('Selecione um arquivo', false);
@@ -171,6 +173,7 @@ function showModalUpload(action, path) {
                 console.log(responseData);
 
                 if (responseData.success) {
+                    console.log( responseData );
                     sessionStorage.setItem( 'message', JSON.stringify( { message: responseData?.message, success: responseData?.success } ) );
                     window.location.reload();
                 } else {

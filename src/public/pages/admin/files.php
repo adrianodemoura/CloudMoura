@@ -27,9 +27,15 @@
             <div class="modal-body">
                 <form id="uploadForm">
                     <div class="mb-3">
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="uploadTypeSwitch">
+                            <label class="form-check-label" for="uploadTypeSwitch">Upload de Diretório</label>
+                        </div>
                         <label for="fileInput" class="form-label">Arquivo</label>
                         <input type="file" class="form-control" id="fileInput" name="file" required accept="<?= implode( ',', ALLOWED_EXTENSIONS ); ?>">
-                        <div class="form-text text-uppercase">Formatos aceitos: <?= implode( ', ', ALLOWED_EXTENSIONS ); ?></div>
+                        <div class="form-text text-uppercase" id="uploadHelpText">
+                            Formatos aceitos: <?= implode( ', ', ALLOWED_EXTENSIONS ); ?>
+                        </div>
                     </div>
 
                     <div class="progress mb-3 d-none">
@@ -83,5 +89,8 @@
     </div>
 </div>
 
+<script>
+    let currentPath = '<?= isset($_GET['path']) ? $_GET['path'] : '' ?>';
+</script>
 <script src="/js/files.js"></script>
 <script src="/js/drag-drop.js"></script>
