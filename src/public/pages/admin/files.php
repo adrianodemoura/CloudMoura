@@ -91,6 +91,7 @@
 
 <script>
     let currentPath = '<?= isset($_GET['path']) ? $_GET['path'] : '' ?>';
+    const allowedExtensions = <?= json_encode(ALLOWED_EXTENSIONS) ?>;
 </script>
 <script src="/js/files.js"></script>
 <script src="/js/drag-drop.js"></script>

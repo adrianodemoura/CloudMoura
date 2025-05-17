@@ -124,6 +124,27 @@ function showModalUpload(action, path) {
     const uploadButton = document.getElementById('uploadButton');
     const progressBar = document.querySelector('.progress');
     const progressBarInner = document.querySelector('.progress-bar');
+    const uploadTypeSwitch = document.getElementById('uploadTypeSwitch');
+    const uploadHelpText = document.getElementById('uploadHelpText');
+
+    // Configura o switch de tipo de upload
+    uploadTypeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            // Modo diretório
+            fileInput.removeAttribute('accept');
+            fileInput.setAttribute('webkitdirectory', '');
+            fileInput.setAttribute('directory', '');
+            uploadHelpText.textContent = 'Selecione um diretório para upload';
+        } else {
+            // Modo arquivo
+            fileInput.setAttribute('accept', allowedExtensions.join(','));
+            fileInput.removeAttribute('webkitdirectory');
+            fileInput.removeAttribute('directory');
+            uploadHelpText.textContent = 'Formatos aceitos: ' + allowedExtensions.join(', ');
+        }
+        // Limpa o input
+        fileInput.value = '';
+    });
 
     // Limpa o formulário quando o modal é aberto
     uploadForm.reset();
@@ -137,9 +158,9 @@ function showModalUpload(action, path) {
             return;
         }
 
-        const file = fileInput.files[0];
-        if (!file) {
-            showAlert('Selecione um arquivo', false);
+        const files = fileInput.files;
+        if (files.length === 0) {
+            showAlert('Selecione um arquivo ou diretório', false);
             return;
         }
 
@@ -147,31 +168,104 @@ function showModalUpload(action, path) {
         progressBar.classList.remove('d-none');
         progressBarInner.style.width = '0%';
 
-        // Converte o arquivo para base64
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        
-        // Atualiza o progresso durante a leitura do arquivo
-        reader.onprogress = function(event) {
-            if (event.lengthComputable) {
-                const percentLoaded = Math.round((event.loaded / event.total) * 100);
-                progressBarInner.style.width = percentLoaded + '%';
-            }
-        };
+        try {
+            if (uploadTypeSwitch.checked) {
+                // Upload de diretório
+                let totalFiles = 0;
+                let processedFiles = 0;
 
-        reader.onload = async function() {
-            const base64File = reader.result.split(',')[1]; // Remove o prefixo "data:application/octet-stream;base64,"
-            
-            const data = {
-                action: action,
-                path: path,
-                file: base64File,
-                filename: file.name
-            };
-            
-            try {
-                // Atualiza a barra para 50% antes de começar o upload
-                progressBarInner.style.width = '50%';
+                // Primeiro, conta o número total de arquivos (não diretórios)
+                for (let i = 0; i < files.length; i++) {
+                    if (!files[i].isDirectory) {
+                        totalFiles++;
+                    }
+                }
+
+                // Agora processa cada arquivo
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (file.isDirectory) continue; // Pula diretórios
+
+                    // Obtém o caminho relativo do arquivo
+                    const relativePath = file.webkitRelativePath || file.name;
+                    const pathParts = relativePath.split('/');
+                    
+                    // Remove o nome do arquivo e o diretório raiz
+                    pathParts.pop(); // Remove o nome do arquivo
+                    pathParts.shift(); // Remove o diretório raiz
+                    
+                    // Constrói o caminho do diretório
+                    const subDirPath = pathParts.join('/');
+                    const targetPath = path ? `${path}/${subDirPath}` : subDirPath;
+
+                    console.log('Uploading file:', {
+                        originalPath: relativePath,
+                        subDirPath: subDirPath,
+                        targetPath: targetPath,
+                        fileName: file.name
+                    });
+
+                    // Converte o arquivo para base64
+                    const base64File = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+
+                    const data = {
+                        action: action,
+                        path: targetPath,
+                        file: base64File,
+                        filename: file.name
+                    };
+
+                    const response = await fetch('/api/files/upload', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro no upload');
+                    }
+
+                    // Atualiza a barra de progresso
+                    processedFiles++;
+                    const progress = (processedFiles / totalFiles) * 100;
+                    progressBarInner.style.width = progress + '%';
+                }
+
+                // Após upload de todos os arquivos do diretório
+                progressBarInner.style.width = '100%';
+                sessionStorage.setItem('message', JSON.stringify({ 
+                    message: 'Diretório enviado com sucesso', 
+                    success: true 
+                }));
+                
+                // Fecha o modal e recarrega a página
+                modal.hide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            } else {
+                // Upload de arquivo único
+                const file = files[0];
+                
+                // Converte o arquivo para base64
+                const base64File = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result.split(',')[1]);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+
+                const data = {
+                    action: action,
+                    path: path,
+                    file: base64File,
+                    filename: file.name
+                };
 
                 const response = await fetch('/api/files/upload', {
                     method: 'POST',
@@ -187,11 +281,11 @@ function showModalUpload(action, path) {
                 console.log(responseData);
 
                 if (responseData.success) {
-                    // Atualiza a barra para 100% quando o upload termina com sucesso
                     progressBarInner.style.width = '100%';
                     sessionStorage.setItem('message', JSON.stringify({ message: responseData?.message, success: responseData?.success }));
                     
-                    // Aguarda um momento para mostrar o 100% antes de recarregar
+                    // Fecha o modal e recarrega a página
+                    modal.hide();
                     setTimeout(() => {
                         window.location.reload();
                     }, 500);
@@ -200,19 +294,13 @@ function showModalUpload(action, path) {
                     progressBar.classList.add('d-none');
                     progressBarInner.style.width = '0%';
                 }
-            } catch (error) {
-                console.error('Erro:', error);
-                showAlert('Erro ao fazer upload do arquivo', false);
-                progressBar.classList.add('d-none');
-                progressBarInner.style.width = '0%';
             }
-        };
-
-        reader.onerror = function() {
-            showAlert('Erro ao ler o arquivo', false);
+        } catch (error) {
+            console.error('Erro:', error);
+            showAlert('Erro ao fazer upload do arquivo', false);
             progressBar.classList.add('d-none');
             progressBarInner.style.width = '0%';
-        };
+        }
     };
 
     modal.show();
