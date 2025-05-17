@@ -124,3 +124,8 @@ Para suporte, envie um email para seu-email@dominio.com ou abra uma issue no Git
 
 ![Screenshot 1](src/public/img/screnshot_001.png)
 ![Screenshot 2](src/public/img/screnshot_002.png)
+
+## Vídeos
+
+### Instalação
+![Instalação do CloudMoura](src/public//videos/instalação-CloudMoura.gif)
