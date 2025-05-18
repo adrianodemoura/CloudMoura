@@ -9,7 +9,7 @@
             <table id="usersList" class="table table-bordered table-hover">
                 <thead class="sticky-top bg-white">
                     <tr>
-                        <th style="min-width: 100px; white-space: nowrap;">Ações</th>
+                        <th style="min-width: 100px; white-space: nowrap;" class="text-center">Ações</th>
                         <th style="min-width: 200px; white-space: nowrap;">Nome</th>
                         <th style="min-width: 200px; white-space: nowrap;">Email</th>
                         <th style="min-width: 150px; white-space: nowrap;">Telefone</th>
@@ -125,8 +125,8 @@
 
         users.forEach(user => {
             tbody.innerHTML += `
-                <tr>
-                    <td class="text-center" style="white-space: nowrap;">
+                <tr style="white-space: nowrap;">
+                    <td class="text-center" style="padding: 0.25rem 0.5rem;">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -141,12 +141,12 @@
                             </ul>
                         </div>
                     </td>
-                    <td style="white-space: nowrap;">${user.name}</td>
-                    <td style="white-space: nowrap;">${user.email}</td>
-                    <td style="white-space: nowrap;">${user.phone}</td>
-                    <td style="white-space: nowrap;" class="text-center">${user.active ? 'Sim' : 'Não'}</td>
-                    <td style="white-space: nowrap;" class="text-center">${user.role}</td>
-                    <td style="white-space: nowrap;" class="text-center">${new Date(user.created_at).toLocaleString('pt-BR')}</td>
+                    <td style="padding: 0.25rem 0.5rem;">${user.name}</td>
+                    <td style="padding: 0.25rem 0.5rem;">${user.email}</td>
+                    <td style="padding: 0.25rem 0.5rem;">${user.phone}</td>
+                    <td class="text-center" style="padding: 0.25rem 0.5rem;">${user.active ? 'Sim' : 'Não'}</td>
+                    <td class="text-center" style="padding: 0.25rem 0.5rem;">${user.role}</td>
+                    <td class="text-center" style="padding: 0.25rem 0.5rem;">${new Date(user.created_at).toLocaleString('pt-BR')}</td>
                 </tr>
             `;
         });
