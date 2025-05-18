@@ -18,11 +18,18 @@ RUN set -ex; \
 COPY php.ini /usr/local/etc/php/conf.d/uploads.ini
 COPY php.ini /usr/local/etc/php/php.ini
 
+# Criar diretório e definir permissões
+RUN mkdir -p /var/www/html && \
+    chown -R www-data:www-data /var/www && \
+    chmod -R 755 /var/www
+
 WORKDIR /var/www/html
 
-# Adicionar script de inicialização para configurar permissões
+# Adicionar script de inicialização
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+USER www-data
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]

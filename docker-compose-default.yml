@@ -3,7 +3,7 @@ services:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
-    container_name: cloudmoura-php
+    user: "1000:1000"
     volumes:
       - ./src:/var/www/html
     networks:
