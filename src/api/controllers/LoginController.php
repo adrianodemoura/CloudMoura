@@ -18,14 +18,19 @@ class LoginController extends Controller {
             $this->debug->write("Tentando login com email: " . $this->postData['email'], "login");
 
             // Tenta o login
-            $res = $this->Db->query("SELECT * FROM users WHERE email = :email AND password = :password", [
-                'email' =>  $this->postData['email'],
-                'password' => $this->postData['password']
+            $res = $this->Db->query("SELECT * FROM users WHERE email = :email", [
+                'email' =>  $this->postData['email']
             ] );
 
             // Verifica se o usuário existe
             if ( empty( $res ) ) {
                 $this->debug->write("Login falhou para o usuário: " . $this->postData['email'], "login");
+                throw new \Exception( 'Usuário ou senha inválidos!', 401 );
+            }
+
+            // Verifica a senha
+            if (!password_verify($this->postData['password'], $res[0]['password'])) {
+                $this->debug->write("Senha inválida para o usuário: " . $this->postData['email'], "login");
                 throw new \Exception( 'Usuário ou senha inválidos!', 401 );
             }
 

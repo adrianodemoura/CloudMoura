@@ -32,7 +32,7 @@ class UserController extends Controller {
             'name' => $this->postData[ 'name' ],
             'email' => $this->postData[ 'email' ],
             'phone' => $this->postData[ 'phone' ],
-            'password' => $this->postData[ 'password' ]
+            'password' => password_hash($this->postData['password'], PASSWORD_DEFAULT)
         ]);
 
         if (!empty($this->Db->getLastError())) {
@@ -76,7 +76,7 @@ class UserController extends Controller {
         }
         if (!empty($this->postData['password'])) {
             $arrFields[] = 'password = :password';
-            $arrUpdate['password'] = $this->postData['password'];
+            $arrUpdate['password'] = password_hash($this->postData['password'], PASSWORD_DEFAULT);
         }
 
         $this->Db->query("UPDATE users SET " . implode(', ', $arrFields) . " WHERE email = :email", array_merge($arrUpdate, ['email' => $this->postData['email']]));
@@ -172,9 +172,13 @@ class UserController extends Controller {
     }
 
     public function desbloquear() : array | \Exception {
-        $res = $this->Db->query("SELECT id, email FROM users WHERE role='admin' AND password = :password", [ 'password' => $this->postData['password'] ]);
+        $res = $this->Db->query("SELECT id, email, password FROM users WHERE role='admin'");
         if ( empty( $res ) ) {
             throw new \Exception( 'Usuário inválido para DESBLOQUEAR o site!', 400 );
+        }
+
+        if (!password_verify($this->postData['password'], $res[0]['password'])) {
+            throw new \Exception( 'Senha inválida para DESBLOQUEAR o site!', 400 );
         }
 
         $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );

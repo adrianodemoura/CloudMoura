@@ -81,7 +81,9 @@ class Db {
             if (empty($admin)) {
                 $this->debug->write("Criando usuário admin padrão...", "database");
                 // Insere o usuário admin padrão
-                $this->query("INSERT INTO users (email, name, password, role) VALUES ('admin@admin.com', 'Administrador', 'Admin01', 'admin')");
+                $this->query("INSERT INTO users (email, name, password, role) VALUES ('admin@admin.com', 'Administrador', :password, 'admin')", [
+                    'password' => password_hash('Admin01', PASSWORD_DEFAULT)
+                ]);
                 $this->debug->write("Usuário \"admin@admin.com\" com senha \"Admin01\" criado com sucesso", "database");
             } else {
                 $this->debug->write("Usuário admin já existe", "database");
