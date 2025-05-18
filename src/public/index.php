@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <div id="corpo" class="d-flex flex-column vh-100">
+    <div id="corpo" class="h-100" style="max-width: 1000px; min-width: 1000px; margin: 0 auto;">
         <div id="content" class="d-flex flex-column flex-grow-1">
             <?php require_once dirname(__DIR__) . "/public/pages/" . $uriContent . ".php"; ?>
             
@@ -72,11 +72,7 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <p class="text-muted mb-0">
-                            <a href="/contato" class="text-decoration-none">Contato</a>
-                            &nbsp;|&nbsp;
-                            <a href="/termos" class="text-decoration-none">Termos de Uso</a>
-                            &nbsp;|&nbsp;
-                            <a href="/privacidade" class="text-decoration-none">Política de Privacidade</a>
+                            &nbsp;
                         </p>
                     </div>
                 </div>

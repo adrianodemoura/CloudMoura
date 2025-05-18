@@ -24,13 +24,16 @@
     }
 ?>
 
-<div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="w-100 bg-white rounded shadow p-4" style="max-width: 1200px;">
-        <div class="d-flex justify-content-between align-items-center border-bottom mb-3 p-3 bg-light">
-            <a href="/" class="me-3">
-                <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
-            </a>
-            <div class="text-end flex-grow-1">
+<div class="mt-5">
+
+    <div class="w-100 rounded shadow p-4">
+        <div class="d-flex rounded-top border-bottom mb-3 p-3" style="background-image: url('/img/bg-header-001.png'); background-repeat: no-repeat; background-position: top; background-size: cover;">
+            <div class="d-flex">
+                <a href="/" class="me-3">
+                    <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
+                </a>
+            </div>
+            <div class="d-flex align-items-center justify-content-end text-end flex-grow-1 text-muted p-3">
                 <span title="<?= $_SESSION['user']['name']; ?>" onclick="window.location.href = '/admin/conta';" class="cursor-pointer">
                     <i class="fas fa-user me-1"></i>
                     <?= $_SESSION['user']['email']; ?>
@@ -66,7 +69,6 @@
             </div>
         </div>
 
-        
     </div>
 </div>
 
