@@ -30,8 +30,8 @@
             <a href="/" class="me-3">
                 <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
             </a>
-            <div class="text-end flex-grow-1 cursor-pointer" onclick="window.location.href = '/admin/conta';">
-                <span title="<?= $_SESSION['user']['name']; ?>">
+            <div class="text-end flex-grow-1">
+                <span title="<?= $_SESSION['user']['name']; ?>" onclick="window.location.href = '/admin/conta';" class="cursor-pointer">
                     <i class="fas fa-user me-1"></i>
                     <?= $_SESSION['user']['email']; ?>
                 </span>
