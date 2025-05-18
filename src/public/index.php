@@ -47,12 +47,14 @@
 </head>
 
 <body>
-    <div id="corpo" class="h-100" style="max-width: 1000px; min-width: 1000px; margin: 0 auto;">
-        <div id="content" class="d-flex flex-column flex-grow-1">
-            <?php require_once dirname(__DIR__) . "/public/pages/" . $uriContent . ".php"; ?>
-            
+    <div id="corpo" class="container min-vh-100 d-flex flex-column">
+        <div id="content" class="flex-grow-1 d-flex flex-column">
+            <div id="divContentContainer" class="">
+                <?php require_once dirname(__DIR__) . "/public/pages/" . $uriContent . ".php"; ?>
+            </div>
+
             <!-- Toast de Alerta -->
-            <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 11">
+            <div id="divAlertToast" class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 11">
                 <div id="alertToast" class="toast text-white" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header text-white">
                         <strong class="me-auto">Atenção</strong>
@@ -91,7 +93,7 @@
 $executionTime = round((microtime(true) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 2);
 echo "<!-- Tempo de carregamento: {$executionTime}ms -->";
 
-if (!isset($_SESSION['user'])) : ?>
+if ( !isset($_SESSION['user']) ) : ?>
 <script>
     sessionStorage.removeItem('user');
 </script>

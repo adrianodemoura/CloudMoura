@@ -24,8 +24,7 @@
     }
 ?>
 
-<div class="mt-5">
-
+<div class="container">
     <div class="w-100 rounded shadow p-4">
         <div class="d-flex rounded-top border-bottom mb-3 p-3" style="background-image: url('/img/bg-header-001.png'); background-repeat: no-repeat; background-position: top; background-size: cover;">
             <div class="d-flex">

@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-center align-items-center mb-5 vh-100">
-    <div class="w-100" style="max-width: 600px;">
-        <div class="bg-white rounded shadow p-4">
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="w-100 bg-white rounded shadow p-4" style="max-width: 600px;">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <a href="/" class="me-3">
                     <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
