@@ -7,7 +7,7 @@
     }
 
     // Verifica se a página existe
-    if (!file_exists(DIR_ROOT . "/public/pages/" . $uriContent . ".php")) {
+    if (!file_exists(DIR_ROOT . "/public/pages/{$uriContent}/index.php")) {
         $pageError = $uriContent;
         $uriContent = "page_error";
     }
@@ -53,7 +53,7 @@
 
             <!-- Container Principal -->
             <div id="divContentContainer" class="<?= $classContainer; ?>">
-                <?php require_once DIR_ROOT . "/public/pages/{$uriContent}.php"; ?>
+                <?php require_once DIR_ROOT . "/public/pages/{$uriContent}/index.php"; ?>
                 <!-- uma nova percepção -->
             </div>
 
@@ -85,7 +85,7 @@
         </footer>
 
         <div id="divDebug" class="mt-auto">
-            <?php if ( DEBUG ) require_once dirname(__DIR__) . "/public/pages/debug.php"; ?>
+            <?php if ( DEBUG ) require_once dirname(__DIR__) . "/public/pages/debug/index.php"; ?>
         </div>
     </div>
 

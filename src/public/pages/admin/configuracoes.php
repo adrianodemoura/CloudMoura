@@ -1,8 +1,3 @@
-<?php
-    if ( file_exists( DIR_ROOT . '/config.json' ) ) {
-        $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );
-    }
-?>
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">
@@ -25,7 +20,8 @@
                         DEBUG
                     </td>
                     <td>
-                        <a href="#" onclick="toggleDebug('<?= $_SESSION['user']['email'] ?>')">
+                        <a href="#"
+                            onclick="showModalAdmin( '/api/configurations/toggledebug', { email: '<?= $_SESSION['user']['email'] ?>' } )">
                             <i class="fas fa-yes text-primary">
                                 <?= DEBUG ? 'Ativo' : 'Desativado' ?>
                             </i>
@@ -42,7 +38,8 @@
                         BLOQUEIO
                     </td>
                     <td>
-                        <a href="#" onclick="toggleBlockSite('<?= $_SESSION['user']['email'] ?>')">
+                        <a href="#" 
+                            onclick="showModalAdmin( '/api/configurations/toggleblocksite', { email: '<?= $_SESSION['user']['email'] ?>' } )">
                             <i class="fas fa-yes text-primary">
                                 <?= $config['block'] ? 'Bloqueado' : 'Desbloqueado' ?>
                             </i>
@@ -56,45 +53,3 @@
         </table>
     </div>
 </div>
-
-<script>
-    function toggleDebug( email ) {
-        fetch('/api/configurations/toggledebug', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify( { email: email } )
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log( data );
-                sessionStorage.setItem('message', JSON.stringify({ message: data?.message, success: data?.success }));
-                window.location.reload();
-            } else {
-                showAlert(data.message, false);
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            showAlert('Erro ao excluir usuário', false);
-        });
-    }
-
-    function toggleBlockSite( email ) {
-        fetch('/api/configurations/toggleblocksite', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify( { email: email } )
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log( data );
-                sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
-                window.location.reload();
-            } else {
-                showAlert(data.message, false);
-            }
-        })
-    }
-</script>
