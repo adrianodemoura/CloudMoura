@@ -39,14 +39,17 @@ class LoginController extends Controller {
                 $this->debug->write("Usuário desativado: " . $this->postData['email'], "login");
                 throw new \Exception( 'Usuário desativado!', 401 );
             }
+            $lastLogin = $res[0]['last_login'];
 
             // Atualiza o último login do usuário
             $this->Db->query("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = :id", [ 'id' => $res[0]['id'] ]);
 
             // Cria a sessão do usuário
             $_SESSION['user'] = [
+                'name' => $res[0]['name'],
                 'email' => $res[0]['email'],
                 'role' => $res[0]['role'],
+                'last_login' => $lastLogin,
                 'id' => $res[0]['id']
             ];
             

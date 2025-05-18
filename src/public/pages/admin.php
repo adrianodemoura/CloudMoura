@@ -30,11 +30,16 @@
             <a href="/" class="me-3">
                 <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
             </a>
-            <div class="text-end flex-grow-1">
-                <i class="<?= $arrPages[$uriAdminContent]['icon']; ?> fa-1x text-primary mb-3"></i>
-                <span><?= $arrPages[$uriAdminContent]['title']; ?></span>                
+            <div class="text-end flex-grow-1 cursor-pointer" onclick="window.location.href = '/admin/conta';">
+                <span title="<?= $_SESSION['user']['name']; ?>">
+                    <i class="fas fa-user me-1"></i>
+                    <?= $_SESSION['user']['email']; ?>
+                </span>
                 &nbsp;|&nbsp;
-                <span><?= $_SESSION['user']['email']; ?></span>
+                <span title="Último login">
+                    <i class="fas fa-clock"></i>
+                    <?= date('d/m/Y H:i', strtotime($_SESSION['user']['last_login'])); ?>
+                </span>
             </div>
         </div>
 
