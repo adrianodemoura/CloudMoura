@@ -19,10 +19,8 @@ if ( !file_exists(DIR_DATA) ) {
         touch(DIR_DATA . $dbPath);
         chmod(DIR_DATA . $dbPath, 0775);
 
-        // Carrega o autoloader
         require_once DIR_ROOT . '/config/Autoload.php';
-        
-        // Instancia o Db e cria as tabelas
+
         $db = new \CloudMoura\Includes\Db();
         $db->createTables();
     }
@@ -45,9 +43,10 @@ if ( isset($_SESSION['user']) ) {
         chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 0775);
     }
 }
+
 // Verifica se o site está bloqueado
 if ( BLOCK ) {
-    if ( !in_array($uri, PUBLIC_URLS_BLOCK) && !empty($_SESSION['user']['role']) === 'admin' ) {
+    if ( !in_array( "/{$uriContent}", PUBLIC_URLS_BLOCK ) ) {
         header('Location: /site_manutencao');
         exit;
     }

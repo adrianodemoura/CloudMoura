@@ -15,7 +15,8 @@
                                     name="password" 
                                     required 
                                     autocomplete="off"
-                                    placeholder="Digite a senha">
+                                    placeholder="Digite a senha"
+                                    autofocus>
                             <button class="btn btn-outline-secondary" 
                                     type="button" 
                                     id="toggleSenha">

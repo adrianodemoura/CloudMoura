@@ -1,8 +1,9 @@
 <?php
     require_once dirname(__DIR__) . "/public/bootstrap.php";
 
-    if ( BLOCK && !in_array($uri, PUBLIC_URLS_BLOCK) ) {
-        $uriContent = "site_manutencao";
+    $classContainer = "bg-white";
+    if ( in_array( $uri, array_merge(PUBLIC_URLS, PUBLIC_URLS_BLOCK) ) ) {
+        $classContainer = "flex-grow-1 d-flex flex-column h-100 justify-content-center align-items-center";
     }
 
     // Verifica se a página existe
@@ -46,11 +47,14 @@
     <script src="/js/general.js" defer></script>
 </head>
 
-<body>
+<body class="h-100">
     <div id="corpo" class="container min-vh-100 d-flex flex-column">
-        <div id="content" class="flex-grow-1 d-flex flex-column">
-            <div id="divContentContainer" class="">
-                <?php require_once dirname(__DIR__) . "/public/pages/" . $uriContent . ".php"; ?>
+        <div id="content" class="flex-grow-1 d-flex flex-column h-100">
+
+            <!-- Container Principal -->
+            <div id="divContentContainer" class="<?= $classContainer; ?>">
+                <?php require_once DIR_ROOT . "/public/pages/{$uriContent}.php"; ?>
+                <!-- uma nova percepção -->
             </div>
 
             <!-- Toast de Alerta -->
