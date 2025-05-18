@@ -79,10 +79,10 @@
 
 <!-- Modal de Confirmação de Saída -->
 <div id="divModalAdmin" class="modal fade" role="dialog" aria-labelledby="logoutModalLabel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div id="divModalAdminHeader" class="modal-header">
-                <h5 class="modal-title" id="logoutModalLabel">Confirmar Saída</h5>
+                <h5 class="modal-title w-100 text-center" id="logoutModalLabel">Confirmar Saída</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div id="divModalAdminBody" class="modal-body">

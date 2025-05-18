@@ -58,18 +58,21 @@
             </div>
 
             <!-- Toast de Alerta -->
-            <div id="divAlertToast" class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 11">
-                <div id="alertToast" class="toast text-white" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header text-white">
-                        <strong class="me-auto">Atenção</strong>
+            <div id="divAlertToast" class="toast-container position-fixed top-0 start-50 w-50 translate-middle-x p-3 z-3 z-index-1">
+                <div id="alertToast" class="toast text-white w-100" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header text-white fs-2">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                        <div class="w-100 text-center">
+                            <strong>Atenção</strong>
+                        </div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Fechar"></button>
                     </div>
-                    <div class="toast-body text-white" id="alertMessage"></div>
+                    <div class="toast-body text-white fs-5" id="alertMessage"></div>
                 </div>
             </div>
         </div>
 
-        <footer id="divFooter" class="mt-4 pt-3 border-top">
+        <footer id="divFooter" class="mt-4 pt-3 border-top bg-light">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start">
