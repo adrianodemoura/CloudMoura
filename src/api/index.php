@@ -5,8 +5,6 @@ use CloudMoura\Includes\Debug;
 $Debug = new Debug();
 require_once DIR_API . "/bootstrap.php";
 
-
-
 try {
     // Verifica se temos pelo menos 2 partes na URI (api/controller)
     if (count($arrUri) < 2) {
