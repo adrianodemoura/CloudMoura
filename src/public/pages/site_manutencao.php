@@ -1,6 +1,6 @@
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-12 col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body p-4 text-center">
                     <h2 class="text-warning mb-4">

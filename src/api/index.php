@@ -5,10 +5,17 @@ use CloudMoura\Includes\Debug;
 $Debug = new Debug();
 require_once DIR_API . "/bootstrap.php";
 
+
+
 try {
     // Verifica se temos pelo menos 2 partes na URI (api/controller)
     if (count($arrUri) < 2) {
         throw new Exception('URI inválida');
+    }
+
+    // Verifica se o site está bloqueado
+    if ( BLOCK && $uri !== "/api/user/desbloquear" ) {
+        throw new \Exception( "O site está em manutenção, tente novamente mais tarde!", 401 );
     }
 
     // Pega o nome do controller e da action

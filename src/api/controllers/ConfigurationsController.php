@@ -23,6 +23,13 @@ class ConfigurationsController extends Controller {
 
         file_put_contents( DIR_ROOT . '/config.json', json_encode( $config, JSON_PRETTY_PRINT ) );
 
+        if ( $config['block'] ) {
+            unset( $_SESSION['user'] );
+            $this->debug->write("Site bloqueado com sucesso.", "block");
+        } else {
+            $this->debug->write("Site desbloqueado com sucesso.", "block");
+        }
+
         return [ 'block' => $config['block'], 'message' => "Status do site " . ( $config['block'] ? 'bloqueado' : 'desbloqueado' ) . " com sucesso." ];
     }
 }

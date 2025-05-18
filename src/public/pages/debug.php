@@ -1,5 +1,5 @@
 <?php 
-    if ( !DEBUG || in_array($uriContent, ['desbloquear', 'page_blocked']) ) return; 
+    if ( BLOCK || !DEBUG || in_array($uriContent, ['desbloquear', 'page_blocked']) ) return; 
 ?>
 
 <script>

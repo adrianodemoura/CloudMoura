@@ -15,8 +15,6 @@ class LoginController extends Controller {
 
     public function login() : array | \Exception {
         try {
-            $this->debug->write("Tentando login com email: " . $this->postData['email'], "login");
-
             // Tenta o login
             $res = $this->Db->query("SELECT * FROM users WHERE email = :email", [
                 'email' =>  $this->postData['email']

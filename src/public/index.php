@@ -1,9 +1,8 @@
 <?php
     require_once dirname(__DIR__) . "/public/bootstrap.php";
 
-    // Verifica se o site está bloqueado
-    if ( BLOCK && !in_array("/$uriContent", PUBLIC_URLS_BLOCK) ) {
-        $uriContent = "page_blocked";
+    if ( BLOCK && !in_array($uri, PUBLIC_URLS_BLOCK) ) {
+        $uriContent = "site_manutencao";
     }
 
     // Verifica se a página existe
