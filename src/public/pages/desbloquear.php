@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="w-100 bg-white rounded shadow shadow p-4" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body p-4">
