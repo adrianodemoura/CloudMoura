@@ -240,8 +240,8 @@ class FilesController extends Controller {
         }
 
         chmod( $targetDir, 0775 );
-        chown( $targetDir, 'www-data');
-        chgrp( $targetDir, 'www-data');
+        // chown( $targetDir, 'www-data');
+        // chgrp( $targetDir, 'www-data');
 
         return [ 'message' => "Subdiretório \"{$this->postData['path']}\" criado com sucesso." ];
     }
