@@ -21,8 +21,8 @@ try {
     }
     echo "Registros antigos removidos com sucesso.\n\n";
 
-    $total = 1000;
-    $batch = 100; // Número de registros por lote
+    $total = 10000;
+    $batch = 1000; // Número de registros por lote
     $lotes = ceil($total / $batch);
 
     echo "Iniciando inserção de {$total} usuários...\n";
