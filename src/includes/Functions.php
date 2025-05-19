@@ -2,14 +2,24 @@
 
 // Função para sanitizar entrada
 function sanitizeInput($value) {
-    // Retorna imediatamente se for null ou não for string
-    if ($value === null || !is_string($value)) {
-        return $value;
+    // Se for nulo, retorna vazio
+    if ($value === null) {
+        return '';
+    }
+    
+    // Se for array, sanitiza recursivamente
+    if (is_array($value)) {
+        return array_map('sanitizeInput', $value);
+    }
+    
+    // Se não for string, converte
+    if (!is_string($value)) {
+        $value = (string)$value;
     }
     
     // Remove espaços extras e sanitiza
     $value = trim($value);
-    return !empty($value) ? htmlspecialchars($value || '', ENT_QUOTES, 'UTF-8') : $value;
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
 

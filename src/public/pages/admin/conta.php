@@ -6,7 +6,7 @@ try {
     if (empty($res)) {
         throw new Exception('Usuário não encontrado.');
     }
-    
+
     $user = $res[0];
 } catch (Exception $e) {
     $_SESSION['error'] = $e->getMessage();
