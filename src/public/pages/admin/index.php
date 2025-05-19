@@ -97,9 +97,13 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const adminModal = new bootstrap.Modal(document.getElementById('divModalAdmin'), { backdrop: 'static', keyboard: false });
+        window.adminModal = adminModal;
+    });
+
     function showModalAdmin(target, data = {} ) {
         const modalBody = document.getElementById('divModalAdminBody');
-        const adminModal = new bootstrap.Modal(document.getElementById('divModalAdmin'), { backdrop: 'static',keyboard: false } )
 
         switch (target) {
             case '/admin/sair':
@@ -131,7 +135,10 @@
     function getAjaxAdmin( url, data = {} ) {
         return fetch( url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
+            },
             body: JSON.stringify( data )
         } )
         .then( response => response.json() )
@@ -140,6 +147,7 @@
                 sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
                 window.location.reload();
             } else {
+                adminModal.hide();
                 showAlert(data.message, false);
             }
         })

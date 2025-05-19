@@ -8,6 +8,9 @@ $Debug = new Debug();
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
+// Log da requisição
+$Debug->write('Dados recebidos: ' . json_encode($_REQUEST), 'info');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSON_ERROR_NONE) {
     $Debug->write('JSON inválido recebido: ' . json_last_error_msg() . ' - Input: ' . $input, 'error');
     Response::error('JSON inválido', 400);
@@ -16,9 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSO
 // Validação de CSRF para requisições não-GET
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
-    if (!$token || $token !== $_SESSION[CSRF_TOKEN_NAME]) {
+
+    $Debug->write( 'Dados recebidos: ' . json_encode($_SERVER), 'token');
+    $Debug->write( "Token recebido: {$token}, Session Token: " . $_SESSION[CSRF_TOKEN_NAME], 'token');
+
+    if ( !$token || $token !== $_SESSION[CSRF_TOKEN_NAME] ) {
         $Debug->write('Token CSRF inválido - Token: ' . $token . ' - Esperado: ' . $_SESSION[CSRF_TOKEN_NAME], 'error_token');
-        // Response::error('Token CSRF inválido', 403);
+        Response::error('Token CSRF inválido', 403);
     }
 }
 
@@ -40,9 +47,6 @@ if ($_SESSION[$rateLimitKey]['count'] > 100) {
     $Debug->write('Rate limit excedido - IP: ' . $ip, 'warning');
     Response::error('Muitas requisições. Tente novamente em 1 minuto.', 429);
 }
-
-// Log da requisição
-// $Debug->write('Requisição recebida - Método: ' . $_SERVER['REQUEST_METHOD'] . ' - URI: ' . $_SERVER['REQUEST_URI'] . ' - IP: ' . $ip . ' - Usuário: ' . ($_SESSION['user']['email'] ?? 'não autenticado'), 'info');
 
 // Verifica o método da requisição
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' 

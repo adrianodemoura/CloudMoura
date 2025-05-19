@@ -58,7 +58,10 @@
 
         fetch('/api/login/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
+            },
             body: JSON.stringify({ email: email, password: password })
         })
         .then(response => {

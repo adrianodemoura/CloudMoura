@@ -43,7 +43,10 @@ function file(action, path) {
 function getAjax(path, action) {
     fetch('/api/files/' + action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
+        },
         body: JSON.stringify({ path: path, action: action })
     })
     .then(response => {

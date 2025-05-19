@@ -93,7 +93,7 @@
     </div>
 
     <!-- CSRF Token -->
-    <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $_SESSION[CSRF_TOKEN_NAME] ?>">
+    <input type="hidden" id="csrfTokenName" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $_SESSION[CSRF_TOKEN_NAME] ?>">
 </body>
 </html>
 <?php

@@ -9,7 +9,7 @@ class Debug {
 
 		$logFile = DIR_LOG . '/' . date('Y-m-d') . "_{$type}.log";
     	$timestamp = date('Y-m-d H:i:s') . '.' . substr(microtime(true), 11, 3);
-    	$logMessage = "[$timestamp] [$type] $message" . PHP_EOL;
+    	$logMessage = "[$timestamp] $message" . PHP_EOL;
 
 		try {
 			file_put_contents($logFile, $logMessage, FILE_APPEND);
