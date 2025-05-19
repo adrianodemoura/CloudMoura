@@ -27,11 +27,11 @@
             $output = '<div class="ms-' . ($level * 2) . ' small">';
             foreach ((array)$value as $k => $v) {
                 $output .= '<div class="mb-1">';
-                $output .= '<strong class="text-warning">' . htmlspecialchars($k) . ':</strong> ';
+                $output .= '<strong class="text-warning">' . sanitizeInput($k) . ':</strong> ';
                 if (is_array($v) || is_object($v)) {
                     $output .= formatDebugValue($v, $level + 1);
                 } else {
-                    $output .= '<span class="text-light">' . htmlspecialchars($v) . '</span>';
+                    $output .= '<span class="text-light">' . sanitizeInput($v) . '</span>';
                 }
                 $output .= '</div>';
             }

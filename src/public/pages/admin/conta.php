@@ -31,11 +31,11 @@ try {
         <form id="formAccount" method="post" action="/api/user/update">
             <div class="position-relative mb-3">
                 <i class="fas fa-user position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-                <input type="text" name="name" id="name" class="form-control ps-5" placeholder="Seu nome" value="<?= htmlspecialchars($user['name']) ?>" required>
+                <input type="text" name="name" id="name" class="form-control ps-5" placeholder="Seu nome" value="<?= sanitizeInput($user['name']) ?>" required>
             </div>
             <div class="position-relative mb-3">
                 <i class="fas fa-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-                <input type="email" name="email" id="email" class="form-control ps-5" placeholder="Seu e-mail" value="<?= htmlspecialchars($user['email']) ?>" required>
+                <input type="email" name="email" id="email" class="form-control ps-5" placeholder="Seu e-mail" value="<?= sanitizeInput($user['email']) ?>" required>
             </div>
             <div class="position-relative mb-3">
                 <i class="fas fa-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
@@ -46,7 +46,7 @@ try {
             </div>
             <div class="position-relative mb-3">
                 <i class="fas fa-phone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-                <input type="tel" name="phone" id="phone" class="form-control ps-5" placeholder="Seu celular (opcional)" value="<?= htmlspecialchars($user['phone']) ?>" data-inputmask="'mask': '(99) 99999-9999'">
+                <input type="tel" name="phone" id="phone" class="form-control ps-5" placeholder="Seu celular (opcional)" value="<?= sanitizeInput($user['phone']) ?>" data-inputmask="'mask': '(99) 99999-9999'">
             </div>
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-grow-1">

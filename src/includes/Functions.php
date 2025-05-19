@@ -9,7 +9,7 @@ function sanitizeInput($value) {
     
     // Remove espaços extras e sanitiza
     $value = trim($value);
-    return !empty($value) ? htmlspecialchars($value, ENT_QUOTES, 'UTF-8') : $value;
+    return !empty($value) ? htmlspecialchars($value || '', ENT_QUOTES, 'UTF-8') : $value;
 }
 
 
