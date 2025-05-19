@@ -3,7 +3,7 @@
 define('DIR_ROOT', dirname(__DIR__));
 
 // Carrega as configurações
-$config = json_decode(file_get_contents(DIR_ROOT . '/config.json'), true);
+$config = json_decode( file_get_contents( DIR_ROOT . '/config.json'), true);
 
 // Carrega o autoloader
 require_once DIR_ROOT . '/includes/Functions.php';
@@ -60,7 +60,6 @@ try {
 
     echo "\nInserção concluída com sucesso!\n";
     echo "Total de registros inseridos: {$total}\n";
-
 } catch (\Exception $e) {
     echo "Erro ao criar usuários: " . $e->getMessage() . PHP_EOL;
 }
