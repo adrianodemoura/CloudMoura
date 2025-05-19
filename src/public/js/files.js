@@ -236,11 +236,10 @@ function showModalUpload(action, path) {
                     // Obtém o caminho relativo do arquivo
                     const relativePath = file.webkitRelativePath || file.name;
                     const pathParts = relativePath.split('/');
-                    
-                    // Remove o nome do arquivo e o diretório raiz
+
+                    // Remove apenas o nome do arquivo
                     pathParts.pop(); // Remove o nome do arquivo
-                    pathParts.shift(); // Remove o diretório raiz
-                    
+
                     // Constrói o caminho do diretório
                     const subDirPath = pathParts.join('/');
                     const targetPath = path ? `${path}/${subDirPath}` : subDirPath;

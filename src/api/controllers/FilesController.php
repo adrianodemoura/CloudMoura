@@ -255,7 +255,6 @@ class FilesController extends Controller {
             $fullTargetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$targetDir}";
             $fileName = basename($path);
             $newPath = $fullTargetDir . "/" . $fileName;
-            $this->debug->write("Tentando mover {$fullDirFile} para {$newPath}", 'move_item');
 
             // Verifica se o diretório de destino existe
             if (!file_exists($fullTargetDir)) {
