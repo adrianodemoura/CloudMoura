@@ -8,9 +8,6 @@ $Debug = new Debug();
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-// Log da requisição
-$Debug->write('Dados recebidos: ' . json_encode($_REQUEST), 'info');
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSON_ERROR_NONE) {
     $Debug->write('JSON inválido recebido: ' . json_last_error_msg() . ' - Input: ' . $input, 'error');
     Response::error('JSON inválido', 400);
