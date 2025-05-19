@@ -295,9 +295,7 @@ function showModalUpload(action, path) {
                 
                 // Fecha o modal e recarrega a página
                 modal.hide();
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
+                setTimeout(() => { window.location.reload(); }, 500);
             } else {
                 // Upload de arquivo único
                 const file = files[0];
