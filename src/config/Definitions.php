@@ -31,7 +31,6 @@ define('APP_DESCRIPTION', 'Seu Armazanamento em Nuvem');
 // Configurações de upload
 define('MAX_FILE_SIZE', 5 * 1024 * 1024 * 1024); // 5GB em bytes
 define('ALLOWED_EXTENSIONS', ['mp4', 'srt'] ); // Apenas arquivos MP4 e SRT
-define('DIR_STATICS', ['filmes', 'séries'] );
 
 // Diretórios
 define('DIR_UPLOAD', DIR_ROOT . '/uploads');

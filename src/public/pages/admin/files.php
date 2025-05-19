@@ -5,9 +5,19 @@
 <link rel="stylesheet" href="/css/drag-drop.css">
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">
-            <i class="fas fa-film"></i> Meus Arquivos
-        </h5>
+        <div>
+            <h5 class="mb-0">
+                <i class="fas fa-folder"></i> Gerenciador de Arquivos
+            </h5>
+        </div>
+        <div>
+            <button class="btn btn-primary btn-sm" onclick="file('upload', '')" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                <i class="fas fa-upload"></i> Enviar Arquivo
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="file('createSubdirectory', '')" data-bs-toggle="modal" data-bs-target="#createSubDirModal">
+                <i class="fas fa-folder-plus"></i> Criar Subdiretório
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <div class="overflow-auto fs-7" style="max-height: 600px;">

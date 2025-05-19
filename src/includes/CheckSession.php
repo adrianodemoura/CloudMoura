@@ -32,16 +32,6 @@ if ( isset($_SESSION['user']) ) {
         mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775, true);
         chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}", 0775);
     }
-
-    if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes") ) {
-        mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 0775, true);
-        chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}/filmes", 0775);
-    }
-
-    if ( !file_exists(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series") ) {
-        mkdir(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 0775, true);
-        chmod(DIR_UPLOAD . "/{$_SESSION['user']['id']}/series", 0775);
-    }
 }
 
 // Verifica se o site está bloqueado
