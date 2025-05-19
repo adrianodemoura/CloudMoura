@@ -49,3 +49,9 @@ pre {
 .bg-danger-50 {
     background-color: #e6646e !important;
 }
+.bg-warning-50 {
+    background-color: #f6cd79 !important;
+}
+.bg-info-50 {
+    background-color: #70a3f5 !important;
+}

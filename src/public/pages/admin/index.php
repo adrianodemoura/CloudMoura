@@ -81,11 +81,11 @@
 <div id="divModalAdmin" class="modal fade" role="dialog" aria-labelledby="logoutModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div id="divModalAdminHeader" class="modal-header">
+            <div id="divModalAdminHeader" class="modal-header bg-primary text-white">
                 <h5 class="modal-title w-100 text-center" id="logoutModalLabel">Confirmar Saída</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div id="divModalAdminBody" class="modal-body">
+            <div id="divModalAdminBody" class="modal-body bg-info-50 text-white">
                 Você tem certeza que deseja sair?
             </div>
             <div id="divModalAdminFooter" class="modal-footer">
