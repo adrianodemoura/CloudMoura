@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSO
 // Sanitização de dados
 if ($data) {
     array_walk_recursive($data, function(&$value) {
-        if (is_string($value)) {
+        // Adiciona verificação para null antes de chamar htmlspecialchars
+        if (is_string($value) && $value !== null) {
             $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         }
     });
@@ -25,7 +26,7 @@ if ($data) {
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
     if (!$token || $token !== $_SESSION[CSRF_TOKEN_NAME]) {
-        $Debug->write('Token CSRF inválido - Token: ' . $token . ' - Esperado: ' . $_SESSION[CSRF_TOKEN_NAME], 'error');
+        // $Debug->write('Token CSRF inválido - Token: ' . $token . ' - Esperado: ' . $_SESSION[CSRF_TOKEN_NAME], 'error');
         // Response::error('Token CSRF inválido', 403);
     }
 }
@@ -35,17 +36,11 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $rateLimitKey = "rate_limit_{$ip}";
 
 if (!isset($_SESSION[$rateLimitKey])) {
-    $_SESSION[$rateLimitKey] = [
-        'count' => 0,
-        'reset' => time() + 60
-    ];
+    $_SESSION[$rateLimitKey] = [ 'count' => 0, 'reset' => time() + 60 ];
 }
 
 if ($_SESSION[$rateLimitKey]['reset'] < time()) {
-    $_SESSION[$rateLimitKey] = [
-        'count' => 0,
-        'reset' => time() + 60
-    ];
+    $_SESSION[$rateLimitKey] = [ 'count' => 0, 'reset' => time() + 60 ];
 }
 
 $_SESSION[$rateLimitKey]['count']++;
@@ -56,7 +51,7 @@ if ($_SESSION[$rateLimitKey]['count'] > 100) {
 }
 
 // Log da requisição
-$Debug->write('Requisição recebida - Método: ' . $_SERVER['REQUEST_METHOD'] . ' - URI: ' . $_SERVER['REQUEST_URI'] . ' - IP: ' . $ip . ' - Usuário: ' . ($_SESSION['user']['email'] ?? 'não autenticado'), 'info');
+// $Debug->write('Requisição recebida - Método: ' . $_SERVER['REQUEST_METHOD'] . ' - URI: ' . $_SERVER['REQUEST_URI'] . ' - IP: ' . $ip . ' - Usuário: ' . ($_SESSION['user']['email'] ?? 'não autenticado'), 'info');
 
 // Verifica o método da requisição
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' 

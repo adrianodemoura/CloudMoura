@@ -1,12 +1,12 @@
 <?php
 // Cria diretórios se não existirem
 if ( !file_exists(DIR_LOG) ) {
-    mkdir(DIR_LOG, 0777, true);
-    chmod(DIR_LOG, 0777);
+    mkdir(DIR_LOG, 0775, true);
+    chmod(DIR_LOG, 0775);
 }
 if ( !file_exists(DIR_UPLOAD) ) {
-    mkdir(DIR_UPLOAD, 0777, true);
-    chmod(DIR_UPLOAD, 0777);
+    mkdir(DIR_UPLOAD, 0775, true);
+    chmod(DIR_UPLOAD, 0775);
 }
 if ( !file_exists(DIR_DATA) ) {
     mkdir(DIR_DATA, 0775, true);
