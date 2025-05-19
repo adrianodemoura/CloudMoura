@@ -20,7 +20,9 @@
     <meta name="description" content="<?= APP_DESCRIPTION ?>">
     <meta name="author" content="CloudMoura">
     <meta name="theme-color" content="#0d6efd">
-    
+    <meta name="csrf-token" content="<?php echo $_SESSION[CSRF_TOKEN_NAME] ?? ''; ?>">
+    <meta name="robots" content="index, follow">
+
     <!-- Meta tags de segurança -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
@@ -91,9 +93,6 @@
             <?php if ( DEBUG ) require_once dirname(__DIR__) . "/public/pages/debug/index.php"; ?>
         </div>
     </div>
-
-    <!-- CSRF Token -->
-    <input type="hidden" id="csrfTokenName" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $_SESSION[CSRF_TOKEN_NAME] ?>">
 </body>
 </html>
 <?php

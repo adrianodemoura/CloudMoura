@@ -55,23 +55,16 @@
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-
+  
         fetch('/api/login/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
             body: JSON.stringify({ email: email, password: password })
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(data => {
-                    throw new Error(data.message || `HTTP error! status: ${response.status}`);
-                });
-            }
-            return response.json();
-        })
+        .then( response => response.json() )
         .then(data => {
             if (data.success) {
                 console.log( data );

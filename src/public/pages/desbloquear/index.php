@@ -63,17 +63,13 @@
 
         fetch('/api/user/desbloquear', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+            },
             body: JSON.stringify({ password: password })
         })
-        .then(response => {
-            if ( !response.ok ) {
-                return response.json().then(data => {
-                    throw new Error(data.message || `HTTP error! status: ${response.status}`);
-                } );
-            }
-            return response.json();
-        })
+        .then( response => response.json() )
         .then(data => {
             console.log( data );
             if (data.success) {

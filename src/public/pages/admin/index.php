@@ -137,7 +137,7 @@
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
             body: JSON.stringify( data )
         } )
