@@ -43,10 +43,11 @@ function file(action, path) {
 function getAjax(path, action) {
     fetch('/api/files/' + action, {
         method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'HTTP_X_CSRF_TOKEN': document.getElementById('csrfTokenName') ? document.getElementById('csrfTokenName').value : null
-        },
+        headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+            },
         body: JSON.stringify({ path: path, action: action })
     })
     .then(response => {
@@ -261,7 +262,11 @@ function showModalUpload(action, path) {
 
                     const response = await fetch('/api/files/upload', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                        },
                         body: JSON.stringify(data)
                     });
 
@@ -320,7 +325,11 @@ function showModalUpload(action, path) {
 
                 const response = await fetch('/api/files/upload', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                    },
                     body: JSON.stringify(data)
                 });
 

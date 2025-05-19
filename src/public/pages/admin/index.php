@@ -135,8 +135,9 @@
     function getAjaxAdmin( url, data = {} ) {
         return fetch( url, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
             body: JSON.stringify( data )

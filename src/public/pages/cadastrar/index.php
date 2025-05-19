@@ -74,8 +74,9 @@
 
         fetch('/api/user/create', {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
             body: JSON.stringify({ name: name, email: email, phone: phone, password: password })

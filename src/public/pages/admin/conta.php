@@ -1,10 +1,4 @@
 <?php
-// Verifica autenticação
-if (!isset($_SESSION['user'])) {
-    header('Location: /login');
-    exit;
-}
-
 try {
     $Db = new \CloudMoura\Includes\Db();
     $res = $Db->query("SELECT * FROM users WHERE email = :email", ['email' => $_SESSION['user']['email']]);
@@ -79,7 +73,11 @@ try {
 
         fetch('/api/user/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+            },
             body: JSON.stringify({ name, email, password, phone })
         })
         .then(response => {

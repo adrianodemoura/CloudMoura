@@ -62,22 +62,14 @@
         currentPage = page;
         fetch(`/api/user/getList`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
             body: JSON.stringify({ page: page, limit: itemsPerPage })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new TypeError("A resposta não é um JSON válido!");
-            }
-            return response.json();
-        })
+        .then( response => response.json() )
         .then(data => {
             const dataResponse = data.data;
             if (data.success === false) {
@@ -218,7 +210,11 @@
         if (email) {
             fetch('/api/user/activate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                },
                 body: JSON.stringify({ email: email })
             })
             .then(response => response.json())
@@ -248,7 +244,11 @@
         if (userEmailToDelete) {
             fetch('/api/user/delete', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                },
                 body: JSON.stringify({ email: userEmailToDelete })
             })
             .then(response => response.json())
