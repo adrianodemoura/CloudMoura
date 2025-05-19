@@ -12,16 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSO
     Response::error('JSON inválido', 400);
 }
 
-// Sanitização de dados
-if ($data) {
-    array_walk_recursive($data, function(&$value) {
-        // Adiciona verificação para null antes de chamar htmlspecialchars
-        if (is_string($value) && $value !== null) {
-            $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-        }
-    });
-}
-
 // Validação de CSRF para requisições não-GET
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;

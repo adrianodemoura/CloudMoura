@@ -1,11 +1,15 @@
 <?php
 
 // Função para sanitizar entrada
-function sanitizeInput($data) {
-    if (is_array($data)) {
-        return array_map('sanitizeInput', $data);
+function sanitizeInput($value) {
+    // Retorna imediatamente se for null ou não for string
+    if ($value === null || !is_string($value)) {
+        return $value;
     }
-    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+    
+    // Remove espaços extras e sanitiza
+    $value = trim($value);
+    return !empty($value) ? htmlspecialchars($value, ENT_QUOTES, 'UTF-8') : $value;
 }
 
 
