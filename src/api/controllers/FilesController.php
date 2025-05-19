@@ -194,23 +194,28 @@ class FilesController extends Controller {
             }
 
             $targetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$this->postData['path']}";
-
+            
             // Decodifica o arquivo base64
             $fileContent = base64_decode($file);
-            if ($fileContent === false) {
+            if ( $fileContent === false ) {
                 throw new \Exception('Erro ao decodificar o arquivo base64');
             }
 
             // Usa o nome do arquivo enviado ou gera um nome único
             $fileName = $fileName ?: uniqid() . '.mp4';
             $targetPath = $targetDir . "/" . $fileName;
-            
+            if ( !file_exists( $targetDir ) ) {
+                if ( !mkdir( $targetDir, 0775, true ) ) {
+                    throw new \Exception("Erro ao criar o diretório \"{$this->postData['path']}\"!");
+                }
+            }
+
             // Salva o arquivo
-            if (file_put_contents($targetPath, $fileContent) !== false) {
+            if ( file_put_contents($targetPath, $fileContent) !== false) {
                 return [ 'message' => "Arquivo \"{$this->postData['path']}/{$fileName}\" enviado com sucesso." ];
             }
-            
-            return [ 'message' => "Erro ao enviar o arquivo \"{$this->postData['path']}\"!" ];
+
+            throw new \Exception("Erro ao enviar o arquivo \"{$this->postData['path']}/{$fileName}\"!");
         } catch (\Exception $e) {
             $this->debug->write( $e->getMessage(), 'error_upload_file' );
             $this->lastError = $e->getMessage();
@@ -250,6 +255,7 @@ class FilesController extends Controller {
             $fullTargetDir = DIR_UPLOAD . "/{$_SESSION['user']['id']}/{$targetDir}";
             $fileName = basename($path);
             $newPath = $fullTargetDir . "/" . $fileName;
+            $this->debug->write("Tentando mover {$fullDirFile} para {$newPath}", 'move_item');
 
             // Verifica se o diretório de destino existe
             if (!file_exists($fullTargetDir)) {
