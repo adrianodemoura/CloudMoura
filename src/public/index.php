@@ -60,14 +60,14 @@
             <!-- Toast de Alerta -->
             <div id="divAlertToast" class="toast-container position-fixed top-0 start-50 w-50 translate-middle-x p-3 z-3 z-index-1">
                 <div id="alertToast" class="toast text-white w-100" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header text-white fs-2">
+                    <div class="toast-header fs-4">
                         <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                        <div class="w-100 text-center">
+                        <div class="w-100 text-center text-white">
                             <strong>Atenção</strong>
                         </div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Fechar"></button>
                     </div>
-                    <div class="toast-body text-white fs-5" id="alertMessage"></div>
+                    <div class="toast-body text-white fs-6" id="alertMessage"></div>
                 </div>
             </div>
         </div>

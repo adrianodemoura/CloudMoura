@@ -5,7 +5,7 @@
         </h5>
     </div>
     <div class="card-body"> 
-        <div id="usersTable" class="table-responsive" style="overflow-x: auto;">
+        <div id="usersTable" class="table-responsive" style="overflow-x: auto; min-height: 300px;">
             <table id="usersList" class="table table-bordered table-hover">
                 <thead class="sticky-top bg-white">
                     <tr>

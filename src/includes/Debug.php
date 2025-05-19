@@ -7,7 +7,7 @@ class Debug {
 
         if ( DEBUG === false ) { return; }
 
-		$logFile = DIR_LOG . '/' . date('Y-m-d') . "_debug.log";
+		$logFile = DIR_LOG . '/' . date('Y-m-d') . "_{$type}.log";
     	$timestamp = date('Y-m-d H:i:s') . '.' . substr(microtime(true), 11, 3);
     	$logMessage = "[$timestamp] [$type] $message" . PHP_EOL;
 

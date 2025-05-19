@@ -1,4 +1,5 @@
 <?php
+use CloudMoura\Api\Includes\Response;
 use CloudMoura\Includes\Debug;
 
 $Debug = new Debug();
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input && json_last_error() !== JSO
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
     if (!$token || $token !== $_SESSION[CSRF_TOKEN_NAME]) {
-        // $Debug->write('Token CSRF inválido - Token: ' . $token . ' - Esperado: ' . $_SESSION[CSRF_TOKEN_NAME], 'error');
+        $Debug->write('Token CSRF inválido - Token: ' . $token . ' - Esperado: ' . $_SESSION[CSRF_TOKEN_NAME], 'error_token');
         // Response::error('Token CSRF inválido', 403);
     }
 }

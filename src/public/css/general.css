@@ -42,3 +42,10 @@ pre {
 .z-index-1 {
     z-index: 1000 !important;
 }
+
+.bg-success-50 {
+    background-color: #77ab59 !important;
+}
+.bg-danger-50 {
+    background-color: #e6646e !important;
+}

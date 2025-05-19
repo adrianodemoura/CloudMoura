@@ -29,10 +29,10 @@ function showAlert(message, success = false) {
 
     // Adiciona classes de cor baseado no sucesso
     if (success) {
-        toast.classList.add('bg-success');
+        toast.classList.add('bg-success-50');
         toastHeader.classList.add('bg-success');
     } else {
-        toast.classList.add('bg-danger');
+        toast.classList.add('bg-danger-50');
         toastHeader.classList.add('bg-danger');
     }
     
