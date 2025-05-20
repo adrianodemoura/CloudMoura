@@ -1,6 +1,6 @@
 <?php
 
-namespace CloudMoura\Includes;
+namespace CloudMoura\Api\Includes;
 
 class Cache {
     private static array $cache = [];

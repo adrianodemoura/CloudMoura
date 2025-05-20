@@ -1,12 +1,11 @@
 <?php
 
-namespace CloudMoura\Includes;
+namespace CloudMoura\Api\Includes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class Email
-{
+class Email {
     private $mailer;
 
     public function __construct($host, $username, $password, $port = 587, $smtpSecure = 'tls')
