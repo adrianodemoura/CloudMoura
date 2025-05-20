@@ -1,0 +1,110 @@
+.
+├── docker
+│   ├── nginx
+│   │   └── nginx.conf
+│   └── php
+│       ├── Dockerfile
+│       ├── entrypoint.sh
+│       └── php.ini
+├── docker-compose-default.yml
+├── docker-compose.yml
+├── LICENSE
+├── README.md
+├── src
+│   ├── api
+│   │   ├── bootstrap.php
+│   │   ├── controllers
+│   │   │   ├── ActiveUserController.php
+│   │   │   ├── CadastrarController.php
+│   │   │   ├── ConfigurationsController.php
+│   │   │   ├── Controller.php
+│   │   │   ├── DeleteUserController.php
+│   │   │   ├── FilesController.php
+│   │   │   ├── LoginController.php
+│   │   │   ├── PainelController.php
+│   │   │   ├── SaveUserController.php
+│   │   │   └── UserController.php
+│   │   ├── includes
+│   │   │   └── Response.php
+│   │   └── index.php
+│   ├── config
+│   │   ├── Autoload.php
+│   │   ├── Database.php
+│   │   └── Definitions.php
+│   ├── config.json
+│   ├── data
+│   │   └── cloudmoura.sqlite
+│   ├── includes
+│   │   ├── Cache.php
+│   │   ├── CheckSession.php
+│   │   ├── Db.php
+│   │   ├── Debug.php
+│   │   ├── Files.php
+│   │   ├── Functions.php
+│   │   └── Logs.php
+│   ├── logs
+│   ├── public
+│   │   ├── bootstrap.php
+│   │   ├── css
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── bootstrap.min.css.map
+│   │   │   ├── drag-drop.css
+│   │   │   ├── font_awesome_free.all.min.css
+│   │   │   └── general.css
+│   │   ├── img
+│   │   │   ├── bg-header-001.png
+│   │   │   ├── favicon
+│   │   │   │   ├── icon.svg
+│   │   │   │   └── site.webmanifest
+│   │   │   ├── icone.xcf
+│   │   │   ├── icon.ico
+│   │   │   ├── icon.png
+│   │   │   ├── logo.png
+│   │   │   ├── logo.svg
+│   │   │   ├── screnshot_001.png
+│   │   │   └── screnshot_002.png
+│   │   ├── index.php
+│   │   ├── js
+│   │   │   ├── bootstrap.bundle.min.js
+│   │   │   ├── bootstrap.bundle.min.js.map
+│   │   │   ├── drag-drop.js
+│   │   │   ├── files.js
+│   │   │   ├── general.js
+│   │   │   └── inputmask.min.js
+│   │   ├── pages
+│   │   │   ├── admin
+│   │   │   │   ├── configuracoes.php
+│   │   │   │   ├── conta.php
+│   │   │   │   ├── files.php
+│   │   │   │   ├── index.php
+│   │   │   │   └── usuarios.php
+│   │   │   ├── cadastrar
+│   │   │   │   └── index.php
+│   │   │   ├── debug
+│   │   │   │   └── index.php
+│   │   │   ├── desbloquear
+│   │   │   │   └── index.php
+│   │   │   ├── login
+│   │   │   │   └── index.php
+│   │   │   ├── page_error
+│   │   │   │   └── index.php
+│   │   │   └── site_manutencao
+│   │   │       └── index.php
+│   │   ├── videos
+│   │   │   └── instalação-CloudMoura.gif
+│   │   └── webfonts
+│   │       ├── fa-brands-400.ttf
+│   │       ├── fa-brands-400.woff2
+│   │       ├── fa-regular-400.ttf
+│   │       ├── fa-regular-400.woff2
+│   │       ├── fa-solid-900.ttf
+│   │       ├── fa-solid-900.woff2
+│   │       ├── fa-v4compatibility.ttf
+│   │       └── fa-v4compatibility.woff2
+│   ├── scripts
+│   │   └── populaDb.php
+│   └── uploads
+│       └── 1
+└── tree.txt
+
+30 directories, 78 files
