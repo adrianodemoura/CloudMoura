@@ -31,3 +31,7 @@ Thumbs.db
 error_log
 docker-compose.yml
 src/config.json
+
+# certbot
+certbot/conf/
+
