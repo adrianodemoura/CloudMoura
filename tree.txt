@@ -1,110 +1,277 @@
 .
+├── certbot
+│   └── www
 ├── docker
-│   ├── nginx
-│   │   └── nginx.conf
-│   └── php
-│       ├── Dockerfile
-│       ├── entrypoint.sh
-│       └── php.ini
-├── docker-compose-default.yml
-├── docker-compose.yml
-├── LICENSE
-├── README.md
+│   ├── nginx
+│   └── php
 ├── src
-│   ├── api
-│   │   ├── bootstrap.php
-│   │   ├── controllers
-│   │   │   ├── ActiveUserController.php
-│   │   │   ├── CadastrarController.php
-│   │   │   ├── ConfigurationsController.php
-│   │   │   ├── Controller.php
-│   │   │   ├── DeleteUserController.php
-│   │   │   ├── FilesController.php
-│   │   │   ├── LoginController.php
-│   │   │   ├── PainelController.php
-│   │   │   ├── SaveUserController.php
-│   │   │   └── UserController.php
-│   │   ├── includes
-│   │   │   └── Response.php
-│   │   └── index.php
-│   ├── config
-│   │   ├── Autoload.php
-│   │   ├── Database.php
-│   │   └── Definitions.php
-│   ├── config.json
-│   ├── data
-│   │   └── cloudmoura.sqlite
-│   ├── includes
-│   │   ├── Cache.php
-│   │   ├── CheckSession.php
-│   │   ├── Db.php
-│   │   ├── Debug.php
-│   │   ├── Files.php
-│   │   ├── Functions.php
-│   │   └── Logs.php
-│   ├── logs
-│   ├── public
-│   │   ├── bootstrap.php
-│   │   ├── css
-│   │   │   ├── bootstrap.min.css
-│   │   │   ├── bootstrap.min.css.map
-│   │   │   ├── drag-drop.css
-│   │   │   ├── font_awesome_free.all.min.css
-│   │   │   └── general.css
-│   │   ├── img
-│   │   │   ├── bg-header-001.png
-│   │   │   ├── favicon
-│   │   │   │   ├── icon.svg
-│   │   │   │   └── site.webmanifest
-│   │   │   ├── icone.xcf
-│   │   │   ├── icon.ico
-│   │   │   ├── icon.png
-│   │   │   ├── logo.png
-│   │   │   ├── logo.svg
-│   │   │   ├── screnshot_001.png
-│   │   │   └── screnshot_002.png
-│   │   ├── index.php
-│   │   ├── js
-│   │   │   ├── bootstrap.bundle.min.js
-│   │   │   ├── bootstrap.bundle.min.js.map
-│   │   │   ├── drag-drop.js
-│   │   │   ├── files.js
-│   │   │   ├── general.js
-│   │   │   └── inputmask.min.js
-│   │   ├── pages
-│   │   │   ├── admin
-│   │   │   │   ├── configuracoes.php
-│   │   │   │   ├── conta.php
-│   │   │   │   ├── files.php
-│   │   │   │   ├── index.php
-│   │   │   │   └── usuarios.php
-│   │   │   ├── cadastrar
-│   │   │   │   └── index.php
-│   │   │   ├── debug
-│   │   │   │   └── index.php
-│   │   │   ├── desbloquear
-│   │   │   │   └── index.php
-│   │   │   ├── login
-│   │   │   │   └── index.php
-│   │   │   ├── page_error
-│   │   │   │   └── index.php
-│   │   │   └── site_manutencao
-│   │   │       └── index.php
-│   │   ├── videos
-│   │   │   └── instalação-CloudMoura.gif
-│   │   └── webfonts
-│   │       ├── fa-brands-400.ttf
-│   │       ├── fa-brands-400.woff2
-│   │       ├── fa-regular-400.ttf
-│   │       ├── fa-regular-400.woff2
-│   │       ├── fa-solid-900.ttf
-│   │       ├── fa-solid-900.woff2
-│   │       ├── fa-v4compatibility.ttf
-│   │       └── fa-v4compatibility.woff2
-│   ├── scripts
-│   │   └── populaDb.php
-│   └── uploads
-│       └── 1
-└── tree.txt
+│   ├── api
+│   │   ├── controllers
+│   │   └── includes
+│   ├── config
+│   ├── data
+│   ├── includes
+│   ├── logs
+│   ├── public
+│   │   ├── css
+│   │   ├── img
+│   │   │   └── favicon
+│   │   ├── js
+│   │   ├── pages
+│   │   │   ├── admin
+│   │   │   ├── cadastrar
+│   │   │   ├── debug
+│   │   │   ├── desbloquear
+│   │   │   ├── login
+│   │   │   ├── page_error
+│   │   │   └── site_manutencao
+│   │   ├── videos
+│   │   └── webfonts
+│   ├── scripts
+│   ├── tests
+│   │   └── Fixtures
+│   └── uploads
+│       └── 1
+└── vendor
+    ├── bin
+    ├── composer
+    ├── myclabs
+    │   └── deep-copy
+    │       └── src
+    │           └── DeepCopy
+    │               ├── Exception
+    │               ├── Filter
+    │               │   └── Doctrine
+    │               ├── Matcher
+    │               │   └── Doctrine
+    │               ├── Reflection
+    │               ├── TypeFilter
+    │               │   ├── Date
+    │               │   └── Spl
+    │               └── TypeMatcher
+    ├── nikic
+    │   └── php-parser
+    │       ├── bin
+    │       └── lib
+    │           └── PhpParser
+    │               ├── Builder
+    │               ├── Comment
+    │               ├── ErrorHandler
+    │               ├── Internal
+    │               ├── Lexer
+    │               │   └── TokenEmulator
+    │               ├── Node
+    │               │   ├── Expr
+    │               │   │   ├── AssignOp
+    │               │   │   ├── BinaryOp
+    │               │   │   └── Cast
+    │               │   ├── Name
+    │               │   ├── Scalar
+    │               │   │   └── MagicConst
+    │               │   └── Stmt
+    │               │       └── TraitUseAdaptation
+    │               ├── NodeVisitor
+    │               ├── Parser
+    │               └── PrettyPrinter
+    ├── phar-io
+    │   ├── manifest
+    │   │   ├── src
+    │   │   │   ├── exceptions
+    │   │   │   ├── values
+    │   │   │   └── xml
+    │   │   └── tools
+    │   │       └── php-cs-fixer.d
+    │   └── version
+    │       └── src
+    │           ├── constraints
+    │           └── exceptions
+    ├── phpunit
+    │   ├── php-code-coverage
+    │   │   └── src
+    │   │       ├── Data
+    │   │       ├── Driver
+    │   │       ├── Exception
+    │   │       ├── Node
+    │   │       ├── Report
+    │   │       │   ├── Html
+    │   │       │   │   └── Renderer
+    │   │       │   │       └── Template
+    │   │       │   │           ├── css
+    │   │       │   │           ├── icons
+    │   │       │   │           └── js
+    │   │       │   └── Xml
+    │   │       ├── StaticAnalysis
+    │   │       ├── TestSize
+    │   │       ├── TestStatus
+    │   │       └── Util
+    │   ├── php-file-iterator
+    │   │   └── src
+    │   ├── php-invoker
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── php-text-template
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── php-timer
+    │   │   └── src
+    │   │       └── exceptions
+    │   └── phpunit
+    │       ├── schema
+    │       └── src
+    │           ├── Event
+    │           │   ├── Dispatcher
+    │           │   ├── Emitter
+    │           │   ├── Events
+    │           │   │   ├── Application
+    │           │   │   ├── Test
+    │           │   │   │   ├── Assertion
+    │           │   │   │   ├── HookMethod
+    │           │   │   │   ├── Issue
+    │           │   │   │   ├── Lifecycle
+    │           │   │   │   ├── Outcome
+    │           │   │   │   └── TestDouble
+    │           │   │   ├── TestRunner
+    │           │   │   └── TestSuite
+    │           │   ├── Exception
+    │           │   └── Value
+    │           │       ├── Runtime
+    │           │       ├── Telemetry
+    │           │       ├── Test
+    │           │       │   └── TestData
+    │           │       └── TestSuite
+    │           ├── Framework
+    │           │   ├── Assert
+    │           │   ├── Attributes
+    │           │   ├── Constraint
+    │           │   │   ├── Boolean
+    │           │   │   ├── Cardinality
+    │           │   │   ├── Equality
+    │           │   │   ├── Exception
+    │           │   │   ├── Filesystem
+    │           │   │   ├── Math
+    │           │   │   ├── Object
+    │           │   │   ├── Operator
+    │           │   │   ├── String
+    │           │   │   ├── Traversable
+    │           │   │   └── Type
+    │           │   ├── Exception
+    │           │   │   ├── Incomplete
+    │           │   │   ├── ObjectEquals
+    │           │   │   └── Skipped
+    │           │   ├── MockObject
+    │           │   │   ├── Exception
+    │           │   │   ├── Generator
+    │           │   │   │   ├── Exception
+    │           │   │   │   └── templates
+    │           │   │   └── Runtime
+    │           │   │       ├── Api
+    │           │   │       ├── Builder
+    │           │   │       ├── Interface
+    │           │   │       ├── Rule
+    │           │   │       └── Stub
+    │           │   ├── TestSize
+    │           │   └── TestStatus
+    │           ├── Logging
+    │           │   ├── JUnit
+    │           │   │   └── Subscriber
+    │           │   ├── TeamCity
+    │           │   │   └── Subscriber
+    │           │   └── TestDox
+    │           │       └── TestResult
+    │           │           └── Subscriber
+    │           ├── Metadata
+    │           │   ├── Api
+    │           │   ├── Exception
+    │           │   ├── Parser
+    │           │   │   └── Annotation
+    │           │   └── Version
+    │           ├── Runner
+    │           │   ├── Baseline
+    │           │   │   ├── Exception
+    │           │   │   └── Subscriber
+    │           │   ├── Exception
+    │           │   ├── Extension
+    │           │   ├── Filter
+    │           │   ├── GarbageCollection
+    │           │   │   └── Subscriber
+    │           │   ├── ResultCache
+    │           │   │   └── Subscriber
+    │           │   └── TestResult
+    │           │       └── Subscriber
+    │           ├── TextUI
+    │           │   ├── Command
+    │           │   │   └── Commands
+    │           │   ├── Configuration
+    │           │   │   ├── Cli
+    │           │   │   ├── Exception
+    │           │   │   ├── Value
+    │           │   │   └── Xml
+    │           │   │       ├── CodeCoverage
+    │           │   │       │   └── Report
+    │           │   │       ├── Logging
+    │           │   │       │   └── TestDox
+    │           │   │       ├── Migration
+    │           │   │       │   └── Migrations
+    │           │   │       ├── SchemaDetector
+    │           │   │       └── Validator
+    │           │   ├── Exception
+    │           │   └── Output
+    │           │       ├── Default
+    │           │       │   └── ProgressPrinter
+    │           │       │       └── Subscriber
+    │           │       ├── Printer
+    │           │       └── TestDox
+    │           └── Util
+    │               ├── Exception
+    │               ├── Http
+    │               ├── PHP
+    │               │   └── Template
+    │               └── Xml
+    ├── sebastian
+    │   ├── cli-parser
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── code-unit
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── code-unit-reverse-lookup
+    │   │   └── src
+    │   ├── comparator
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── complexity
+    │   │   └── src
+    │   │       ├── Complexity
+    │   │       ├── Exception
+    │   │       └── Visitor
+    │   ├── diff
+    │   │   └── src
+    │   │       ├── Exception
+    │   │       └── Output
+    │   ├── environment
+    │   │   └── src
+    │   ├── exporter
+    │   │   └── src
+    │   ├── global-state
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── lines-of-code
+    │   │   └── src
+    │   │       └── Exception
+    │   ├── object-enumerator
+    │   │   └── src
+    │   ├── object-reflector
+    │   │   └── src
+    │   ├── recursion-context
+    │   │   └── src
+    │   ├── type
+    │   │   └── src
+    │   │       ├── exception
+    │   │       └── type
+    │   └── version
+    │       └── src
+    └── theseer
+        └── tokenizer
+            └── src
 
-30 directories, 78 files
+275 directories
