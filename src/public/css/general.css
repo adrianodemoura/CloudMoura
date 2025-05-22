@@ -43,6 +43,9 @@ pre {
     z-index: 10000 !important;
 }
 
+.bg-primary-50 {
+    background-color:#5796fc !important;
+}
 .bg-success-50 {
     background-color: #77ab59 !important;
 }

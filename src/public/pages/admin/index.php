@@ -81,12 +81,13 @@
 <div id="divModalAdmin" class="modal fade" role="dialog" aria-labelledby="logoutModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div id="divModalAdminHeader" class="modal-header bg-primary text-white">
-                <h5 class="modal-title w-100 text-center" id="logoutModalLabel">Confirmar Saída</h5>
+            <div id="divModalAdminHeader" class="modal-header bg-info-50 text-white">
+                <i class="fa-solid text-white fa-triangle-exclamation me-2"></i>
+                <h5 class="modal-title w-100 text-center" id="titleModalAdmin">Confirmar Saída</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div id="divModalAdminBody" class="modal-body bg-info-50 text-white">
-                Você tem certeza que deseja sair?
+            <div id="divModalAdminBody" class="modal-body">
+                -
             </div>
             <div id="divModalAdminFooter" class="modal-footer">
                 <button id="btnAdminCanel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -104,22 +105,26 @@
 
     function showModalAdmin(target, data = {} ) {
         const modalBody = document.getElementById('divModalAdminBody');
+        const titleBody = document.getElementById('titleModalAdmin');
 
         switch (target) {
             case '/admin/sair':
                 modalBody.textContent = 'Você tem certeza que deseja sair?';
+                titleBody.textContent = 'Confirmar Saída'; 
                 document.getElementById('btnAdminConfirm').onclick = function() {
                     window.location.href = target;
                 }
                 break;
             case '/api/configurations/toggleblocksite':
                 modalBody.textContent = 'Você tem certeza que deseja Bloquear/Desbloquear o site?';
+                titleBody.textContent = 'Bloquear/Desbloquear Site';
                 document.getElementById('btnAdminConfirm').onclick = function() {
                     getAjaxAdmin( target, data );
                 }
                 break;
             case '/api/configurations/toggledebug':
                 modalBody.textContent = 'Você tem certeza que deseja Ativar/Desativar o modo de depuração?';
+                titleBody.textContent = 'Ativar/Desativar Depuração';
                 document.getElementById('btnAdminConfirm').onclick = function() {
                     getAjaxAdmin( target, data );
                 }
