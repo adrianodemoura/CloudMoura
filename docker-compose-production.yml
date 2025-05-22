@@ -3,7 +3,7 @@ services:
     image: php:8.1-fpm
     container_name: cloudmoura-php
     restart: always
-    user: "1000:1000"
+    user: "1001:1001"
     volumes:
       - ./src:/var/www/html
       - ./.infra/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
