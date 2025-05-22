@@ -49,6 +49,7 @@
                         Aqui você pode bloquear ou desbloquear o acesso ao sistema. Útil para manutenções.<br /><br />Quando bloqueado apenas os usuparios com perfil <strong>"admin"</strong> podem acessar o site.
                     </td>
                 </tr>
+
             </tbody>
         </table>
     </div>
