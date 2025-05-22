@@ -14,8 +14,8 @@ services:
     image: nginx:alpine
     container_name: cloudmoura-nginx
     restart: always
-    ports:
-      - "80:80"
+    expose:
+      - "80"
     volumes:
       - ./src:/var/www/html
       - ./.infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
