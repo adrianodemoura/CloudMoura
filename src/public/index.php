@@ -69,7 +69,7 @@
                         </div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Fechar"></button>
                     </div>
-                    <div class="toast-body fs-6 text-center" id="alertMessage"></div>
+                    <div class="toast-body bg-white fs-6 text-center" id="alertMessage"></div>
                 </div>
             </div>
         </div>
