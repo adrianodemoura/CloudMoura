@@ -37,12 +37,17 @@ class UserController extends Controller {
             'password' => password_hash($this->postData['password'], PASSWORD_DEFAULT)
         ]);
 
-        if (!empty($this->Db->getLastError())) {
+        if ( !empty($this->Db->getLastError()) ) {
             throw new \Exception( 'Erro ao tentar INSERIR cadastro!', 500);
         }
 
-        // aqui eu precios enviar um e-mail de boas vindas
-        $this->Email->send( $this->postData[ 'email' ], 'Bem-vindo ao nosso site!', 'Seu cadastro foi realizado com sucesso!' );
+        // aqui eu precios enviar um e-mail de boas vindas,
+        //  não impede a criação do usuário.
+        $this->Email->send( 
+            $this->postData[ 'email' ],
+            'Cadastro realizado com sucesso!',
+            '<h1>Olá ' . $this->postData[ 'name' ] . ',</h1><p>Seu cadastro foi realizado com sucesso!</p><p>Agora você já pode acessar o sistema.</p>'
+        );
 
         return [
             'message' => 'Cadastro executado com sucesso.',
