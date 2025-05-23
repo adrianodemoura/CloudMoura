@@ -1,3 +1,5 @@
+let contentLoading = { "id": "", "content": "" };
+
 function showAlert(message, success = false) {
     // Verifica se o Bootstrap está carregado
     if (typeof bootstrap === 'undefined') {
@@ -57,5 +59,32 @@ function initToast() {
     }
 }
 
+function showLoading( idElement ) {
+    const loading = document.getElementById( idElement );
+    contentLoading.id = idElement;
+    contentLoading.content = loading.innerHTML; 
+    loading.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+    const buttons = document.querySelectorAll('#formRegister button');
+    buttons.forEach(button => {
+        button.setAttribute('disabled', 'disabled');
+        button.classList.add('disabled');
+    });
+}
+
+function hideLoading() {
+    const loading = document.getElementById( contentLoading.id );
+    if (loading) {
+        loading.innerHTML = contentLoading.content;
+    }
+
+    const buttons = document.querySelectorAll('#formRegister button');
+    buttons.forEach(button => {
+        button.removeAttribute('disabled');
+        button.classList.remove('disabled');
+    });
+}
+
 // Tenta novamente quando a página estiver completamente carregada
-window.addEventListener('load', initToast);
+window.addEventListener('load', initToast );
+window.addEventListener('load', hideLoading );

@@ -5,7 +5,7 @@
                 <a href="/" class="me-3">
                     <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
                 </a>
-                <div class="text-end flex-grow-1">
+                <div id="divTitle" class="text-end flex-grow-1">
                     <i class="fas fa-user-plus fa-1x text-secondary mb-3"></i>
                     <span class="mb-0">Cadastro</span>
                 </div>
@@ -73,6 +73,13 @@
         const password = document.getElementById('password').value;
         const activeCode = Math.floor(100000 + Math.random() * 900000);
 
+        const buttons = this.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.setAttribute('disabled', 'disabled');
+            button.classList.add('disabled');
+        });
+
+        showLoading( 'divTitle' );
         fetch('/api/user/create', {
             method: 'POST',
             headers: {
@@ -84,10 +91,9 @@
         })
         .then( response => response.json() )
         .then(data => {
-            console.log( data );
             if (data.success) {
                 sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
-                window.location.reload();
+                setTimeout(() => { window.location.href = '/login'; }, 1500);
             } else {
                 showAlert(data.message || 'Erro ao fazer cadastro');
             }

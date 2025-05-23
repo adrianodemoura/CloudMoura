@@ -77,13 +77,8 @@
         <footer id="divFooter" class="mt-4 pt-3 border-top bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 text-center text-md-start">
+                    <div class="col-12 text-center text-md-start">
                         <p class="text-muted mb-0">&copy; <?= date('Y') ?> CloudMoura. Todos os direitos reservados.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <p class="text-muted mb-0">
-                            &nbsp;
-                        </p>
                     </div>
                 </div>
             </div>

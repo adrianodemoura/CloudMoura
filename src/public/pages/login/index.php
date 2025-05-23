@@ -5,7 +5,7 @@
                 <a href="/" class="me-3">
                     <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
                 </a>
-                <div class="text-end flex-grow-1">
+                <div id="divTitle" class="text-end flex-grow-1">
                     <i class="fas fa-right-to-bracket fa-1x text-primary mb-3"></i>
                     <span class="mb-0">Login</span>
                 </div>
@@ -54,6 +54,7 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
+        showLoading( 'divTitle' );
         fetch('/api/login/login', {
             method: 'POST',
             headers: {
@@ -80,6 +81,7 @@
                 }
                 showAlert(data.message || 'Erro ao fazer login');
             }
+            hideLoading();
         })
         .catch(error => {
             showAlert(error.message || 'Erro ao fazer login. Tente novamente.');
