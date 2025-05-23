@@ -26,7 +26,7 @@ define('DIR_ROOT', dirname(__DIR__) );
 // Inclui arquivos necessários
 require_once DIR_ROOT . "/Includes/Functions.php";
 require_once DIR_ROOT . "/Config/Definitions.php";
-require_once DIR_ROOT . "/Config/Autoload.php";
+require_once DIR_ROOT . '/vendor/autoload.php';
 
 // Gera token CSRF se não existir
 if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
