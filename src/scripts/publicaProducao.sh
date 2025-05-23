@@ -1,7 +1,9 @@
 #!/bin/bash
+
 ssh -p 2225 ubuntu@cm.deskfacil.com "
     cd ~/CloudMoura ; 
     git pull ;
+    cp docker-compose-production.yml docker-compose.yml ;
     docker-compose down -v ;
     docker-compose build ;
     docker-compose up -d ;

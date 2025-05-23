@@ -1,8 +1,6 @@
 <?php
 namespace CloudMoura\Api\Controllers;
 
-require_once DIR_ROOT . '/vendor/autoload.php';
-
 use CloudMoura\Api\Controllers\Controller;
 use CloudMoura\Api\Includes\Email;
 use CloudMoura\Includes\Db;
