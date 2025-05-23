@@ -24,9 +24,9 @@ header('Pragma: no-cache');
 define('DIR_ROOT', dirname(__DIR__) );
 
 // Inclui arquivos necessários
-require_once DIR_ROOT . "/includes/Functions.php";
-require_once DIR_ROOT . "/config/Definitions.php";
-require_once DIR_ROOT . "/config/Autoload.php";
+require_once DIR_ROOT . "/Includes/Functions.php";
+require_once DIR_ROOT . "/Config/Definitions.php";
+require_once DIR_ROOT . "/Config/Autoload.php";
 
 // Gera token CSRF se não existir
 if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
@@ -34,13 +34,13 @@ if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
 }
 
 // Verifica se é uma requisição para a API
-if (strpos($uri, '/api/') !== false) {
-    require_once DIR_ROOT . "/api/index.php";
+if (strpos($uri, "/api/") !== false) {
+    require_once DIR_ROOT . "/Api/index.php";
     exit;
 }
 
 // Verifica se o usuário está logado
-require_once DIR_ROOT . "/includes/CheckSession.php";
+require_once DIR_ROOT . "/Includes/CheckSession.php";
 
 // Registra o handler de erros
 set_error_handler('handleError');
