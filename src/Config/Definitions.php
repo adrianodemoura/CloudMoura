@@ -33,7 +33,7 @@ define('MAX_FILE_SIZE', 5 * 1024 * 1024 * 1024); // 5GB em bytes
 define('ALLOWED_EXTENSIONS', ['mp4', 'srt'] ); // Apenas arquivos MP4 e SRT
 
 // Diretórios
+define('DIR_API', DIR_ROOT . '/Api');
 define('DIR_UPLOAD', DIR_ROOT . '/storage/uploads');
 define('DIR_DATA', DIR_ROOT . '/storage/data');
 define('DIR_LOG', DIR_ROOT . '/storage/logs');
-define('DIR_API', DIR_ROOT . '/storage/Api');

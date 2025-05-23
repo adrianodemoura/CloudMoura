@@ -3,9 +3,7 @@
 .env.*
 
 # Diretórios
-src/uploads/
-src/data/
-src/logs/
+src/storage/
 
 # Dependências
 /vendor/
