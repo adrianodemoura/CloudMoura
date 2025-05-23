@@ -4,20 +4,23 @@ namespace CloudMoura\Api\Includes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use CloudMoura\Config\Mail;
 
 class Email {
     private $mailer;
 
-    public function __construct($host, $username, $password, $port = 587, $smtpSecure = 'tls')
+    public function __construct()
     {
+        $config = Mail::getConfig();
+
         $this->mailer = new PHPMailer(true);
         $this->mailer->isSMTP();
-        $this->mailer->Host = $host;
+        $this->mailer->Host = $config['host'];
         $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = $username;
-        $this->mailer->Password = $password;
-        $this->mailer->SMTPSecure = $smtpSecure;
-        $this->mailer->Port = $port;
+        $this->mailer->Username = $config['username'];
+        $this->mailer->Password = $config['password'];
+        $this->mailer->SMTPSecure = $config['smtp_secure'];
+        $this->mailer->Port = $config['port'];
         $this->mailer->CharSet = 'UTF-8';
     }
 

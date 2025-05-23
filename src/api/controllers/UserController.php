@@ -1,16 +1,20 @@
 <?php
-
 namespace CloudMoura\Api\Controllers;
 
+require_once DIR_ROOT . '/vendor/autoload.php';
+
 use CloudMoura\Api\Controllers\Controller;
+use CloudMoura\Api\Includes\Email;
 use CloudMoura\Includes\Db;
 
 class UserController extends Controller {
     private Db $Db;
+    private Email $Email;
 
-    public function __construct() {
+    public function __construct() { 
         parent::__construct();
         $this->Db = new Db();
+        $this->Email = new Email();
     }
 
     public function create() : array | \Exception {
@@ -38,6 +42,9 @@ class UserController extends Controller {
         if (!empty($this->Db->getLastError())) {
             throw new \Exception( 'Erro ao tentar INSERIR cadastro!', 500);
         }
+
+        // aqui eu precios enviar um e-mail de boas vindas
+        $this->Email->send( $this->postData[ 'email' ], 'Bem-vindo ao nosso site!', 'Seu cadastro foi realizado com sucesso!' );
 
         return [
             'message' => 'Cadastro executado com sucesso.',
