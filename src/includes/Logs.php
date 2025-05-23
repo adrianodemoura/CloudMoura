@@ -9,12 +9,6 @@ class Logs {
     	$logMessage = "[$timestamp] [$type] $message" . PHP_EOL;
 
 		try {
-			if ( !file_exists( DIR_LOG ) ) {
-				mkdir(DIR_LOG, 0775, true);
-				chmod(DIR_LOG, 0775);
-				chown(DIR_LOG, 'www-data');
-				chgrp(DIR_LOG, 'www-data');
-			}
 			file_put_contents($logFile, $logMessage, FILE_APPEND);
 		} catch (\Throwable $th) {
 			echo "Erro ao criar diretório de logs: " . $th->getMessage();

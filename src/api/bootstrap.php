@@ -4,6 +4,20 @@ use CloudMoura\Includes\Logs;
 
 $Logs = new Logs();
 
+// Handler para erros e exceções
+set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+    $Logs = new Logs();
+    $Logs->write("PHP Error [$errno]: $errstr em $errfile:$errline", 'error');
+    Response::error("Erro interno do servidor", 500);
+});
+
+set_exception_handler(function ($exception) {
+    $Logs = new Logs();
+    $Logs->write("Uncaught Exception: " . $exception->getMessage() . " em " . $exception->getFile() . ":" . $exception->getLine(), 'error');
+    Response::error("Erro interno do servidor", 500);
+    exit;
+});
+
 // Validação de entrada
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
