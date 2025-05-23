@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-3">&nbsp;</div>
-        <div class="col-6 rounded shadow shadow p-4">
+        <div class="rounded shadow shadow p-4 col-12 col-md-6 offset-md-3 mt-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <a href="/" class="me-3">
                     <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
@@ -34,7 +33,6 @@
                 </div>
             </form>
         </div>
-        <div class="col-3">&nbsp;</div>
     </div>
 </div>
 
