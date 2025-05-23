@@ -105,9 +105,20 @@
     </div>
 </div>
 
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script>
     let currentPath = '<?= isset($_GET['path']) ? $_GET['path'] : '' ?>';
     const allowedExtensions = <?= json_encode(ALLOWED_EXTENSIONS) ?>;
+
+    document.addEventListener('hidden.bs.modal', function () {
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style = '';
+    });
+
+    // Só use bootstrap.Modal depois que o JS do Bootstrap foi carregado!
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('uploadModal'));
+    modal.hide();
 </script>
 <script src="/js/files.js"></script>
 <script src="/js/drag-drop.js"></script>
