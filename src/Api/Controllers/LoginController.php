@@ -30,6 +30,11 @@ class LoginController extends Controller {
                 throw new \Exception( 'Usuário ou senha inválidos!', 401 );
             }
 
+            if ( $res[0]['active'] === 0 && empty( $this->postData['code_activation'] ) ) {
+                $this->Logs->debug("Usuário não ativado: " . $this->postData['email'], "login");
+                throw new \Exception( 'Usuário não ativado!', 402 );
+            }
+
             // Verifica se o usuário está ativo
             if ( $res[0]['active'] === 0 ) {
                 $this->Logs->debug("Usuário desativado: " . $this->postData['email'], "login");

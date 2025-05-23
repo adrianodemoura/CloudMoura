@@ -69,6 +69,7 @@ class Db {
                 name TEXT,
                 phone TEXT,
                 password TEXT NOT NULL,
+                code_activation TEXT,
                 active INTEGER DEFAULT 1,
                 role TEXT DEFAULT 'user',
                 last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

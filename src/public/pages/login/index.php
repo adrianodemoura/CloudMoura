@@ -53,7 +53,7 @@
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-  
+
         fetch('/api/login/login', {
             method: 'POST',
             headers: {
@@ -63,19 +63,25 @@
             },
             body: JSON.stringify({ email: email, password: password })
         })
-        .then( response => response.json() )
+        .then(async response => {
+            const data = await response.json();
+            data.status = response.status; // Adiciona o status ao objeto data
+            return data;
+        })
         .then(data => {
             if (data.success) {
-                console.log( data );
-                sessionStorage.setItem( 'user', JSON.stringify(data.user) );
-                sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
+                sessionStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('message', JSON.stringify({ message: data?.message, success: data?.success }));
                 window.location.href = '/';
             } else {
+                if ( data.status === 402 ) {
+                    showAlert('Usuário necessitando de ativação!');
+                    document.location.href = '/ativar'
+                }
                 showAlert(data.message || 'Erro ao fazer login');
             }
         })
         .catch(error => {
-            console.log(error);
             showAlert(error.message || 'Erro ao fazer login. Tente novamente.');
         });
     });

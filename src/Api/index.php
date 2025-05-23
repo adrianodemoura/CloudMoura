@@ -53,6 +53,6 @@ try {
     Response::success($result);
 
 } catch (Exception $e) {
-    $Logs->debug( $e->getCode() . " - " . $e->getMessage(), 'error' );
+    $Logs->write( $e->getCode() . " - " . $e->getMessage(), 'error' );
     Response::error($e->getMessage(), $e->getCode() ?? 500);
 }

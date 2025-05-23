@@ -71,6 +71,7 @@
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
+        const activeCode = Math.floor(100000 + Math.random() * 900000);
 
         fetch('/api/user/create', {
             method: 'POST',
@@ -79,7 +80,7 @@
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
-            body: JSON.stringify({ name: name, email: email, phone: phone, password: password })
+            body: JSON.stringify({ name: name, email: email, phone: phone, password: password, code_activation: activeCode })
         })
         .then( response => response.json() )
         .then(data => {

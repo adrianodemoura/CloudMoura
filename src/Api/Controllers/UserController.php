@@ -16,7 +16,8 @@ class UserController extends Controller {
     }
 
     public function create() : array | \Exception {
-        
+        $codeActivation = $this->postData[ 'code_activation' ] ?? null;
+
         if (!isset($this->postData['email']) || !isset($this->postData['password'])) {
             throw new \Exception( 'Email e senha são obrigatórios para um novo cadastro.', 400 );
         }
@@ -29,25 +30,54 @@ class UserController extends Controller {
         if ( ! empty( $res ) ) {
             throw new \Exception( 'O e-mail "' . $this->postData[ 'email' ] . '" já foi cadastrado!', 400);
         }
+        $this->postData[ 'active' ] = 1;
+        if ( !empty( $codeActivation ) ) {
+            $this->postData[ 'active' ] = 0;
+        }
 
-        $this->Db->query("INSERT INTO users (name, email, phone, password) VALUES (:name, :email, :phone, :password)", [
+        // Inserindo o usuário
+        $this->Db->query("INSERT INTO users (name, email, phone, password, code_activation, active) VALUES (:name, :email, :phone, :password, :code_activation, :active)", [
             'name' => $this->postData[ 'name' ],
             'email' => $this->postData[ 'email' ],
             'phone' => $this->postData[ 'phone' ],
+            'active' => $this->postData[ 'active' ],
             'password' => password_hash($this->postData['password'], PASSWORD_DEFAULT)
         ]);
 
         if ( !empty($this->Db->getLastError()) ) {
-            throw new \Exception( 'Erro ao tentar INSERIR cadastro!', 500);
+            throw new \Exception( 'Erro ao tentar INSERIR cadastro! ' . $this->Db->getLastError(), 500);
         }
 
+        // atualizando o código de ativação
+        if ( !empty( $codeActivation ) ) {
+            $res = $this->Db->query("SELECT * FROM users WHERE email = :email", [ 'email' => $this->postData[ 'email' ] ]);
+            if ( empty( $res ) ) {
+                throw new \Exception( 'O e-mail "' . $this->postData[ 'email' ] . '" não foi encontrado!', 400 );
+            }
+
+            // Atualizando o código de ativação
+            $codeActivation = $res[0]['id'] . "." . $this->postData['code_activation'];
+            $this->Db->query("UPDATE users SET code_activation = :code_activation WHERE email = :email", [
+                'code_activation' => $codeActivation,
+                'email' => $this->postData[ 'email' ]
+            ] );
+        }
+
+        // Mensagem de boa vindas e ativação
+        $messageBody = '<h1>Olá ' . $this->postData[ 'name' ] . ',</h1>';
+        $messageBody .= '<p>Seu cadastro foi realizado com sucesso!</p>';
+        $messageBody .= '<p>Agora você já pode acessar o sistema.</p>';
+        if ( !empty($codeActivation) ) {
+            $messageBody .= "<p>Seu código de ativação é: <strong>$codeActivation</strong></p>";
+        }
+        $messageBody .= '<p>Atenciosamente,</p>';
+        $messageBody .= '<p>Equipe CloudMoura</p>';
+        $messageBody .= '<p><small>Este é um e-mail automático, não responda.</small></p>';
+        $messageBody .= '<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>';
+
         // aqui eu precios enviar um e-mail de boas vindas,
-        //  não impede a criação do usuário.
-        $this->Email->send( 
-            $this->postData[ 'email' ],
-            'Cadastro realizado com sucesso!',
-            '<h1>Olá ' . $this->postData[ 'name' ] . ',</h1><p>Seu cadastro foi realizado com sucesso!</p><p>Agora você já pode acessar o sistema.</p>'
-        );
+        // não impede a criação do usuário.
+        $this->Email->send( $this->postData[ 'email' ], 'Cadastro realizado com sucesso!', $messageBody );
 
         return [
             'message' => 'Cadastro executado com sucesso.',
@@ -56,6 +86,10 @@ class UserController extends Controller {
     }
 
     public function update() : array | \Exception {
+        $codeActivation = $this->postData['active_code'] ?? null;
+        if ( !empty( $codeActivation ) ) {
+            $this->postData['active_code'] = preg_replace('/[^0-9]/', '', $codeActivation);
+        }
         
         if (!isset($this->postData['email'])) {
             throw new \Exception( 'Email é obrigatório para atualizar o cadastro!', 400 );
@@ -70,7 +104,7 @@ class UserController extends Controller {
             throw new \Exception( 'O e-mail "' . $this->postData['email'] . '" NÃO está cadastrado!', 400 );
         }
 
-        if ( $res[0]['active'] === 0 ) {
+        if ( $res[0]['active'] === 0 && empty( $codeActivation ) ) {
             throw new \Exception( 'Usuário desativado.', 401 );
         }
 
@@ -87,6 +121,10 @@ class UserController extends Controller {
         if (!empty($this->postData['password'])) {
             $arrFields[] = 'password = :password';
             $arrUpdate['password'] = password_hash($this->postData['password'], PASSWORD_DEFAULT);
+        }
+        if (!empty( $codeActivation )) {
+            $arrFields[] = 'code_activation = :code_activation';
+            $arrUpdate['code_activation'] = $codeActivation;
         }
 
         $this->Db->query("UPDATE users SET " . implode(', ', $arrFields) . " WHERE email = :email", array_merge($arrUpdate, ['email' => $this->postData['email']]));
@@ -158,6 +196,33 @@ class UserController extends Controller {
         } catch (\Exception $e) {
             throw new \Exception('Erro ao listar usuários: ' . $e->getMessage(), 500);
         }
+    }
+
+    public function activateByCode() : array | \Exception {
+
+        if ( empty( $this->postData['code'] ) ) {
+            throw new \Exception( 'Código de ativação é obrigatório!', 400 );
+        }
+        $id = explode( '.', $this->postData['code'] );
+        if ( empty( $id[0] ) || empty( $id[1] ) ) {
+            throw new \Exception( 'Código de ativação inválido no POST!', 400 );
+        }
+        $res = $this->Db->query("SELECT id, name, email, active FROM users WHERE id = :id", [ 'id' => $id[0] ]);
+        if ( empty( $res ) ) {
+            throw new \Exception( 'ID '. $id[0] .' inválido no banco de dados!', 400 );
+        }
+        if ( $res[0]['active'] == 1 ) {
+            throw new \Exception( 'Usuário já ativado!', 400 );
+        }
+        if ( $res[0]['id'] === 1 ) {
+            throw new \Exception( "o Usuário " . $res[0]['email'] . " não pode ser ativado por código!", 401 );
+        }
+        $this->Db->query("UPDATE users SET active = 1, code_activation = NULL WHERE id = :id", [ 'id' => $res[0]['id'] ]);
+        if ( !empty( $this->Db->getLastError() ) ) {
+            throw new \Exception( 'Erro ao tentar ATIVAR cadastro! ' . $this->Db->getLastError(), 500);
+        }
+
+        return [ 'message' => 'Usuário ' . $res[0]['email'] . ' ativado com sucesso.' ];
     }
 
     public function activate() : array | \Exception {
