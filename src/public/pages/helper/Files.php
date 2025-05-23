@@ -85,9 +85,10 @@ class Files {
 
         $html = "";
         $html .= "<div class='droppable-dir draggable-dir' data-dir-path='{$dirRaiz}'>";
-        $html .= str_repeat('_', $level * 2);
+        $html .= str_repeat('  ', $level * 2);
 
-        $html .= "<i class='fas fa-folder text-tertiary me-2'></i> {$dirName}";
+        // $html .= "├─&nbsp;<i class='fas fa-folder text-muted me-2'></i> {$dirName}
+        $html .= "<i class='fas fa-folder text-muted me-2'></i> {$dirName}";
 
         $html .= "<a href='#' onclick='file(\"upload\", \"{$dirRaiz}\")' title='Enviar para o diretório \"{$dirName}\"' class='ms-2'>";
         $html .= "<i class='fas fa-upload text-secondary small'></i>";
@@ -110,7 +111,7 @@ class Files {
 
         $html = "";
         $html .= "<div class='draggable-file' draggable='true' data-file-path='{$item['resumeDir']}'>";
-        $html .= str_repeat('_', $level * 1);
+        $html .= str_repeat('  ', $level * 1);
 
         $html .= "<a href='#' onclick='file(\"download\", \"{$item['resumeDir']}\")' title='Download' class='smallbtn btn-sm btn-primary ms-2'>";
         $html .= "<i class='fas fa-download'></i>";

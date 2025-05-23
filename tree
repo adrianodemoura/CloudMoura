@@ -1,26 +1,31 @@
 .
-└── src
-    ├── api
-    │   ├── controllers
-    │   └── includes
-    ├── config
-    ├── includes
-    ├── public
-    │   ├── css
-    │   ├── img
-    │   │   └── favicon
-    │   ├── js
-    │   ├── pages
-    │   │   ├── admin
-    │   │   ├── cadastrar
-    │   │   ├── debug
-    │   │   ├── desbloquear
-    │   │   ├── helper
-    │   │   ├── login
-    │   │   ├── page_error
-    │   │   └── site_manutencao
-    │   ├── videos
-    │   └── webfonts
-    └── scripts
+├── src
+│   ├── Api
+│   │   └── Controllers
+│   ├── Config
+│   ├── Includes
+│   ├── public
+│   │   ├── css
+│   │   ├── img
+│   │   │   └── favicon
+│   │   ├── js
+│   │   ├── pages
+│   │   │   ├── admin
+│   │   │   ├── cadastrar
+│   │   │   ├── debug
+│   │   │   ├── desbloquear
+│   │   │   ├── helper
+│   │   │   ├── login
+│   │   │   ├── page_error
+│   │   │   └── site_manutencao
+│   │   ├── videos
+│   │   └── webfonts
+│   └── scripts
+└── vendor
+    ├── composer
+    └── phpmailer
+        └── phpmailer
+            ├── language
+            └── src
 
-24 directories
+29 directories

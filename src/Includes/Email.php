@@ -1,6 +1,6 @@
 <?php
 
-namespace CloudMoura\Api\Includes;
+namespace CloudMoura\Includes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

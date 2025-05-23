@@ -2,7 +2,7 @@
 namespace CloudMoura\Api\Controllers;
 
 use CloudMoura\Api\Controllers\Controller;
-use CloudMoura\Api\Includes\Email;
+use CloudMoura\Includes\Email;
 use CloudMoura\Includes\Db;
 
 class UserController extends Controller {

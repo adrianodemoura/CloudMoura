@@ -1,9 +1,9 @@
 <?php
 use CloudMoura\Includes\Logs;
-use CloudMoura\Api\Includes\Response;
+use CloudMoura\Includes\Response;
 
 $Logs = new Logs();
-require_once DIR_API . "/bootstrap.php";
+include DIR_API . "/bootstrap.php";
 
 try {
     // Verifica se temos pelo menos 2 partes na URI (api/controller)

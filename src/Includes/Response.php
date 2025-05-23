@@ -1,6 +1,6 @@
 <?php
 
-namespace CloudMoura\Api\Includes;
+namespace CloudMoura\Includes;
 
 class Response {
     public static function success($data = [] ) {

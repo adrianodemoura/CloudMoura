@@ -78,7 +78,7 @@
 </div>
 
 <!-- Modal de Confirmação de Saída -->
-<div id="divModalAdmin" class="modal fade" role="dialog" aria-labelledby="logoutModalLabel">
+<div id="divModalAdmin" role="dialog" aria-labelledby="logoutModalLabel" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div id="divModalAdminHeader" class="modal-header bg-info-50 text-white">
