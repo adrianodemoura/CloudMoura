@@ -1,8 +1,8 @@
 <?php
 use CloudMoura\Api\Includes\Response;
-use CloudMoura\Includes\Debug;
+use CloudMoura\Includes\Logs;
 
-$Debug = new Debug();
+$Logs = new Logs();
 require_once DIR_API . "/bootstrap.php";
 
 try {
@@ -53,6 +53,6 @@ try {
     Response::success($result);
 
 } catch (Exception $e) {
-    $Debug->write( $e->getCode() . " - " . $e->getMessage(), 'error' );
+    $Logs->debug( $e->getCode() . " - " . $e->getMessage(), 'error' );
     Response::error($e->getMessage(), $e->getCode() ?? 500);
 }

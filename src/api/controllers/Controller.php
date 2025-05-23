@@ -2,15 +2,15 @@
 
 namespace CloudMoura\Api\Controllers;
 
-use CloudMoura\Includes\Debug;
+use CloudMoura\Includes\Logs;
 
 class Controller {
-    protected Debug $debug;
+    protected Logs $Logs;
     protected string $lastError = "";
     protected array $postData = [];
 
     public function __construct() {
-        $this->debug = new Debug();
+        $this->Logs = new Logs();
     }
 
     public function index() : array {

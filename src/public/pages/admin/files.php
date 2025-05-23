@@ -1,6 +1,9 @@
 <?php
     $userId = $_SESSION['user']['id'];
-    $Files = new \CloudMoura\Includes\Files();
+
+    require_once( DIR_ROOT . "/public/pages/helper/Files.php" );
+
+    $Files = new Files();
 ?>
 <link rel="stylesheet" href="/css/drag-drop.css">
 <div class="card">

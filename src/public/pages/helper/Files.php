@@ -1,14 +1,7 @@
 <?php
 
-namespace CloudMoura\Includes;
-
 class Files {
-    private Debug $debug;
     private string $lastError = "";
-
-    public function __construct() {
-        $this->debug = new Debug();
-    }
 
     public function getLastError() : string {
         return $this->lastError;

@@ -52,7 +52,7 @@ class FilesController extends Controller {
             
             throw new \Exception("Erro ao mover o arquivo \"{$path}\"!");
         } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_move_file');
+            $this->Logs->debug($e->getMessage(), 'error_move_file');
             $this->lastError = $e->getMessage();
             throw new \Exception($this->lastError);
         }
@@ -97,7 +97,7 @@ class FilesController extends Controller {
             
             throw new \Exception("Erro ao mover o arquivo \"{$path}\"!");
         } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_move_file');
+            $this->Logs->debug($e->getMessage(), 'error_move_file');
             $this->lastError = $e->getMessage();
             throw new \Exception($this->lastError);
         }
@@ -131,13 +131,13 @@ class FilesController extends Controller {
 
             if (!rmdir($fullDir)) {
                 $this->lastError = "Erro ao excluir o diretório \"{$this->postData['path']}\"!";
-                $this->debug->write($this->lastError, 'error_delete_file');
+                $this->Logs->debug($this->lastError, 'error_delete_file');
                 throw new \Exception($this->lastError);
             }
 
             return [ 'message' => "Diretório \"{$this->postData['path']}\" excluído com sucesso." ];
         } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_delete_file');
+            $this->Logs->debug($e->getMessage(), 'error_delete_file');
             $this->lastError = $e->getMessage();
             return [ 'message' => $this->lastError ];
         }
@@ -149,13 +149,13 @@ class FilesController extends Controller {
 
             if (!unlink($fullDir)) {
                 $this->lastError = "Erro ao excluir o arquivo \"{$this->postData['path']}\"!";
-                $this->debug->write($this->lastError, 'error_delete_file');
+                $this->Logs->debug($this->lastError, 'error_delete_file');
                 throw new \Exception($this->lastError);
             }
 
             return [ 'message' => "Arquivo \"{$this->postData['path']}\" excluído com sucesso." ];
         } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_delete_file');
+            $this->Logs->debug($e->getMessage(), 'error_delete_file');
             $this->lastError = $e->getMessage();
             return [ 'message' => $this->lastError ];
         }
@@ -178,7 +178,7 @@ class FilesController extends Controller {
             // Codifica o conteúdo em base64
             return [ 'message' => "Arquivo \"{$this->postData['path']}\" baixado com sucesso.", 'content' => base64_encode($content) ];
         } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_download_file' );
+            $this->Logs->debug( $e->getMessage(), 'error_download_file' );
             $this->lastError = $e->getMessage();
             return [ 'message' => $this->lastError ];
         }
@@ -217,7 +217,7 @@ class FilesController extends Controller {
 
             throw new \Exception("Erro ao enviar o arquivo \"{$this->postData['path']}/{$fileName}\"!");
         } catch (\Exception $e) {
-            $this->debug->write( $e->getMessage(), 'error_upload_file' );
+            $this->Logs->debug( $e->getMessage(), 'error_upload_file' );
             $this->lastError = $e->getMessage();
             return [ 'message' => $this->lastError ];
         }
@@ -228,13 +228,13 @@ class FilesController extends Controller {
 
         if ( file_exists( $targetDir ) ) {
             $this->lastError = "O diretório \"{$this->postData['path']}\" já existe!";
-            $this->debug->write( $this->lastError, 'error_create_subdirectory' );
+            $this->Logs->debug( $this->lastError, 'error_create_subdirectory' );
             throw new \Exception( $this->lastError );
         }
 
         if ( !mkdir( $targetDir, 0775, true ) ) {
             $this->lastError = "Erro ao criar o diretório \"{$this->postData['path']}\"!";
-            $this->debug->write( $this->lastError, 'error_create_subdirectory' );
+            $this->Logs->debug( $this->lastError, 'error_create_subdirectory' );
             throw new \Exception( $this->lastError );
         }
 
@@ -283,7 +283,7 @@ class FilesController extends Controller {
             
             throw new \Exception("Erro ao mover o item!");
         } catch (\Exception $e) {
-            $this->debug->write($e->getMessage(), 'error_move_item');
+            $this->Logs->debug($e->getMessage(), 'error_move_item');
             $this->lastError = $e->getMessage();
             throw new \Exception($this->lastError);
         }

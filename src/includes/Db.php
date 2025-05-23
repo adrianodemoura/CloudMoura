@@ -8,22 +8,22 @@ use PDOException;
 
 class Db {
     private PDO $pdo;
-    private Debug $debug;
+    private Logs $Logs;
     protected $LastCodeError = null;
     protected $LastError = "";
 
     public function __construct() {
-        $this->debug = new Debug();
-        $this->debug->write("Inicializando conexão com o banco de dados", "database");
+        $this->Logs = new Logs();
+        $this->Logs->debug("Inicializando conexão com o banco de dados", "database");
 
         try {
             // Tenta conectar ao banco
             $this->pdo = new PDO( Database::getDSN(), null, null, Database::PDO_OPTIONS );
-            $this->debug->write("Conexão com o banco de dados estabelecida com sucesso", "database");
+            $this->Logs->debug("Conexão com o banco de dados estabelecida com sucesso", "database");
         } catch ( PDOException $e ) {
             $this->LastCodeError = $e->getCode();
             $this->LastError = $e->getMessage();
-            $this->debug->write("Erro ao conectar ao banco de dados: " . $e->getCode() ." - " . $e->getMessage(), "error");
+            $this->Logs->debug("Erro ao conectar ao banco de dados: " . $e->getCode() ." - " . $e->getMessage(), "error");
         }
     }
 
@@ -39,16 +39,16 @@ class Db {
             return $res;
         }
         try {
-            $this->debug->write("Executando query: " . $sql, "database");
+            $this->Logs->debug("Executando query: " . $sql, "database");
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
             $res = $stmt->fetchAll();
-            $this->debug->write("Parâmetros da query: " . json_encode( $params ), "database");
-            $this->debug->write("Resultado da query: " . json_encode( $res ), "database");
+            $this->Logs->debug("Parâmetros da query: " . json_encode( $params ), "database");
+            $this->Logs->debug("Resultado da query: " . json_encode( $res ), "database");
         } catch (\Throwable $th) {
             $this->LastCodeError = $th->getCode();
             $this->LastError = $th->getMessage();
-            $this->debug->write("Erro ao executar query: " . $this->LastCodeError . " - " . $this->LastError, "database");
+            $this->Logs->debug("Erro ao executar query: " . $this->LastCodeError . " - " . $this->LastError, "database");
         }
 
         return $res;
@@ -60,7 +60,7 @@ class Db {
      */
     public function createTables() : void {
         try {
-            $this->debug->write("Criando tabela de usuários...", "database");
+            $this->Logs->debug("Criando tabela de usuários...", "database");
             
             // Cria a tabela de usuários
             $this->query("CREATE TABLE IF NOT EXISTS users (
@@ -74,22 +74,22 @@ class Db {
                 last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )");
-            $this->debug->write("Tabela de usuários criada com sucesso", "database");
+            $this->Logs->debug("Tabela de usuários criada com sucesso", "database");
 
             // Verifica se já existe um usuário admin
             $admin = $this->query("SELECT id FROM users WHERE email = 'admin@admin.com'");
             if (empty($admin)) {
-                $this->debug->write("Criando usuário admin padrão...", "database");
+                $this->Logs->debug("Criando usuário admin padrão...", "database");
                 // Insere o usuário admin padrão
                 $this->query("INSERT INTO users (email, name, password, role) VALUES ('admin@admin.com', 'Administrador', :password, 'admin')", [
                     'password' => password_hash('Admin01', PASSWORD_DEFAULT)
                 ]);
-                $this->debug->write("Usuário \"admin@admin.com\" com senha \"Admin01\" criado com sucesso", "database");
+                $this->Logs->debug("Usuário \"admin@admin.com\" com senha \"Admin01\" criado com sucesso", "database");
             } else {
-                $this->debug->write("Usuário admin já existe", "database");
+                $this->Logs->debug("Usuário admin já existe", "database");
             }
         } catch (\Throwable $th) {
-            $this->debug->write("Erro ao tentar criar as tabelas do banco de dados: " . $th->getMessage(), "error");
+            $this->Logs->debug("Erro ao tentar criar as tabelas do banco de dados: " . $th->getMessage(), "error");
             throw $th;
         }
     }

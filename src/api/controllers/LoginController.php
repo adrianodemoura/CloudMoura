@@ -20,19 +20,19 @@ class LoginController extends Controller {
 
             // Verifica se o usuário existe
             if ( empty( $res ) ) {
-                $this->debug->write("Login falhou para o usuário: " . $this->postData['email'], "login");
+                $this->Logs->debug("Login falhou para o usuário: " . $this->postData['email'], "login");
                 throw new \Exception( 'Usuário ou senha inválidos!', 401 );
             }
 
             // Verifica a senha
             if (!password_verify($this->postData['password'], $res[0]['password'])) {
-                $this->debug->write("Senha inválida para o usuário: " . $this->postData['email'], "login");
+                $this->Logs->debug("Senha inválida para o usuário: " . $this->postData['email'], "login");
                 throw new \Exception( 'Usuário ou senha inválidos!', 401 );
             }
 
             // Verifica se o usuário está ativo
             if ( $res[0]['active'] === 0 ) {
-                $this->debug->write("Usuário desativado: " . $this->postData['email'], "login");
+                $this->Logs->debug("Usuário desativado: " . $this->postData['email'], "login");
                 throw new \Exception( 'Usuário desativado!', 401 );
             }
             $lastLogin = $res[0]['last_login'];
@@ -50,10 +50,10 @@ class LoginController extends Controller {
             ];
             
             // retorna o usuário logado
-            $this->debug->write("Login realizado com sucesso para: " . $res[0]['email'], "login");
+            $this->Logs->debug("Login realizado com sucesso para: " . $res[0]['email'], "login");
             return [ 'message' => 'Login realizado com sucesso.', 'email' => $res[0]['email'] ];
         } catch (\Exception $e) {
-            $this->debug->write("Erro no login: " . $e->getMessage(), "error");
+            $this->Logs->debug("Erro no login: " . $e->getMessage(), "error");
             throw $e;
         }
     }

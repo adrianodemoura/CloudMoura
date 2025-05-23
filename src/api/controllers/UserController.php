@@ -82,7 +82,7 @@ class UserController extends Controller {
         $this->Db->query("UPDATE users SET " . implode(', ', $arrFields) . " WHERE email = :email", array_merge($arrUpdate, ['email' => $this->postData['email']]));
 
         if (!empty($this->Db->getLastError())) {
-            $this->Debug->write( 'Erro ao atualizar o cadastro! ' . $this->Db->getLastError(), 'error' );
+            $this->Logs->debug( 'Erro ao atualizar o cadastro! ' . $this->Db->getLastError(), 'error' );
             throw new \Exception( 'Erro ao atualizar o cadastro! ', 500 );
         }
 
