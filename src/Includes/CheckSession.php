@@ -13,13 +13,11 @@ if ( !file_exists(DIR_DATA) ) {
     chmod(DIR_DATA, 0775);
 
     // Lê o arquivo Database.php para pegar o nome do banco de dados
-    $databaseFile = file_get_contents(DIR_ROOT . '/config/Database.php');
+    $databaseFile = file_get_contents(DIR_ROOT . '/Config/Database.php');
     if (preg_match("/const\s+DB_PATH\s*=\s*DIR_DATA\s*\.\s*'([^']+)'/", $databaseFile, $matches)) {
         $dbPath = $matches[1];
         touch(DIR_DATA . $dbPath);
         chmod(DIR_DATA . $dbPath, 0775);
-
-        require_once DIR_ROOT . '/config/Autoload.php';
 
         $db = new \CloudMoura\Includes\Db();
         $db->createTables();
