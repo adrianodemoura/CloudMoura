@@ -21,7 +21,7 @@ class Email {
         $this->mailer->Host = $config['host'];
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = $config['username'];
-        $this->mailer->Password = $config['app_password'];
+        $this->mailer->Password = $config['password_app'];
         $this->mailer->SMTPSecure = $config['smtp_secure'];
         $this->mailer->Port = $config['port'];
         $this->mailer->CharSet = 'UTF-8';
