@@ -6,7 +6,7 @@ ssh -p 2225 ubuntu@cm.deskfacil.com "
 
     if [ ! -f docker-compose.yml ]; then 
         cp .infra/docker/docker-compose.yml . 
-        sed -i \"s/user: \\\"1000:1000\\\"/user: \\\"$(id -u):$(id -g)\\\"/\" docker-compose.yml
+        sed -i "s/user: \"1000:1000\"/user: \"$(id -u)\"/" docker-compose.yml
     fi
 
     if [ ! -f src/.env ]; then cp .infra/env/.env src/.env ; fi
