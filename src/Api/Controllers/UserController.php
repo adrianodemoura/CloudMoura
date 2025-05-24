@@ -64,10 +64,8 @@ class UserController extends Controller {
             ] );
         }
 
-        // recuperando a configuração do site
-        $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );
-
         // Mensagem de boa vindas e ativação
+        $messageReturn = "Cadastro executado com sucesso.";
         $messageBody = "";
         $messageBody .= "<img src='{$_ENV["HTTP_HOST"]}/img/logo.png' alt='Logo CloudMoura' style='width: 300px;'/>";
         $messageBody .= "<h1>Olá {$this->postData['name']},</h1>";
@@ -84,10 +82,11 @@ class UserController extends Controller {
         // não impede a criação do usuário.
         if ( !empty( $_ENV[ 'MAIL_USER' ] ) ) {
             $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$_ENV["APP_NAME"]}", $messageBody );
+            $messageReturn .= " O Código de ativação foi enviado para o seu e-mail.";
         }
 
         return [
-            'message' => 'Cadastro executado com sucesso. O Código de ativação foi enviado para o seu e-mail.',
+            'message' => $messageReturn,
             'user' => [ 'email' => $this->postData[ 'email' ] ]
         ];
     }
