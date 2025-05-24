@@ -1,7 +1,4 @@
 # Arquivos de ambiente
-/.env
-/.env_*
-/src/.env
 /src/.env.*
 
 # Diretórios
@@ -32,10 +29,7 @@ Thumbs.db
 # Arquivos de configuração local
 error_log
 /docker-compose.yml
-/src/docker-compose.yml
 /src/config.json
-/src/composer.json
-/src/composer.lock
 
 # certbot
 certbot/conf/
