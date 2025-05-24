@@ -16,10 +16,7 @@ if ( !file_exists( DIR_ROOT . '/config.json' ) ) {
     file_put_contents( DIR_ROOT . '/config.json', json_encode( 
         [
             'block'=>false, 
-            'debug'=>true,
-            'name' =>'CloudMoura',
-            'description' =>'Seu Armazanamento em Nuvem',
-            'domain'=>'https://cm.deskfacil.com',
+            'debug'=>true
         ], 
         JSON_PRETTY_PRINT ) );
     chmod( DIR_ROOT . '/config.json', 0775 );
