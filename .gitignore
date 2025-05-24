@@ -1,6 +1,5 @@
 # Arquivos de ambiente
-.env
-.env.*
+.env_*
 
 # Diretórios
 src/storage/

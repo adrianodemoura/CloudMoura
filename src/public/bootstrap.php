@@ -28,6 +28,21 @@ require_once DIR_ROOT . "/Includes/Functions.php";
 require_once DIR_ROOT . "/Config/Definitions.php";
 require_once DIR_ROOT . '/vendor/autoload.php';
 
+// Carrega as variáveis de ambiente do arquivo .env
+use CloudMoura\Includes\Env;
+Env::load(['.env']);
+if ( strpos($_ENV['HOST_LOCAL'], $_ENV['HTTP_HOST']) > -1 ) {
+    Env::load(['.env_local']);
+} elseif ( strpos($_ENV['HOST_TEST'], $_ENV['HTTP_HOST']) > -1 ) {
+    Env::load(['.env_test']);
+} elseif ( strpos($_ENV['HOST_DEV'], $_ENV['HTTP_HOST']) > -1 ) {
+    Env::load(['.env_dev']);
+} elseif ( strpos($_ENV['HOST_HOMO'], $_ENV['HTTP_HOST']) > -1 ) {
+    Env::load(['.env_homolog']);
+} elseif ( strpos($_ENV['HOST_PROD'], $_ENV['HTTP_HOST']) > -1 ) {
+    Env::load(['.env_prod']);
+}
+
 // Gera token CSRF se não existir
 if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
     $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
@@ -44,3 +59,5 @@ require_once DIR_ROOT . "/Includes/CheckSession.php";
 
 // Registra o handler de erros
 set_error_handler('handleError');
+
+debug( $_ENV, true );
