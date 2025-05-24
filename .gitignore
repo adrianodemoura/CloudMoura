@@ -1,6 +1,8 @@
 # Arquivos de ambiente
-.env
-.env_*
+/.env
+/.env_*
+/src/.env
+/src/.env_*
 
 # Diretórios
 src/storage/
@@ -9,6 +11,7 @@ src/storage/
 /vendor/
 /node_modules/
 /src/vendor/
+/src/node_modules/
 
 # Arquivos de IDE/Editor
 .idea/
