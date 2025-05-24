@@ -32,11 +32,6 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/img/favicon/icon.svg">
     <link rel="manifest" href="/img/favicon/site.webmanifest">
-    
-    <!-- Preload -->
-    <link rel="preload" href="/css/font_awesome_free.all.min.css" as="style">
-    <link rel="preload" href="/css/bootstrap.min.css" as="style">
-    <link rel="preload" href="/js/bootstrap.bundle.min.js" as="script">
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/font_awesome_free.all.min.css">

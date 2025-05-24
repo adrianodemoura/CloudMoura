@@ -9,21 +9,22 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-            <h5 class="mb-0 fs-5">
-                <i class="fas fa-folder"></i> Gerenciador de Arquivos
-            </h5>
+            <i class="fas fa-folder text-muted"></i>
+            <span class="ms-1 fs-lg-1 fs-md-6 fs-sm-6">
+                 Gerenciador de Arquivos
+            </span>
         </div>
         <div>
             <button class="btn btn-primary btn-sm fs-8" onclick="file('upload', '')" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                <i class="fas fa-upload"></i> Enviar Arquivo/Diretório
+                <i class="fas fa-upload" title="Enviar Arquivo/Diretório"></i>
             </button>
-            <button class="btn btn-secondary btn-sm fs-8" onclick="file('createSubdirectory', '')" data-bs-toggle="modal" data-bs-target="#createSubDirModal">
-                <i class="fas fa-folder-plus"></i> Criar Subdiretório
+            <button class="btn btn-secondary btn-sm fs-8 mt-2 mt-sm-0" onclick="file('createSubdirectory', '')" data-bs-toggle="modal" data-bs-target="#createSubDirModal">
+                <i class="fas fa-folder-plus" title="Criar Subdiretório"></i>
             </button>
         </div>
     </div>
     <div class="card-body">
-        <div class="overflow-auto fs-8" style="max-height: 600px;">
+        <div class="overflow-auto" style="max-height: 600px;">
             <?= $Files->listDirectoryTree( DIR_UPLOAD . "/{$userId}" ); ?>
         </div>
     </div>
