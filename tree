@@ -11,6 +11,7 @@
 │   │   ├── js
 │   │   ├── pages
 │   │   │   ├── admin
+│   │   │   ├── ativar
 │   │   │   ├── cadastrar
 │   │   │   ├── debug
 │   │   │   ├── desbloquear
@@ -20,7 +21,8 @@
 │   │   │   └── site_manutencao
 │   │   ├── videos
 │   │   └── webfonts
-│   └── scripts
+│   ├── scripts
+│   └── vendor
 └── vendor
     ├── composer
     └── phpmailer
@@ -28,4 +30,4 @@
             ├── language
             └── src
 
-29 directories
+31 directories
