@@ -1,33 +1,37 @@
 .
-├── src
-│   ├── Api
-│   │   └── Controllers
-│   ├── Config
-│   ├── Includes
-│   ├── public
-│   │   ├── css
-│   │   ├── img
-│   │   │   └── favicon
-│   │   ├── js
-│   │   ├── pages
-│   │   │   ├── admin
-│   │   │   ├── ativar
-│   │   │   ├── cadastrar
-│   │   │   ├── debug
-│   │   │   ├── desbloquear
-│   │   │   ├── helper
-│   │   │   ├── login
-│   │   │   ├── page_error
-│   │   │   └── site_manutencao
-│   │   ├── videos
-│   │   └── webfonts
-│   ├── scripts
-│   └── vendor
-└── vendor
-    ├── composer
-    └── phpmailer
+└── src
+    ├── Api
+    │   └── Controllers
+    ├── Config
+    ├── Includes
+    ├── public
+    │   ├── css
+    │   ├── img
+    │   │   └── favicon
+    │   ├── js
+    │   ├── pages
+    │   │   ├── admin
+    │   │   ├── ativar
+    │   │   ├── cadastrar
+    │   │   ├── debug
+    │   │   ├── desbloquear
+    │   │   ├── helper
+    │   │   ├── login
+    │   │   ├── page_error
+    │   │   └── site_manutencao
+    │   ├── videos
+    │   └── webfonts
+    ├── scripts
+    ├── storage
+    │   ├── data
+    │   ├── logs
+    │   └── uploads
+    │       └── 1
+    └── vendor
+        ├── composer
         └── phpmailer
-            ├── language
-            └── src
+            └── phpmailer
+                ├── language
+                └── src
 
-31 directories
+35 directories
