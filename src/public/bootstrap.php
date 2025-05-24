@@ -59,5 +59,3 @@ require_once DIR_ROOT . "/Includes/CheckSession.php";
 
 // Registra o handler de erros
 set_error_handler('handleError');
-
-debug( $_ENV, true );
