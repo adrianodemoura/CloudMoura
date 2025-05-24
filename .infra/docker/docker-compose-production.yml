@@ -7,9 +7,8 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./.infra/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - ./vendor:/var/www/html/vendor
-      - ./composer.json:/var/www/html/composer.json
-      - ./composer.lock:/var/www/html/composer.lock
+      - ./.infra/composer/composer.json:/var/www/html/composer.json
+      # - ./.infra/composer/composer.lock:/var/www/html/composer.lock
     networks:
       - npm-network
 
@@ -26,17 +25,6 @@ services:
       - cloudmoura-php
     networks:
       - npm-network
-
-  composer:
-    image: composer:2
-    container_name: cloudmoura-composer
-    volumes:
-      - ./src:/var/www/html
-      - ./vendor:/var/www/html/vendor
-      - ./composer.json:/var/www/html/composer.json
-      - ./composer.lock:/var/www/html/composer.lock
-    working_dir: /var/www/html
-    entrypoint: ["composer"]
 
 networks:
   npm-network:
