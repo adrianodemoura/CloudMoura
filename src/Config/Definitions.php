@@ -31,15 +31,7 @@ define('PUBLIC_URLS', ['/', '/login', '/sair', '/page_error', '/contato', '/cada
 define('PUBLIC_URLS_BLOCK', ['/site_manutencao', '/desbloquear'] );
 
 // Perfis
-define( 'ROLES', ['admin', 'user', 'guest' => 3 ] );
-
-// Configurações gerais
-define('APP_NAME', 'CloudMoura');
-define('APP_DESCRIPTION', 'Seu Armazanamento em Nuvem');
-
-// Configurações de upload
-define('MAX_FILE_SIZE', 5 * 1024 * 1024 * 1024); // 5GB em bytes
-define('ALLOWED_EXTENSIONS', ['mp4', 'srt'] ); // Apenas arquivos MP4 e SRT
+define( 'ROLES', ['admin', 'user', 'guest' ] );
 
 // Diretórios
 define('DIR_API', DIR_ROOT . '/Api');

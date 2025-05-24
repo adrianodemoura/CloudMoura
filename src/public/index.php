@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?= APP_DESCRIPTION ?>">
+    <meta name="description" content="<?= $_ENV[ 'APP_DESCRIPTION' ] ?>">
     <meta name="author" content="CloudMoura">
     <meta name="theme-color" content="#0d6efd">
     <meta name="csrf-token" content="<?php echo $_SESSION[CSRF_TOKEN_NAME] ?? ''; ?>">
@@ -27,7 +27,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
     
-    <title><?= APP_NAME . ' - ' . APP_DESCRIPTION ?></title>
+    <title><?= $_ENV[ 'APP_NAME' ] . ' - ' . $_ENV[ 'APP_DESCRIPTION' ] ?></title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/img/favicon/icon.svg">

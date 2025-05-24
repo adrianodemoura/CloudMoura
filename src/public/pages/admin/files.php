@@ -45,10 +45,10 @@
                             <input class="form-check-input" type="checkbox" id="uploadTypeSwitch">
                             <label class="form-check-label" for="uploadTypeSwitch">Upload de diretório</label>
                         </div>
-                        <small class="form-text text-muted" id="uploadHelpText">Formatos aceitos: <?= implode( ', ', ALLOWED_EXTENSIONS ); ?></small>
+                        <small class="form-text text-muted" id="uploadHelpText">Formatos aceitos: <?= implode( ', ', $_ENV['ALLOWED_EXTENSIONS']  ); ?></small>
                     </div>
                     <div class="mb-3">
-                        <input type="file" class="form-control" id="fileInput" accept="<?= implode( ',', ALLOWED_EXTENSIONS ); ?>" required>
+                        <input type="file" class="form-control" id="fileInput" accept="<?= implode( ',', $_ENV['ALLOWED_EXTENSIONS']  ); ?>" required>
                     </div>
                     <div class="progress mb-3 d-none">
                         <div class="progress-bar" role="progressbar" style="width: 0%"></div>
@@ -109,7 +109,7 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script>
     let currentPath = '<?= isset($_GET['path']) ? $_GET['path'] : '' ?>';
-    const allowedExtensions = <?= json_encode(ALLOWED_EXTENSIONS) ?>;
+    const allowedExtensions = <?= json_encode( $_ENV['ALLOWED_EXTENSIONS'] ) ?>;
 
     document.addEventListener('hidden.bs.modal', function () {
         document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
