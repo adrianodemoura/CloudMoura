@@ -21,17 +21,6 @@
     │   │   └── site_manutencao
     │   ├── videos
     │   └── webfonts
-    ├── scripts
-    ├── storage
-    │   ├── data
-    │   ├── logs
-    │   └── uploads
-    │       └── 1
-    └── vendor
-        ├── composer
-        └── phpmailer
-            └── phpmailer
-                ├── language
-                └── src
+    └── scripts
 
-35 directories
+24 directories
