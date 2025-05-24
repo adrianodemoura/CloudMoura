@@ -69,20 +69,22 @@ class UserController extends Controller {
 
         // Mensagem de boa vindas e ativação
         $messageBody = "";
-        $messageBody .= "<img src='{$config['domain']}/img/logo.png' alt='Logo CloudMoura' style='width: 300px;'/>";
+        $messageBody .= "<img src='{$_ENV["HTTP_HOST"]}/img/logo.png' alt='Logo CloudMoura' style='width: 300px;'/>";
         $messageBody .= "<h1>Olá {$this->postData['name']},</h1>";
         $messageBody .= "<p>Seu cadastro foi realizado com sucesso!</p>";
         $messageBody .= "<p>Agora você já pode acessar o sistema.</p>";
-        $messageBody .= "<p>Clique <a href='{$config['domain']}/ativar/{$codeActivation}'>AQUI</a> para ativar sua conta.</p>";
+        $messageBody .= "<p>Clique <a href='{$_ENV["HTTP_HOST"]}/ativar/{$codeActivation}'>AQUI</a> para ativar sua conta.</p>";
         $messageBody .= "<p>Seu código de ativação é: <strong>$codeActivation</strong></p>";
         $messageBody .= "<p>Atenciosamente,</p>";
-        $messageBody .= "<p>Equipe {$config['name']}</p>";
+        $messageBody .= "<p>Equipe {$_ENV["APP_NAME"]}</p>";
         $messageBody .= "<br /><br />";
         $messageBody .= "<p><small>Este é um e-mail automático, não responda.</small></p>";
         $messageBody .= "<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>";
 
         // não impede a criação do usuário.
-        $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$config['name']}", $messageBody );
+        if ( !empty( $_ENV[ 'MAIL_USER' ] ) ) {
+            $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$_ENV["APP_NAME"]}", $messageBody );
+        }
 
         return [
             'message' => 'Cadastro executado com sucesso. O Código de ativação foi enviado para o seu e-mail.',

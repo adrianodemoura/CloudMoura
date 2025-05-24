@@ -91,11 +91,11 @@
         })
         .then( response => response.json() )
         .then(data => {
+            sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
             if (data.success) {
-                sessionStorage.setItem( 'message', JSON.stringify( { message: data?.message, success: data?.success } ) );
                 setTimeout(() => { window.location.href = '/login'; }, 1500);
             } else {
-                showAlert(data.message || 'Erro ao fazer cadastro');
+                setTimeout(() => { window.location.reload(); }, 1500);
             }
         })
         .catch(error => {

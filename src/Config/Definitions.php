@@ -23,11 +23,15 @@ if ( !file_exists( DIR_ROOT . '/config.json' ) ) {
 }
 $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );
 
+// debug
 define('DEBUG', $config['debug'] );
 define('BLOCK', $config['block'] );
 define('CSRF_TOKEN_NAME', 'csrf_token');
 define('PUBLIC_URLS', ['/', '/login', '/sair', '/page_error', '/contato', '/cadastrar', '/ativar'] );
 define('PUBLIC_URLS_BLOCK', ['/site_manutencao', '/desbloquear'] );
+
+// Perfis
+define( 'ROLES', ['admin', 'user', 'guest' => 3 ] );
 
 // Configurações gerais
 define('APP_NAME', 'CloudMoura');
