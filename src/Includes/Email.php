@@ -30,7 +30,8 @@ class Email {
     public function send($to, $subject, $body, $isHtml = true)
     {
         try {
-            $this->mailer->setFrom( $this->mailer->Username );
+            $this->mailer->setLanguage( 'pt-br' );
+            $this->mailer->setFrom( $this->mailer->Username , "CloudMoura" );
             // $this->mailer->addReplyTo($from ?? $this->mailer->Username);
             // $this->mailer->addBCC($from ?? $this->mailer->Username);
             // $this->mailer->addCC($from ?? $this->mailer->Username);
@@ -45,7 +46,7 @@ class Email {
             if ( !$envio ) {
                 throw new \Exception( "Erro ao enviar e-mail: " . $this->mailer->ErrorInfo );
             }
-            $this->Logs->write( "E-mail enviado retorno: {\"{$envio}\"} com sucesso para \"" . $to . "\"", 'email' );
+            $this->Logs->debug( "E-mail enviado retorno: {\"{$envio}\"} com sucesso para \"" . $to . "\"", 'email' );
             return  true;
         } catch (Exception $e) {
             $this->Logs->write( "Erro ao enviar e-mail: " . $e->getMessage(), 'error' );

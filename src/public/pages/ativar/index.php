@@ -5,7 +5,13 @@
             <form id="formActivate" method="POST" action="/api/user/update">
                 <div class="mb-3">
                     <label for="code" class="form-label">Código de Ativação</label>
-                    <input type="text" class="form-control text-center" id="code" name="code" required>
+                    <input 
+                        type="text" 
+                        class="form-control text-center" 
+                        id="code" 
+                        name="code" 
+                        value="<?= !empty( $arrUri[2] ) ? $arrUri[2] : ''; ?>"
+                        autofocus required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Ativar Conta</button>
                 <div class="mt-3 text-center">

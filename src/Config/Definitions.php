@@ -13,7 +13,15 @@ $_REQUEST = sanitizeInput($_REQUEST);
 
 // Configurações
 if ( !file_exists( DIR_ROOT . '/config.json' ) ) {
-    file_put_contents( DIR_ROOT . '/config.json', json_encode( ['block'=>false, 'debug'=>true], JSON_PRETTY_PRINT ) );
+    file_put_contents( DIR_ROOT . '/config.json', json_encode( 
+        [
+            'block'=>false, 
+            'debug'=>true,
+            'name' =>'CloudMoura',
+            'description' =>'Seu Armazanamento em Nuvem',
+            'domain'=>'https://cm.deskfacil.com',
+        ], 
+        JSON_PRETTY_PRINT ) );
     chmod( DIR_ROOT . '/config.json', 0775 );
 }
 $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );

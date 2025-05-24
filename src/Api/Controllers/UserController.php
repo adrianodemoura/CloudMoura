@@ -36,7 +36,8 @@ class UserController extends Controller {
         }
 
         // Inserindo o usuário
-        $this->Db->query("INSERT INTO users (name, email, phone, password, code_activation, active) VALUES (:name, :email, :phone, :password, :code_activation, :active)", [
+        $this->Db->query("INSERT INTO users (name, email, phone, password, code_activation, active) 
+            VALUES (:name, :email, :phone, :password, :code_activation, :active)", [
             'name' => $this->postData[ 'name' ],
             'email' => $this->postData[ 'email' ],
             'phone' => $this->postData[ 'phone' ],
@@ -63,24 +64,28 @@ class UserController extends Controller {
             ] );
         }
 
-        // Mensagem de boa vindas e ativação
-        $messageBody = '<h1>Olá ' . $this->postData[ 'name' ] . ',</h1>';
-        $messageBody .= '<p>Seu cadastro foi realizado com sucesso!</p>';
-        $messageBody .= '<p>Agora você já pode acessar o sistema.</p>';
-        if ( !empty($codeActivation) ) {
-            $messageBody .= "<p>Seu código de ativação é: <strong>$codeActivation</strong></p>";
-        }
-        $messageBody .= '<p>Atenciosamente,</p>';
-        $messageBody .= '<p>Equipe CloudMoura</p>';
-        $messageBody .= '<p><small>Este é um e-mail automático, não responda.</small></p>';
-        $messageBody .= '<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>';
+        // recuperando a configuração do site
+        $config = json_decode( file_get_contents( DIR_ROOT . '/config.json' ), true );
 
-        // aqui eu precios enviar um e-mail de boas vindas,
+        // Mensagem de boa vindas e ativação
+        $messageBody = "";
+        $messageBody .= "<img src='{$config['domain']}/img/logo.png' alt='Logo CloudMoura' style='width: 300px;'/>";
+        $messageBody .= "<h1>Olá {$this->postData['name']},</h1>";
+        $messageBody .= "<p>Seu cadastro foi realizado com sucesso!</p>";
+        $messageBody .= "<p>Agora você já pode acessar o sistema.</p>";
+        $messageBody .= "<p>Clique <a href='{$config['domain']}/ativar/{$codeActivation}'>AQUI</a> para ativar sua conta.</p>";
+        $messageBody .= "<p>Seu código de ativação é: <strong>$codeActivation</strong></p>";
+        $messageBody .= "<p>Atenciosamente,</p>";
+        $messageBody .= "<p>Equipe {$config['name']}</p>";
+        $messageBody .= "<br /><br />";
+        $messageBody .= "<p><small>Este é um e-mail automático, não responda.</small></p>";
+        $messageBody .= "<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>";
+
         // não impede a criação do usuário.
-        $this->Email->send( $this->postData[ 'email' ], 'Cadastro realizado com sucesso!', $messageBody );
+        $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$config['name']}", $messageBody );
 
         return [
-            'message' => 'Cadastro executado com sucesso.',
+            'message' => 'Cadastro executado com sucesso. O Código de ativação foi enviado para o seu e-mail.',
             'user' => [ 'email' => $this->postData[ 'email' ] ]
         ];
     }
