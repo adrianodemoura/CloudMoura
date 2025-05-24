@@ -7,15 +7,14 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./.infra/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - ./.infra/env/.env:/var/www/html/.env
     networks:
       - npm-network
 
   cloudmoura-nginx:
     image: nginx:alpine
-    user: "1000:1000"
     container_name: cloudmoura-nginx
     restart: unless-stopped
+    user: "1000:1000"
     expose:
       - "80"
     volumes:
@@ -33,8 +32,6 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
-      - ./.infra/composer/composer.json:/var/www/html/composer.json
-      - ./.infra/composer/composer.lock:/var/www/html/composer.lock
     entrypoint: ["composer"]
     networks:
       - npm-network
