@@ -31,8 +31,9 @@ Thumbs.db
 
 # Arquivos de configuração local
 error_log
-docker-compose.yml
-src/config.json
+/docker-compose.yml
+/src/docker-compose.yml
+/src/config.json
 
 # certbot
 certbot/conf/
