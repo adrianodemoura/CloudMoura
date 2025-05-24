@@ -16,7 +16,7 @@ services:
   cloudmoura-nginx:
     image: nginx:alpine
     container_name: cloudmoura-nginx
-    # restart: unless-stopped
+    restart: unless-stopped
     expose:
       - "80"
     volumes:
