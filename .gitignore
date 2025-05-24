@@ -2,7 +2,7 @@
 /.env
 /.env_*
 /src/.env
-/src/.env_*
+/src/.env.*
 
 # Diretórios
 src/storage/
