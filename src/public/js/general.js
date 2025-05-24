@@ -40,7 +40,10 @@ function showAlert(message, success = false) {
     
     toastBody.textContent = message;
     const bsToast = new bootstrap.Toast(toast);
+    // preciso aqui exibir o toast mas no tempo de 5 segundos
+    bsToast._config.delay = 2000; // Define o tempo de exibição para 2 segundos
     bsToast.show();
+    // console.log('Toast exibido com a mensagem:', message);
 }
 
 // Função para inicializar o toast
