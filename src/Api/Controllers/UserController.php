@@ -90,8 +90,8 @@ class UserController extends Controller {
 
         // envia SMS, caso tenha chave pra tal ...
         if ( !empty( $_ENV[ 'SMSDEV_API_KEY' ] ) ) {
-            $this->Sms->send( $res[0]['phone'], "Código de Ativação {$codeActivation}" );
-            $messageReturn .= " O Código de ativação foi enviado para seu celular.";
+            $this->Sms->send( (string) $res[0]['phone'], "Código de Ativação {$codeActivation} 145541" );
+            $messageReturn .= " O Código de ativação foi enviado para seu celular ({$res[0]['phone']}).";
         }
 
         return [

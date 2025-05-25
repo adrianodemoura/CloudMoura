@@ -15,8 +15,12 @@ class SmsDev {
         $this->Logs = new Logs();
     }
 
-    public function send($to, $message) : bool | \Exception {
+    public function send( string $to, string $message) : bool | \Exception {
         $url = "https://api.smsdev.com.br/v1/send";
+
+        if ( strlen( $to ) < 12 ) {
+            $to = "55{$to}";
+        }
 
         $payload = [
             "key" => $this->key,
