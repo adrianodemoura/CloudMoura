@@ -3,16 +3,19 @@ namespace CloudMoura\Api\Controllers;
 
 use CloudMoura\Api\Controllers\Controller;
 use CloudMoura\Includes\Email;
+use CloudMoura\Includes\SmsDev as Sms;
 use CloudMoura\Includes\Db;
 
 class UserController extends Controller {
     private Db $Db;
     private Email $Email;
+    private Sms $Sms;
 
     public function __construct() { 
         parent::__construct();
         $this->Db = new Db();
         $this->Email = new Email();
+        $this->Sms = new Sms();
     }
 
     public function create() : array | \Exception {
@@ -83,6 +86,12 @@ class UserController extends Controller {
         if ( !empty( $_ENV[ 'MAIL_USER' ] ) ) {
             $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$_ENV["APP_NAME"]}", $messageBody );
             $messageReturn .= " O Código de ativação foi enviado para o seu e-mail.";
+        }
+
+        // envia SMS, caso tenha chave pra tal ...
+        if ( !empty( $_ENV[ 'SMSDEV_API_KEY' ] ) ) {
+            $this->Sms->send( $res[0]['phone'], "Código de Ativação {$codeActivation}" );
+            $messageReturn .= " O Código de ativação foi enviado para seu celular.";
         }
 
         return [
