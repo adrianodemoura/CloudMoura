@@ -83,13 +83,13 @@ class UserController extends Controller {
         $messageBody .= "<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>";
 
         // não impede a criação do usuário.
-        if ( !empty( $_ENV[ 'MAIL_USER' ] ) ) {
+        if ( isset( $_ENV[ 'MAIL_USER' ] ) ) {
             $this->Email->send( $this->postData[ 'email' ], "Cadastro na {$_ENV["APP_NAME"]}", $messageBody );
             $messageReturn .= " O Código de ativação foi enviado para o seu e-mail.";
         }
 
         // envia SMS, caso tenha chave pra tal ...
-        if ( !empty( $_ENV[ 'SMSDEV_API_KEY' ] ) ) {
+        if ( isset( $_ENV[ 'SMSDEV_API_KEY' ] ) ) {
             $this->Sms->send( (string) $res[0]['phone'], "Código de Ativação {$codeActivation} 145541" );
             $messageReturn .= " O Código de ativação foi enviado para seu celular ({$res[0]['phone']}).";
         }
