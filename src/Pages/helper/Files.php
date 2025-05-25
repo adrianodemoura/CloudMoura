@@ -87,19 +87,18 @@ class Files {
         $html .= "<div class='droppable-dir draggable-dir' data-dir-path='{$dirRaiz}'>";
         $html .= str_repeat('  ', $level * 2);
 
-        // $html .= "├─&nbsp;<i class='fas fa-folder text-muted me-2'></i> {$dirName}
-        $html .= "<i class='fas fa-folder text-muted me-2'></i> {$dirName}";
-
         $html .= "<a href='#' onclick='file(\"upload\", \"{$dirRaiz}\")' title='Enviar para o diretório \"{$dirName}\"' class='ms-2'>";
-        $html .= "<i class='fas fa-upload text-secondary small'></i>";
+        $html .= "<i class='fas fa-upload text-secondary'></i>";
         $html .= "</a>";
         $html .= "<a href='#' onclick='file(\"createSubdirectory\", \"{$dirRaiz}\")' title='Criar Subdiretório abaixo de \"{$dirName}\"' class='ms-2'>";
-        $html .= "<i class='fas fa-file-alt text-secondary small'></i>";
+        $html .= "<i class='fas fa-file-alt text-secondary'></i>";
         $html .= "</a>";
 
         $html .= "<a href='#' onclick='file(\"deleteDir\", \"{$dirRaiz}\")' title='Excluir diretório \"{$dirName}\"' class='ms-2'>";
-        $html .= "<i class='fas fa-trash text-secondary small'></i>";
+        $html .= "<i class='fas fa-trash text-secondary'></i>";
         $html .= "</a>";
+
+        $html .= "<i class='fas fa-folder text-muted ms-2'></i> {$dirName}";
 
         $html .= "</div>";
 
@@ -109,19 +108,24 @@ class Files {
     private function renderDivFile( $item, $level ) : string {
         $modified = ($item['type'] === 'file') ? date('d/m/Y H:i:s', $item['modified']) : '';
 
+        $modified = ($item['type'] === 'file') ? date('d/m/Y H:i:s', $item['modified']) : '';
+
         $html = "";
         $html .= "<div class='draggable-file' draggable='true' data-file-path='{$item['resumeDir']}'>";
-        $html .= str_repeat('  ', $level * 1);
+        $html .= str_repeat('  ', $level * 2);
 
-        $html .= "<a href='#' onclick='file(\"download\", \"{$item['resumeDir']}\")' title='Download' class='smallbtn btn-sm btn-primary ms-2'>";
-        $html .= "<i class='fas fa-download'></i>";
+        // Ícone de download com hover verde
+        $html .= "<a href='#' onclick='file(\"download\", \"{$item['resumeDir']}\")' title='Download' class='ms-2 link-success'>";
+        $html .= "<i class='fas fa-download text-secondary'></i>";
         $html .= "</a>";
-        $html .= "<a href='#' onclick='file(\"deleteFile\", \"{$item['resumeDir']}\")' title='Excluir' class='smallbtn btn-sm btn-danger ms-2'>";
-        $html .= "<i class='fas fa-trash'></i>";
+
+        // Ícone de exclusão com hover verde
+        $html .= "<a href='#' onclick='file(\"deleteFile\", \"{$item['resumeDir']}\")' title='Excluir' class='ms-2 link-success'>";
+        $html .= "<i class='fas fa-trash text-secondary icon-hover'></i>";
         $html .= "</a>";
 
         $html .= "<i class='fas fa-file text-secondary ms-2 me-2'></i>";
-        $html .= "{$item['name']} (<span class='text-muted small ps-2'>{$item['size']} - {$modified}</span> )";
+        $html .= "{$item['name']} (<span class='text-muted small ps-2'>{$item['size']} - {$modified}</span>)";
         $html .= "</div>";
 
         return $html;
