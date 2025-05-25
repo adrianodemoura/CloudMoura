@@ -58,3 +58,8 @@ pre {
 .bg-info-50 {
     background-color: #70a3f5 !important;
 }
+
+.icon-hover:hover {
+    color: #0d6efd !important; /* cor azul do Bootstrap */
+    transition: color 0.2s ease;
+}
