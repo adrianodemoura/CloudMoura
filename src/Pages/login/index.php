@@ -30,6 +30,9 @@
                     <a href="/cadastrar" class="btn btn-secondary flex-grow-1">
                         <i class="fas fa-user-plus"></i> Cadastrar
                     </a>
+                    <a href="/recuperar_senha" class="btn btn-secondary flex-grow-1">
+                        <i class="fas fa-unlock-alt"></i> Recuperar Senha
+                    </a>
                 </div>
             </form>
         </div>

@@ -268,4 +268,84 @@ class UserController extends Controller {
 
         return [ 'message' => 'Site DESBLOQUEADO com sucesso.' ];
     }
+
+    public function recoverPassword() : array | \Exception {
+        if ( empty( $this->postData['email'] ) ) {
+            throw new \Exception( 'E-mail é obrigatório para recuperação de senha!', 400 );
+        }
+
+        $res = $this->Db->query("SELECT id, name, email FROM users WHERE email = :email", [ 'email' => $this->postData['email'] ]);
+        if ( empty( $res ) ) {
+            throw new \Exception( 'E-mail não encontrado!', 400 );
+        }
+
+        // Gera o código de recuperação
+        $code = $res[0]['id'] . "-" . bin2hex( random_bytes( 4 ) );
+        $this->Db->query( "UPDATE users SET 
+            code_activation = :code_activation,
+            active  = 0 
+            WHERE email = :email", 
+            [ 
+                'code_activation' => $code, 
+                'email' => $this->postData['email'] 
+            ] );
+
+        // Envia o e-mail de recuperação
+        $messageBody = "";
+        $messageBody .= "<img src='{$_ENV["HTTP_HOST"]}/img/logo.png' alt='Logo CloudMoura' style='width: 300px;'/>";
+        $messageBody .= "<h1>Olá {$res[0]['name']},</h1>";
+        $messageBody .= "<p>Você solicitou a recuperação de senha.</p>";
+        $messageBody .= "<p>Clique <a href='{$_ENV["HTTP_HOST"]}/trocar_senha/{$code}'>AQUI</a> para redefinir sua senha.</p>";
+        $messageBody .= "<p>Código de recuperação:</p>";
+        $messageBody .= "<p><span class='code'><strong>{$code}</strong></span></p>";
+        $messageBody .= "<p>Atenciosamente,</p>";
+        $messageBody .= "<p>Equipe {$_ENV["APP_NAME"]}</p>";
+        $messageBody .= "<br /><br />";
+        $messageBody .= "<p><small>Este é um e-mail automático, não responda.</small></p>";
+        $messageBody .= "<p><small>Se você não se cadastrou, ignore este e-mail.</small></p>";
+
+        // Envia o e-mail
+        if ( !empty( $_ENV[ 'MAIL_USER' ] ) ) {
+            $this->Email->send( $this->postData[ 'email' ], "Recuperação de Senha - {$_ENV["APP_NAME"]}", $messageBody );
+        }
+
+        return [ 'message' => 'E-mail de recuperação enviado com sucesso.' ];
+    }
+
+    public function resetPassword() : array | \Exception {
+        $this->Logs->debug( json_encode( $this->postData ) , 'debug' );
+        if ( empty( $this->postData['code'] ) || empty( $this->postData['password'] ) ) {
+            throw new \Exception( 'Código e senha são obrigatórios para recuperação de senha!', 400 );
+        }
+
+        $id = explode( '-', $this->postData['code'] );
+        if ( empty( $id[0] ) || empty( $id[1] ) ) {
+            throw new \Exception( 'Código de recuperação inválido no POST!', 400 );
+        }
+
+        if ( strlen( $this->postData['password'] ) < 6 ) {
+            throw new \Exception( 'A senha deve ter no mínimo 6 caracteres!', 400 );
+        }
+
+        $res = $this->Db->query("SELECT id, name, email FROM users WHERE id = :id AND code_activation = :code_activation", 
+        [ 
+            'id' => $id[0], 
+            'code_activation' => $this->postData['code'] 
+        ] );
+        if ( empty( $res ) ) {
+            throw new \Exception( 'Código de ativação inválido no banco de dados!', 400 );
+        }
+
+        // Atualiza a senha
+        $this->Db->query("UPDATE users SET 
+            password = :password, 
+            code_activation = NULL,
+            active = 1
+            WHERE id = :id", [
+                'password' => password_hash( $this->postData['password'], PASSWORD_DEFAULT ),
+                'id' => $id[0]
+            ]);
+
+        return [ 'message' => 'Senha redefinida com sucesso.' ];
+    }
 }

@@ -43,6 +43,28 @@ pre {
     z-index: 10000 !important;
 }
 
+.bg-yellow-50 {
+    background-color: #f8e5a1 !important;
+}
+.bg-blue-50 {
+    background-color: #d1e7fd !important;
+}
+.bg-red-50 {
+    background-color: #f8d7da !important;
+}
+.bg-green-50 {
+    background-color: #d4edda !important;
+}
+.bg-purple-50 {
+    background-color: #e2d3f0 !important;
+}
+.bg-orange-50 {
+    background-color: #f8d7da !important;
+}
+.bg-gray-50 {
+    background-color: #f8f9fa !important;
+}
+
 .bg-primary-50 {
     background-color:#5796fc !important;
 }
@@ -53,7 +75,7 @@ pre {
     background-color: #e6646e !important;
 }
 .bg-warning-50 {
-    background-color: #f6cd79 !important;
+    background-color: #f1d885 !important;
 }
 .bg-info-50 {
     background-color: #70a3f5 !important;

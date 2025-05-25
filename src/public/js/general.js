@@ -68,7 +68,7 @@ function showLoading( idElement ) {
     contentLoading.content = loading.innerHTML; 
     loading.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
 
-    const buttons = document.querySelectorAll('#formRegister button');
+    const buttons = document.querySelectorAll('.form button');
     buttons.forEach(button => {
         button.setAttribute('disabled', 'disabled');
         button.classList.add('disabled');
@@ -81,7 +81,7 @@ function hideLoading() {
         loading.innerHTML = contentLoading.content;
     }
 
-    const buttons = document.querySelectorAll('#formRegister button');
+    const buttons = document.querySelectorAll('.form button');
     buttons.forEach(button => {
         button.removeAttribute('disabled');
         button.classList.remove('disabled');
