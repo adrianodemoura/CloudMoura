@@ -38,8 +38,7 @@ class SmsDev {
         curl_close($ch);
 
         if ($error || $httpCode >= 400) {
-            $this->Logs->write("Erro ao enviar SMS (SMSDev): " . ($error ?: $response), 'error');
-            throw new \Exception( "Erro ao enviar e-mail: " . $this->mailer->ErrorInfo );
+            throw new \Exception( "Erro ao enviar SMS (SMSDev): " . ($error ?: $response) );
         }
 
         $this->Logs->debug("SMS enviado para {$to}: {$message}", 'sms');
