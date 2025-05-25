@@ -1,6 +1,66 @@
 # CloudMoura
 
-CloudMoura é um sistema de gerenciamento em nuvem desenvolvido em PHP, oferecendo uma interface moderna e responsiva para gerenciamento de arquivos pessoais.
+Aplicação web desenvolvida em PHP utilizando Docker.
+
+## Estrutura do Projeto
+
+```
+src/
+├── public/           # Arquivos públicos e assets
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   ├── webfonts/
+│   ├── bootstrap.php # Arquivo de inicialização
+│   └── index.php    # Front Controller
+├── pages/           # Páginas da aplicação
+│   ├── admin/
+│   ├── user/
+│   └── auth/
+├── Api/            # Endpoints da API
+├── Config/         # Configurações
+│   └── Definitions.php
+├── Includes/       # Funções helpers e utilitários
+│   ├── Functions.php
+│   └── CheckSession.php
+└── vendor/         # Dependências (via Composer)
+
+.infra/            # Configurações do ambiente
+├── nginx/
+└── php/
+```
+
+## Fluxo das Requisições
+
+1. Todas as requisições entram por `src/public/index.php`
+2. O `bootstrap.php` é carregado e inicializa:
+   - Funções utilitárias (`Functions.php`)
+   - Definições globais (`Definitions.php`)
+   - Autoloader do Composer
+   - Variáveis de ambiente
+   - API handlers
+   - Verificação de sessão (`CheckSession.php`)
+3. Com base na URI, o conteúdo apropriado é carregado de `src/pages/`
+
+## Ambiente de Desenvolvimento
+
+### Pré-requisitos
+- Docker
+- Docker Compose
+
+### Configuração
+1. Clone o repositório
+2. Execute `docker-compose up -d`
+3. Instale as dependências: `docker-compose run composer install`
+4. Você executar o script `src/scripts/build.sh`
+
+### Containers
+- PHP 8.1 (FPM) (cloudmoura-php)
+- Nginx (cloudmoura-nginx)
+- Composer (cloudmoura-composer)
+
+## Rede
+O projeto utiliza a rede `npm-network` para integração com outros serviços.
 
 ## 🚀 Características
 
@@ -17,7 +77,7 @@ CloudMoura é um sistema de gerenciamento em nuvem desenvolvido em PHP, oferecen
 
 - PHP 8.0 ou superior
 - SQLite3
-- Apache/Nginx
+- Nginx
 - Composer (para gerenciamento de dependências)
 
 ## 🔧 Instalação

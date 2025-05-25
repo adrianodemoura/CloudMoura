@@ -24,7 +24,7 @@ services:
     networks:
       - npm-network
 
-  composer:
+  cloudmoura-composer:
     image: composer:2
     user: "1000:1000"
     container_name: cloudmoura-composer
