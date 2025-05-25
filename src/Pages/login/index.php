@@ -1,15 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="rounded shadow shadow p-4 col-12 col-md-6 offset-md-3 mt-5">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="/" class="me-3">
-                    <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
-                </a>
-                <div id="divTitle" class="text-end flex-grow-1">
-                    <i class="fas fa-right-to-bracket fa-1x text-primary mb-3"></i>
-                    <span class="mb-0">Login</span>
-                </div>
-            </div>
+            <?=  $View->getHeaderSite( 'fa-right-to-bracket', 'Login' ); ?>
 
             <form id="formLogin" method="post" action="/api/login">
                 <div class="position-relative mb-3">

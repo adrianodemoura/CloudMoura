@@ -1,8 +1,3 @@
-<?php
-    require_once DIR_ROOT . '/Pages/helper/View.php';
-    $View = new View();
-?>
-
 <div class="container">
     <div class="row rounded shadow bg-white p-4 w-50 mx-auto">
         <?=  $View->getHeaderSite( 'fa-key', 'Senha' ); ?>

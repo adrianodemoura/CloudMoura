@@ -1,15 +1,7 @@
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="w-100 bg-white rounded shadow p-4" style="max-width: 600px;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="/" class="me-3">
-                    <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-width: 350px;">
-                </a>
-                <div id="divTitle" class="text-end flex-grow-1">
-                    <i class="fas fa-user-plus fa-1x text-secondary mb-3"></i>
-                    <span class="mb-0">Cadastro</span>
-                </div>
-            </div>
+            <?= $View->getHeaderSite( 'fa-user-plus', 'Cadastro' ); ?>
             <form id="formRegister" method="post" action="/api/cadastrar">
                 <div class="position-relative mb-3">
                     <i class="fas fa-user position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>

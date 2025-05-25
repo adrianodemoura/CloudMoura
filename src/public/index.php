@@ -16,6 +16,9 @@
         $pageError = $uriContent;
         $uriContent = "page_error";
     }
+
+    require_once DIR_ROOT . '/Pages/helper/View.php';
+    $View = new View();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
