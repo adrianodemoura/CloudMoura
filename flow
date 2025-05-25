@@ -1,0 +1,10 @@
+src/public/index.php
+    src/public/bootrsap.php
+        src/Includes/Functions.php
+        src/Config/Definitions.php
+        src/vendor/autoload.php
+        loadEnv
+        Api
+        src/Includes/CheckSession.php
+    src/Pages/{uriContent}/index.php
+src/public/index.php

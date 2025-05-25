@@ -1,7 +1,7 @@
 <?php
     $userId = $_SESSION['user']['id'];
 
-    require_once( DIR_ROOT . "/public/pages/helper/Files.php" );
+    require_once( DIR_ROOT . "/Pages/helper/Files.php" );
 
     $Files = new Files();
 ?>

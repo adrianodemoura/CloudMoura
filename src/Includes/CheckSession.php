@@ -12,7 +12,7 @@ if ( !file_exists(DIR_DATA) ) {
     mkdir(DIR_DATA, 0775, true);
     chmod(DIR_DATA, 0775);
 
-    // Lê o arquivo Database.php para pegar o nome do banco de dados
+    // Se o banco não foi criado, cria o arquivo de banco de dados e cria as tabelas
     $databaseFile = file_get_contents(DIR_ROOT . '/Config/Database.php');
     if (preg_match("/const\s+DB_PATH\s*=\s*DIR_DATA\s*\.\s*'([^']+)'/", $databaseFile, $matches)) {
         $dbPath = $matches[1];

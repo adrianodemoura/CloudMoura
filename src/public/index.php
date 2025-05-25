@@ -1,13 +1,18 @@
 <?php
-    require_once dirname(__DIR__) . "/public/bootstrap.php";
+    // Define o diretório raiz
+    define('DIR_ROOT', dirname(__DIR__) );
 
+    // inclui o bootstrap
+    require_once dirname( __DIR__ ) . "/public/bootstrap.php";
+
+    // Altera o container de acordo com a URL
     $classContainer = "bg-white";
     if ( in_array( $uri, array_merge(PUBLIC_URLS, PUBLIC_URLS_BLOCK) ) ) {
         $classContainer = "flex-grow-1 d-flex flex-column h-100 justify-content-center align-items-center";
     }
 
     // Verifica se a página existe
-    if (!file_exists(DIR_ROOT . "/public/pages/{$uriContent}/index.php")) {
+    if ( !file_exists( DIR_ROOT . "/Pages/{$uriContent}/index.php" ) ) {
         $pageError = $uriContent;
         $uriContent = "page_error";
     }
@@ -50,7 +55,7 @@
 
             <!-- Container Principal -->
             <div id="divContentContainer" class="<?= $classContainer; ?>">
-                <?php require_once DIR_ROOT . "/public/pages/{$uriContent}/index.php"; ?>
+                <?php require_once DIR_ROOT . "/Pages/{$uriContent}/index.php"; ?>
                 <!-- uma nova percepção -->
             </div>
 
@@ -83,7 +88,7 @@
         </footer>
 
         <div id="divDebug" class="mt-auto">
-            <?php if ( DEBUG ) require_once dirname(__DIR__) . "/public/pages/debug/index.php"; ?>
+            <?php if ( DEBUG ) require_once dirname(__DIR__) . "/Pages/debug/index.php"; ?>
         </div>
     </div>
 </body>
