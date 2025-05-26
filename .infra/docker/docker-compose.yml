@@ -31,7 +31,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
-    # entrypoint: ["composer"]
+    command: sh -c "composer install && composer dump-autoload --no-dev"
     networks:
       - npm-network
 
