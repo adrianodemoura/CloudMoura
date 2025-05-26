@@ -17,7 +17,6 @@ docker-compose down -v
 docker-compose build --no-cache
 docker-compose up -d --force-recreate
 
-// se não existir a pasta vendor, cria ela.
 if [ ! -d src/vendor ]; then
     docker-compose run --rm composer install
     docker-compose run --rm composer dump-autoload --no-dev
